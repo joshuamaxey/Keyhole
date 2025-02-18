@@ -2,8 +2,6 @@
 
 This is the starter for the Flask React project.
 
-Test edit
-
 ## Getting started
 
 1. Clone this repository (only this branch).
