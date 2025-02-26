@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
+import { generateUsername } from 'unique-username-generator'
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -14,6 +15,11 @@ function SignupFormPage() {
   const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
+
+  useEffect(() => {
+    const newUsername = generateUsername('_');
+    setUsername(newUsername);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,12 +63,7 @@ function SignupFormPage() {
         {errors.email && <p>{errors.email}</p>}
         <label>
           Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          <p>{username}</p>
         </label>
         {errors.username && <p>{errors.username}</p>}
         <label>
