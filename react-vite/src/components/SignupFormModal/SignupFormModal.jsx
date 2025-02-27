@@ -63,8 +63,8 @@ function SignupFormModal() {
           name="bio"
           value={bio}
           onChange={(e) => setBio(e.target.value)}
-          maxLength="150"
-          rows="4"
+          maxLength="250"
+          rows="5"
           cols="50"
           style={{ resize: 'none' }}
         />
