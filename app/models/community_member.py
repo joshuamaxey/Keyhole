@@ -7,7 +7,7 @@ class CommunityMember(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     community_id = db.Column(db.Integer, db.ForeignKey('communities.id', ondelete='CASCADE'), nullable=False)
-    joined_at = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
+    joined_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     user = db.relationship('User', back_populates='community_members')
     community = db.relationship('Community', back_populates='community_members')
