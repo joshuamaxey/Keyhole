@@ -20,6 +20,8 @@ class User(db.Model, UserMixin):
     communities = db.relationship('Community', backref='creator')
     comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
     community_members = db.relationship('CommunityMember', back_populates='user', cascade="all, delete-orphan")
+    following = db.relationship('Follow', foreign_keys='Follow.follower_id', back_populates='follower', cascade='all, delete-orphan')
+    followers = db.relationship('Follow', foreign_keys='Follow.followed_id', back_populates='followed', cascade='all, delete-orphan')
 
 
     @property
