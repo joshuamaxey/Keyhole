@@ -13,8 +13,6 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
-
   useEffect(() => {
     const newUsername = generateUsername('_');
     setUsername(newUsername);
@@ -43,6 +41,8 @@ function SignupFormPage() {
       navigate("/");
     }
   };
+
+  if (sessionUser) return <Navigate to="/" replace={true} />;
 
   return (
     <>
