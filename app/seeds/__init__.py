@@ -5,6 +5,7 @@ from .communities import seed_communities, undo_communities
 from .comments import seed_comments, undo_comments
 from .community_members import seed_community_members, undo_community_members
 from .follows import seed_follows, undo_follows
+from .post_likes import seed_post_likes, undo_post_likes
 
 from app.models.db import db, environment, SCHEMA
 
@@ -27,12 +28,14 @@ def seed():
         undo_comments()
         undo_community_members()
         undo_follows()
+        undo_post_likes()
     seed_users()
     seed_posts()
     seed_communities()
     seed_comments()
     seed_community_members()
     seed_follows()
+    seed_post_likes()
     # Add other seed functions here
 
 
@@ -45,4 +48,5 @@ def undo():
     undo_comments()
     undo_community_members()
     undo_follows()
+    undo_post_likes()
     # Add other undo functions here
