@@ -16,6 +16,8 @@ class Community(db.Model):
 
     user = db.relationship('User', backref='created_communities')
     posts = db.relationship('Post', back_populates='community')
+    community_members = db.relationship('CommunityMember', back_populates='community', cascade="all, delete-orphan")
+
 
     def to_dict(self):
         return {
