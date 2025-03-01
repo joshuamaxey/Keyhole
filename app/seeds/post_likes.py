@@ -63,6 +63,6 @@ def undo_post_likes():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.post_likes RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute("DELETE FROM post_likes")
+        db.session.execute(text("DELETE FROM post_likes"))
 
     db.session.commit()
