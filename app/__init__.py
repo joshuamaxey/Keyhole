@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, jsonify, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -21,6 +21,10 @@ login.login_view = 'auth.unauthorized'
 def load_user(id):
     return User.query.get(int(id))
 
+# Custom unauthorized handler
+@login.unauthorized_handler
+def unauthorized():
+    return jsonify({'errors': {'message': 'Unauthorized'}}), 401
 
 # Tell flask about our seed commands
 app.cli.add_command(seed_commands)
@@ -34,12 +38,11 @@ Migrate(app, db)
 # Application Security
 CORS(app)
 
+# Initialize CSRF Protection
+csrf = CSRFProtect()
+csrf.init_app(app)
 
-# Since we are deploying with Docker and Flask,
-# we won't be using a buildpack when we deploy to Heroku.
-# Therefore, we need to make sure that in production any
-# request made over http is redirected to https.
-# Well.........
+
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
