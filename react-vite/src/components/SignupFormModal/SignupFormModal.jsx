@@ -14,9 +14,21 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const checkUsernameExists = async (username) => {
+    const response = await fetch(`/api/users/exists?username=${username}`);
+    const data = await response.json();
+    return data.exists;  // Adjust the response based on your actual API endpoint
+  };
+
   useEffect(() => {
-    const newUsername = generateUsername('_');
-    setUsername(newUsername);
+    const generateUniqueUsername = async () => {
+      let newUsername = generateUsername('_');
+      while (await checkUsernameExists(newUsername)) {
+        newUsername = generateUsername('_');
+      }
+      setUsername(newUsername);
+    };
+    generateUniqueUsername();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -24,8 +36,7 @@ function SignupFormModal() {
 
     if (password !== confirmPassword) {
       return setErrors({
-        confirmPassword:
-          "Confirm Password field must be the same as the Password field",
+        confirmPassword: "Confirm Password field must be the same as the Password field",
       });
     }
 
