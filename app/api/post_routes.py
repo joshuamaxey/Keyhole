@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Post, Comment, db
+from app.models import Post, Comment, PostLike, db
 from app.forms.create_post_form import CreatePostForm
 from datetime import datetime, timezone
 
@@ -33,6 +33,23 @@ def get_posts_by_community_id(community_id):
     """
     posts = Post.query.filter_by(community_id=community_id).all()
     return jsonify({"posts": [post.to_dict() for post in posts]}), 200
+
+#^ ---------------------------LIKE ROUTE-------------------------------------
+
+@post_routes.route('/<int:post_id>/post_likes', methods=['GET'])
+def get_post_likes(post_id):
+    """
+    Retrieves the number of likes for a specific post.
+    """
+    post = Post.query.get_or_404(post_id)
+
+    # Get the count of likes for the post
+    post_likes_count = PostLike.query.filter_by(post_id=post_id).count()
+
+    return jsonify({"post_likes": post_likes_count}), 200
+
+
+#^ --------------------------------------------------------------------------
 
 
 #! ---------------------------COMMENT ROUTE----------------------------------
@@ -91,6 +108,57 @@ def create_comment(post_id):
     return jsonify(comment.to_dict()), 201
 
 #! --------------------------------------------------------------------------
+
+
+#^ ---------------------------LIKE ROUTES------------------------------------
+
+@post_routes.route('/<int:post_id>/like', methods=['POST'])
+@login_required
+def like_post(post_id):
+    """
+    Likes an existing post.
+    """
+    post = Post.query.get_or_404(post_id)
+
+    # Check if user has already liked the post
+    existing_like = PostLike.query.filter_by(user_id=current_user.id, post_id=post_id).first()
+    if existing_like:
+        return jsonify({"message": "You have already liked this post"}), 400
+
+    # Add like to post
+    like = PostLike(user_id=current_user.id, post_id=post_id)
+    db.session.add(like)
+    db.session.commit()
+
+    # Get updated post likes count
+    post_likes_count = PostLike.query.filter_by(post_id=post_id).count()
+
+    return jsonify({"message": "Post liked successfully", "post_likes": post_likes_count}), 200
+
+
+@post_routes.route('/<int:post_id>/like', methods=['DELETE'])
+@login_required
+def unlike_post(post_id):
+    """
+    Allows an authenticated user to remove their like from a post.
+    """
+    post = Post.query.get_or_404(post_id)
+
+    # Check if user has liked the post
+    existing_like = PostLike.query.filter_by(user_id=current_user.id, post_id=post_id).first()
+    if not existing_like:
+        return jsonify({"message": "You have not liked this post"}), 400
+
+    # Remove like from post
+    db.session.delete(existing_like)
+    db.session.commit()
+
+    # Get updated post likes count
+    post_likes_count = PostLike.query.filter_by(post_id=post_id).count()
+
+    return jsonify({"message": "Post unliked successfully", "post_likes": post_likes_count}), 200
+
+#^ --------------------------------------------------------------------------
 
 
 @post_routes.route('/<int:post_id>', methods=['PUT'])
