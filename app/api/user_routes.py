@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import User, db
-# from app.forms import update_bio_form
 from app.forms.update_bio_form import UpdateBioForm
 
 user_routes = Blueprint('users', __name__)
@@ -15,12 +14,15 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 @user_routes.route('/<int:id>')
-def user(id):
+def get_user_by_id(id):
     """
     Query for a user by id and returns that user in a dictionary
     """
     user = User.query.get(id)
-    return user.to_dict()
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+    return jsonify(user.to_dict()), 200
+
 
 @user_routes.route('/profile', methods=['PUT'])
 @login_required
@@ -35,3 +37,13 @@ def update_profile():
         db.session.commit()
         return jsonify({"user": current_user.to_dict()}), 200
     return jsonify({"message": "Bad Request", "errors": form.errors}), 400
+
+@user_routes.route('/exists')
+def username_exists():
+    """
+    Check if a username exists
+    """
+    username = request.args.get('username')
+    exists = User.query.filter_by(username=username).first() is not None
+    return jsonify({"exists": exists})
+
