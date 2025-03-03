@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User, Post, Comment, db
+from app.models import Post, Comment, db
 from app.forms.create_post_form import CreatePostForm
 from datetime import datetime, timezone
 
