@@ -4,7 +4,7 @@ from sqlalchemy import text
 def seed_communities():
     tech_science = Community(
         name = "Tech and Science",
-        description = "A vibrant community for tech and science enthusiasts, founded by Demo_User, a pioneer in cosmic exploration and quantum computing. 🚀🔬 Join us to discuss groundbreaking technologies, innovative scientific discoveries, and the fascinating intersection of both fields. Whether you're a seasoned expert or a curious learner, this community is the perfect place to share knowledge, exchange ideas, and stay up-to-date with the latest advancements in tech and science. 🌌🖥️",
+        description = "A vibrant community for tech and science enthusiasts, founded by Demo_User, a pioneer in cosmic exploration and quantum computing. Join us to discuss groundbreaking technologies, innovative scientific discoveries, and the fascinating intersection of both fields. Whether you're a seasoned expert or a curious learner, this community is the perfect place to share knowledge, exchange ideas, and stay up-to-date with the latest advancements in tech and science.",
         creator_id = 1
     )
     learning_education = Community(
