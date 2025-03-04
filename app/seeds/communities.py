@@ -9,19 +9,27 @@ def seed_communities():
     )
     learning_education = Community(
         name = "Learning and Education",
-        description = "A dynamic community for learners and educators, founded by Marnie_Mcfly, an intrepid time traveler who believes that education happens everywhere—from classrooms to cosmic adventures. 🎓🌌 Whether you're exploring new academic theories or gaining practical knowledge through real-world experiences, this community is the perfect place to share insights, discover innovative teaching methods, and support each other's lifelong learning journeys. Join us to celebrate the joy of learning, both inside and outside traditional settings. 🚀📝",
+        description = "A dynamic community for learners and educators, founded by Marnie_Mcfly, an intrepid time traveler who believes that education happens everywhere—from classrooms to cosmic adventures. Whether you're exploring new academic theories or gaining practical knowledge through real-world experiences, this community is the perfect place to share insights, discover innovative teaching methods, and support each other's lifelong learning journeys. Join us to celebrate the joy of learning, both inside and outside traditional settings.",
         creator_id = 2
     )
     animals_pets = Community(
         name = "Animals and Pets",
-        description = "A welcoming community for pet owners and animal lovers, founded by Bobbie_Joe, a dedicated chicken farmer with a deep passion for animals. 🐔❤️ Join us to share stories, tips, and experiences about raising pets, from playful puppies to curious chicks. Whether you're a seasoned pet owner or just starting your journey, this community is the perfect place to connect with fellow animal enthusiasts, learn about pet care, and celebrate the joy that animals bring into our lives. 🐾🐶🐱",
+        description = "A welcoming community for pet owners and animal lovers, founded by Bobbie_Joe, a dedicated chicken farmer with a deep passion for animals. Join us to share stories, tips, and experiences about raising pets, from playful puppies to curious chicks. Whether you're a seasoned pet owner or just starting your journey, this community is the perfect place to connect with fellow animal enthusiasts, learn about pet care, and celebrate the joy that animals bring into our lives.",
         creator_id = 3
     )
     love_family = Community(
         name = "Love and Family",
-        description = "A heartwarming community for those who cherish love and family, founded by Curious_Owl, a devoted grandmother who lives with her daughters and grandchildren at Wildflower. 🏡❤️ This community celebrates the bonds that keep families together, whether through shared traditions, everyday moments, or life’s big adventures. Join us to share stories, tips, and experiences about nurturing family relationships, supporting each other, and creating lasting memories. Let’s embrace the warmth and joy that family brings into our lives. 🌸👨‍👩‍👧‍👦",
+        description = "A heartwarming community for those who cherish love and family, founded by Curious_Owl, a devoted grandmother who lives with her daughters and grandchildren at Wildflower. This community celebrates the bonds that keep families together, whether through shared traditions, everyday moments, or life’s big adventures. Join us to share stories, tips, and experiences about nurturing family relationships, supporting each other, and creating lasting memories. Let’s embrace the warmth and joy that family brings into our lives.",
         creator_id = 4
     )
+
+    communities = [tech_science, learning_education, animals_pets, love_family]
+
+    # Log the details of each community
+    for community in communities:
+        print(f"Name: {community.name}")
+        print(f"Description Length: {len(community.description)}")
+        print(f"Description: {community.description}")
 
     db.session.add(tech_science)
     db.session.add(learning_education)
