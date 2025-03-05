@@ -1,0 +1,17 @@
+/* PostFeed.module.css */
+
+/* Main Feed Container */
+.postFeedContainer {
+    width: 95%; /* Take the full width of the parent (Feed) */
+    align-self: center;
+    height: 100%; /* Allow the height to fill the remaining space */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 16px; /* Add padding for spacing */
+    margin-left: 2%;
+    padding-right: none;
+    box-sizing: border-box; /* Include padding in dimensions */
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Space between PostCards */
+    /* border: 2px solid red; */
+  }

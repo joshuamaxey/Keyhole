@@ -1,11 +1,16 @@
 import Navigation from "../Navigation/Navigation";
-import React from "react"
+import React from "react";
+import styles from "./Feed.module.css";
+import CreatePostCard from "./CreatePostCard";
+import PostFeed from "./PostFeed";
 
 const Feed = () => {
     return (
-        <div>
+        <div className={styles.feedContainer}>
             <Navigation />
-            <div>Feed Component</div>
+            <CreatePostCard />
+            <PostFeed />
+            {/* <PostCard /> */}
         </div>
     );
 };

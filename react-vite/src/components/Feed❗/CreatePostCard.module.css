@@ -1,0 +1,45 @@
+/* CreatePostCard.module.css */
+
+/* Main Container */
+.postCardContainer {
+    width: 90%; /* Make it span the full width of its container */
+    align-self: center;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-sizing: border-box; /* Include padding in the total width/height */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px; /* Add spacing between this and the next component */
+    margin-top: 50px;
+  }
+
+  /* Input Field */
+  .inputField {
+    width: 100%;
+    min-height: 60px;
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    box-sizing: border-box;
+  }
+
+  /* Post Button */
+  .postButton {
+    margin-top: 12px;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .postButton:hover {
+    background-color: #0056b3;
+  }

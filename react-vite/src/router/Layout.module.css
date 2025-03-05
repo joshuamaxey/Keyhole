@@ -1,0 +1,29 @@
+/* Layout.module.css */
+
+.layoutContainer {
+    display: grid;
+    grid-template-areas:
+      "profile feed"
+      "communities feed";
+    grid-template-columns: auto 1fr; /* Profile/Communities on one side, Feed taking remaining space */
+    grid-template-rows: auto auto;
+    gap: 96px; /* Spacing between the components */
+    max-width: 1920px;
+    height: 1080px;
+    margin: 0 auto; /* Center the entire layout horizontally */
+    padding: 96px; /* Outer Spacing */
+    box-sizing: border-box; /* Include padding in max dimensions */
+    border: 2px solid red;
+  }
+
+  .profile {
+    grid-area: profile; /* Assign to the top-left area */
+  }
+
+  .communities {
+    grid-area: communities; /* Assign to the bottom-left area */
+  }
+
+  .feed {
+    grid-area: feed; /* Assign to the right side */
+  }

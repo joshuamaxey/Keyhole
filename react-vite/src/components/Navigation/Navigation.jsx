@@ -1,18 +1,21 @@
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
-import "./Navigation.css";
+import styles from "./Navigation.module.css";
 
 function Navigation() {
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
+    <nav className={styles.navbar}>
+      <ul className={styles.navList}>
+        <li className={styles.navItem}>
+          <NavLink to="/" className={styles.navLink}>
+            Keyhole
+          </NavLink>
+        </li>
+        <li className={styles.navItem}>
+          <ProfileButton />
+        </li>
+      </ul>
+    </nav>
   );
 }
 
