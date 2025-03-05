@@ -1,0 +1,13 @@
+.container {
+    height: 400px; /* Existing height */
+    max-height: 503px; /* New maximum height */
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-width: 480px; /* New maximum width */
+    margin: 0 auto; /* Center the container horizontally */
+  }
+  .loading {
+    font-size: 16px;
+    color: #777;
+  }

@@ -1,0 +1,53 @@
+/* CommunityCard.module.css */
+* {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+  }
+
+  .name {
+    margin: 0 0 5px 0;
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 14px;
+    color: #555;
+    margin: 0 0 10px 0;
+    font-size: 16px
+  }
+
+  .members {
+    font-size: 12px;
+    color: #777;
+    margin: 0 0 10px 0;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .buttonView {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .buttonJoin {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
