@@ -4,7 +4,7 @@ import { fetchPostsThunk } from "../../../redux/post";
 import styles from "./PostFeed.module.css";
 import PostCard from "./PostCard";
 
-const PostFeed = ({ onPostClick }) => { // Receive onPostClick as a prop
+const PostFeed = ({ onPostClick, currentUser }) => { // Receive onPostClick as a prop
   const dispatch = useDispatch();
 
   // Select posts, status, and error from the Redux store
@@ -27,11 +27,18 @@ const PostFeed = ({ onPostClick }) => { // Receive onPostClick as a prop
       {/* Handle error state */}
       {status === "failed" && <p>Error: {error}</p>}
 
+
       {/* Render posts if fetching succeeded */}
       {status === "succeeded" &&
         posts.map((post) => (
-          <PostCard key={post.id} post={post} onClick={() => onPostClick(post)} /> // Pass onClick to PostCard
+        <PostCard
+          key={post.id}
+          post={post}
+          onClick={() => onPostClick(post)}
+          currentUser={currentUser} // Pass the currentUser prop to PostCard
+        />
         ))}
+
 
       {/* Fallback for empty posts */}
       {status === "succeeded" && posts.length === 0 && (

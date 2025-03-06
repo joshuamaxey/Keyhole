@@ -1,29 +1,42 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { thunkCreatePost } from "../../../redux/post";
 import styles from "./CreatePostCard.module.css";
 
 const CreatePostCard = () => {
-  const [postText, setPostText] = useState("");
+  const dispatch = useDispatch();
+  const [content, setContent] = useState(""); // State for the post content
+  const [errors, setErrors] = useState({}); // State for validation errors
 
-  const handlePostSubmit = () => {
-    // Logic for submitting the post
-    console.log("Post submitted:", postText);
-    setPostText(""); // Clear input after submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const postData = { content }; // Only content is required here
+    const serverResponse = await dispatch(thunkCreatePost(postData)); // Dispatch the thunk
+
+    if (serverResponse) {
+      setErrors(serverResponse); // Handle validation errors from the server
+    } else {
+      setContent(""); // Clear the input field on success
+      setErrors({}); // Clear errors on success
+    }
   };
 
   return (
     <div className={styles.postCardContainer}>
-      {/* Input Field */}
-      <textarea
-        className={styles.inputField}
-        value={postText}
-        onChange={(e) => setPostText(e.target.value)}
-        placeholder="What's on your mind...?"
-      />
-
-      {/* Post Button */}
-      <button className={styles.postButton} onClick={handlePostSubmit}>
-        POST
-      </button>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          className={styles.inputField}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="What's on your mind?"
+          required
+        />
+        {errors.content && <p className={styles.error}>{errors.content}</p>}
+        <button type="submit" className={styles.postButton}>
+          Post
+        </button>
+      </form>
     </div>
   );
 };
