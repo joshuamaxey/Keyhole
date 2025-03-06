@@ -8,6 +8,9 @@ Create Date: 2025-02-27 14:33:19.758578
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = 'c217e0823a66'
@@ -29,6 +32,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], name='fk_comments_users'),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
+
     with op.batch_alter_table('posts', schema=None) as batch_op:
         batch_op.create_foreign_key('fk_posts_communities', 'communities', ['community_id'], ['id'])
 

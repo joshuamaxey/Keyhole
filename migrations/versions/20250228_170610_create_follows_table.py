@@ -8,6 +8,9 @@ Create Date: 2025-02-28 17:06:10.354066
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = 'e6fb3b1a4c96'
@@ -27,6 +30,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['follower_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE follows SET SCHEMA {SCHEMA};")
+
     with op.batch_alter_table('community_members', schema=None) as batch_op:
         batch_op.alter_column('joined_at',
                existing_type=sa.DATETIME(),

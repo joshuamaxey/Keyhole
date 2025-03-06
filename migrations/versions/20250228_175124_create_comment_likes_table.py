@@ -8,6 +8,9 @@ Create Date: 2025-02-28 17:51:24.323424
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = '5157fa287807'
@@ -26,6 +29,9 @@ def upgrade():
         sa.Column('created_at', sa.DateTime, default=sa.func.current_timestamp(), nullable=False),
         sa.Column('updated_at', sa.DateTime, default=sa.func.current_timestamp(), onupdate=sa.func.current_timestamp(), nullable=False),
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE comment_likes SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
