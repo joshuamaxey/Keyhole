@@ -2,6 +2,7 @@ const FETCH_USER = "user/FETCH_USER";
 const SET_FOLLOWING = "user/setFollowing"
 const SET_FOLLOWERS = "user/setFollowers"
 const FETCH_USERS = "user/FETCH_USERS";
+const UPDATE_BIO = "user/UPDATE_BIO";
 
 
 // Action Creator
@@ -23,6 +24,11 @@ export const setFollowers = (followers) => ({
 export const fetchUsers = (users) => ({
   type: FETCH_USERS,
   users, // This will be an array of user objects
+});
+
+export const updateBio = (bio) => ({
+  type: UPDATE_BIO,
+  bio, // This will be the updated bio string
 });
 
 
@@ -87,6 +93,33 @@ export const fetchUsersThunk = (posts) => async (dispatch) => {
   }
 };
 
+import Cookies from "js-cookie";
+
+export const thunkUpdateBio = (bio) => async (dispatch) => {
+  try {
+    const csrfToken = Cookies.get("XSRF-TOKEN");
+
+    const response = await fetch(`/api/users/profile`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": csrfToken, // Include the CSRF token here
+      },
+      body: JSON.stringify({ bio }),
+    });
+
+    if (response.ok) {
+      const updatedUser = await response.json();
+      dispatch(updateBio(updatedUser.bio)); // Dispatch the updated bio
+    } else {
+      const error = await response.json();
+      return error.errors; // Return errors if the request fails
+    }
+  } catch (error) {
+    console.error("Failed to update bio:", error);
+    return { error: "Something went wrong. Please try again later." };
+  }
+};
 
 
 // Initial State
@@ -114,13 +147,19 @@ const userReducer = (state = initialState, action) => {
 
     case FETCH_USERS:
       const usersById = action.users.reduce((acc, user) => {
-        acc[user.id] = user; // Normalize users into `usersById`
+        acc[user.id] = user;
         return acc;
       }, {});
 
       return {
         ...state,
-        usersById: { ...state.usersById, ...usersById }, // Merge with existing users
+        usersById: { ...state.usersById, ...usersById },
+      };
+
+    case UPDATE_BIO:
+      return {
+        ...state,
+        bio: action.bio, // Update the user's bio in the Redux state
       };
 
     default:

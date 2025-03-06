@@ -59,6 +59,13 @@
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .editButton:hover {
