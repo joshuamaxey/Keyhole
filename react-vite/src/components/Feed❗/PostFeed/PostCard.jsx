@@ -4,6 +4,8 @@ import styles from "./PostCard.module.css";
 const PostCard = ({ post, onClick }) => {
   const [user, setUser] = useState(null);
   const [community, setCommunity] = useState(null);
+  const [commentsCount, setCommentsCount] = useState(0); // State for comments count
+  const [likesCount, setLikesCount] = useState(0); // State for likes count
 
   // Fetch user and community data when the component mounts
   useEffect(() => {
@@ -35,6 +37,31 @@ const PostCard = ({ post, onClick }) => {
     fetchCommunity();
   }, [post.user_id, post.community_id]);
 
+  // Fetch comments count and likes count when the post ID is available
+  useEffect(() => {
+    const fetchCommentsAndLikes = async () => {
+      try {
+        // Fetch comments count
+        const commentsResponse = await fetch(`/api/posts/${post.id}/comments`);
+        if (commentsResponse.ok) {
+          const commentsData = await commentsResponse.json();
+          setCommentsCount(commentsData.comments.length); // Assuming comments are returned as an array
+        }
+
+        // Fetch likes count
+        const likesResponse = await fetch(`/api/posts/${post.id}/post_likes`);
+        if (likesResponse.ok) {
+          const likesData = await likesResponse.json();
+          setLikesCount(likesData.post_likes); // Use "post_likes" key from the backend response
+        }
+      } catch (error) {
+        console.error("Error fetching comments or likes:", error);
+      }
+    };
+
+    fetchCommentsAndLikes();
+  }, [post.id]);
+
   return (
     <div className={styles.postCardContainer} onClick={onClick} style={{ cursor: "pointer" }}>
       {/* Community Name */}
@@ -57,6 +84,10 @@ const PostCard = ({ post, onClick }) => {
       {/* Action Buttons */}
       <div className={styles.postFooter}>
         <button className={styles.likeButton}>LIKE</button>
+          <div className={styles.postStats}>
+            <span>{likesCount} Likes</span>
+            <span>{commentsCount} Comments</span>
+          </div>
         <button className={styles.commentButton}>COMMENT</button>
       </div>
     </div>

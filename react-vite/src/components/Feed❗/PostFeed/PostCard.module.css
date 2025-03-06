@@ -64,8 +64,16 @@
   /* Footer Section (Buttons) */
   .postFooter {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 16px;
+  }
+
+  .postStats {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* border: 2px solid red; */
   }
 
   /* Action Buttons */
