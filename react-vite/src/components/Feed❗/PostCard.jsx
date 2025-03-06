@@ -35,14 +35,14 @@ const PostCard = ({ post }) => {
     fetchCommunity();
   }, [post.user_id, post.community_id]);
 
-  const getInitials = (name) => {
-    if (!name || typeof name !== "string") return "?";
-    return name
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("")
-      .toUpperCase();
-  };
+  // const getInitials = (name) => {
+  //   if (!name || typeof name !== "string") return "?";
+  //   return name
+  //     .split(" ")
+  //     .map((word) => word.charAt(0))
+  //     .join("")
+  //     .toUpperCase();
+  // };
 
   return (
     <div className={styles.postCardContainer}>
