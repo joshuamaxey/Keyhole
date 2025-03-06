@@ -5,32 +5,20 @@ def seed_community_members():
     community_members_data = [
     {'user_id': 1, 'community_id': 1},
     {'user_id': 1, 'community_id': 2},
+    {'user_id': 1, 'community_id': 3},  # User 1 belongs to 3 communities
     {'user_id': 2, 'community_id': 1},
     {'user_id': 2, 'community_id': 3},
+    {'user_id': 2, 'community_id': 4},  # User 2 belongs to 3 communities
     {'user_id': 3, 'community_id': 2},
     {'user_id': 3, 'community_id': 3},
-    {'user_id': 3, 'community_id': 4},
+    {'user_id': 3, 'community_id': 4},  # User 3 belongs to 3 communities
     {'user_id': 4, 'community_id': 1},
     {'user_id': 4, 'community_id': 2},
     {'user_id': 4, 'community_id': 3},
+    {'user_id': 4, 'community_id': 4},  # User 4 belongs to all 4 communities
     {'user_id': 5, 'community_id': 1},
-    {'user_id': 5, 'community_id': 4},
-    {'user_id': 6, 'community_id': 2},
-    {'user_id': 6, 'community_id': 3},
-    {'user_id': 6, 'community_id': 4},
-    {'user_id': 7, 'community_id': 1},
-    {'user_id': 7, 'community_id': 3},
-    {'user_id': 7, 'community_id': 4},
-    {'user_id': 8, 'community_id': 2},
-    {'user_id': 8, 'community_id': 3},
-    {'user_id': 8, 'community_id': 4},
-    {'user_id': 9, 'community_id': 1},
-    {'user_id': 9, 'community_id': 2},
-    {'user_id': 9, 'community_id': 4},
-    {'user_id': 10, 'community_id': 1},
-    {'user_id': 10, 'community_id': 2},
-    {'user_id': 10, 'community_id': 3},
-    {'user_id': 10, 'community_id': 4},
+    {'user_id': 5, 'community_id': 2},
+    {'user_id': 5, 'community_id': 4}
     ]
 
     for data in community_members_data:
