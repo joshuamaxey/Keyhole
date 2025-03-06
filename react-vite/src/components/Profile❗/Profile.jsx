@@ -38,7 +38,7 @@ const Profile = () => {
       <div className={styles.headerRow}>
         <div className={styles.avatar}>{getInitials(user.username)}</div>
         <h2 className={styles.username}>{user.username}</h2>
-        <button className={styles.editButton}>Edit</button>
+        <button className={styles.editButton}>EDIT</button>
       </div>
 
       {/* Middle: Description */}

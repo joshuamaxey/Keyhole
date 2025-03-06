@@ -69,7 +69,25 @@
   }
 
   /* Action Buttons */
-  .likeButton,
+  .likeButton {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .commentButton {
     padding: 8px 16px;
     font-size: 12px;
@@ -80,6 +98,13 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .likeButton:hover,

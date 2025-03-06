@@ -15,8 +15,8 @@ const CommunityCard = ({ name, description, members }) => {
 
       {/* Buttons */}
       <div className={styles.buttons}>
-        <button className={styles.buttonView}>View</button>
-        <button className={styles.buttonJoin}>Join</button>
+        <button className={styles.buttonView}>VIEW</button>
+        <button className={styles.buttonJoin}>JOIN</button>
       </div>
     </div>
   );
