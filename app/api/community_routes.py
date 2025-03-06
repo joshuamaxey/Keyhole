@@ -30,7 +30,6 @@ def get_community_by_id(community_id):
 
 
 @community_routes.route('/<int:community_id>/members', methods=['GET'])
-@login_required
 def get_community_members(community_id):
     """
     Retrieves a list of all members of a specific community.
@@ -154,4 +153,3 @@ def leave_community(community_id):
     db.session.commit()
 
     return jsonify({"message": "Successfully left the community"}), 200
-

@@ -1,9 +1,27 @@
-from flask import Blueprint, request
+import os
+from flask import Blueprint, request, make_response, jsonify
 from app.models import User, db
 from app.forms import LoginForm, SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from flask_wtf.csrf import generate_csrf
+
+
+
 
 auth_routes = Blueprint('auth', __name__)
+
+@auth_routes.route('/csrf/restore', methods=["GET"])
+def restore_csrf():
+    if os.environ.get("FLASK_ENV") != "production":
+        csrf_token = generate_csrf()  # Generate a new CSRF Token
+        response = make_response(jsonify({"XSRF-Token": csrf_token}))
+        # Set the CSRF Token as a cookie
+        response.set_cookie(
+            "XSRF-TOKEN",
+            csrf_token,
+            samesite="Strict" if os.environ.get("FLASK_ENV") == "production" else None
+        )
+        return response
 
 
 @auth_routes.route('/')

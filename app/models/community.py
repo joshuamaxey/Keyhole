@@ -14,10 +14,18 @@ class Community(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    user = db.relationship('User', backref='created_communities')
-    posts = db.relationship('Post', back_populates='community')
-    community_members = db.relationship('CommunityMember', back_populates='community', cascade="all, delete-orphan")
+    # Relationship with the creator (User who created the community)
+    creator = db.relationship(
+        'User',
+        back_populates='created_communities',
+        overlaps='user'
+    )
 
+    # Relationship with posts in the community
+    posts = db.relationship('Post', back_populates='community')
+
+    # Relationship with community members
+    community_members = db.relationship('CommunityMember', back_populates='community', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {

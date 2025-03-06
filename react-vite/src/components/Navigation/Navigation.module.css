@@ -1,0 +1,46 @@
+/* Navigation.module.css */
+
+/* Navbar Container */
+.navbar {
+  display: flex;
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Spread out items */
+  width: 100%;
+  height: 60px;
+  background-color: #333;
+  padding: 0 16px;
+  box-sizing: border-box;
+  position: relative; /* Ensures alignment control for absolute centering */
+}
+
+/* Navigation List */
+.navList {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align items to the start initially */
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Centered Link (Keyhole) */
+.navLink {
+  position: absolute; /* Make it independent of flexbox layout */
+  left: 50%; /* Move to the horizontal center */
+  top: 35%;
+  transform: translateX(-50%); /* Adjust for its width */
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}
+
+/* Profile Button Container */
+.navItem:last-child {
+  margin-left: auto; /* Push it to the far right */
+}

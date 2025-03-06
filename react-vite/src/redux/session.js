@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 
@@ -22,23 +24,31 @@ export const thunkAuthenticate = () => async (dispatch) => {
 	}
 };
 
-export const thunkLogin = (credentials) => async dispatch => {
+export const thunkLogin = (credentials) => async (dispatch) => {
+  // Get the CSRF token from the XSRF-TOKEN cookie
+  const csrfToken = Cookies.get("XSRF-TOKEN");
+
   const response = await fetch("/api/auth/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credentials)
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-TOKEN": csrfToken, // Include the CSRF token in the headers
+    },
+    body: JSON.stringify(credentials),
   });
 
-  if(response.ok) {
+  if (response.ok) {
     const data = await response.json();
-    dispatch(setUser(data));
+    dispatch(setUser(data)); // Update the Redux state with the logged-in user
+    return null; // No errors
   } else if (response.status < 500) {
     const errorMessages = await response.json();
-    return errorMessages
+    return errorMessages; // Return errors to the form
   } else {
-    return { server: "Something went wrong. Please try again" }
+    return { server: "Something went wrong. Please try again" }; // General server error
   }
 };
+
 
 export const thunkSignup = (user) => async (dispatch) => {
   const response = await fetch("/api/auth/signup", {

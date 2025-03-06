@@ -16,15 +16,33 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
+    # Posts by the user
     posts = db.relationship('Post', back_populates='user', cascade='all, delete-orphan')
-    communities = db.relationship('Community', backref='creator')
+
+    # Communities the user created
+    created_communities = db.relationship(
+        'Community',
+        back_populates='creator',
+        overlaps='communities'
+    )
+
+    # Community memberships of the user
+    community_members = db.relationship(
+        'CommunityMember',
+        back_populates='user',
+        cascade="all, delete-orphan"
+    )
+
+    # Comments by the user
     comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
-    community_members = db.relationship('CommunityMember', back_populates='user', cascade="all, delete-orphan")
+
+    # Following and followers
     following = db.relationship('Follow', foreign_keys='Follow.follower_id', back_populates='follower', cascade='all, delete-orphan')
     followers = db.relationship('Follow', foreign_keys='Follow.followed_id', back_populates='followed', cascade='all, delete-orphan')
+
+    # Post and comment likes
     post_likes = db.relationship('PostLike', back_populates='user', cascade='all, delete-orphan')
     comment_likes = db.relationship('CommentLike', back_populates='user', cascade='all, delete-orphan')
-
 
     @property
     def password(self):
