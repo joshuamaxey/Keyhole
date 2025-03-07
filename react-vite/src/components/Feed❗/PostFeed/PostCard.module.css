@@ -134,6 +134,25 @@
     align-items: center;
   }
 
+  .updateButton {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #0cb457;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .likeButton:hover,
   .commentButton:hover {
     background-color: #0056b3;

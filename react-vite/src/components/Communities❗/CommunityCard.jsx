@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "./CommunityCard.module.css";
+import { useSelector } from "react-redux";
 
 const CommunityCard = ({ name, description, members }) => {
+
+  const currentUser = useSelector((state) => state.session.user);
+
   return (
     <div className={styles.card}>
       {/* Community Name */}
@@ -16,7 +20,9 @@ const CommunityCard = ({ name, description, members }) => {
       {/* Buttons */}
       <div className={styles.buttons}>
         <button className={styles.buttonView}>VIEW</button>
+        {currentUser && (
         <button className={styles.buttonJoin}>JOIN</button>
+        )}
       </div>
     </div>
   );

@@ -1,11 +1,13 @@
 // Container for PostCard with CommentCards
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import PostCard from "../PostFeed/PostCard"; // Import your existing PostCard component
 import CommentCard from "./CommentCard"; // Import the CommentCard
 import styles from "./PostDetail.module.css";
 
 const PostDetail = ({ post, onBack }) => {
   const [comments, setComments] = useState([]); // State to store comments
+  const currentUser = useSelector((state) => state.session.user); // Fetch the current user from the Redux store
 
   useEffect(() => {
     // Fetch comments for the selected post
@@ -14,7 +16,9 @@ const PostDetail = ({ post, onBack }) => {
         const response = await fetch(`/api/posts/${post.id}/comments`);
         if (response.ok) {
           const data = await response.json();
-          setComments(data.comments); // Assuming API returns an array of comments
+          // Sort comments by created_at in descending order (newest first)
+          const sortedComments = data.comments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+          setComments(sortedComments); // Update the comments state with sorted comments
         } else {
           console.error("Failed to fetch comments");
         }
@@ -26,16 +30,30 @@ const PostDetail = ({ post, onBack }) => {
     fetchComments();
   }, [post.id]);
 
+  const refreshComments = async () => {
+    try {
+      const response = await fetch(`/api/posts/${post.id}/comments`);
+      if (response.ok) {
+        const data = await response.json();
+        setComments(data.comments); // Update the comments state
+      } else {
+        console.error("Failed to refresh comments");
+      }
+    } catch (error) {
+      console.error("Error refreshing comments:", error);
+    }
+  };
+
   return (
     <div className={styles.postDetailContainer}>
       <button onClick={onBack} className={styles.backButton}>Back to Feed</button>
       <div className={styles.postCardWrapper}>
-        <PostCard post={post} /> {/* Render the selected PostCard */}
+        <PostCard post={post} refreshComments={refreshComments} /> {/* Render the selected PostCard */}
       </div>
       <div className={styles.commentsWrapper}>
         {comments.length > 0 ? (
           comments.map((comment) => (
-            <CommentCard key={comment.id} comment={comment} /> // Render one CommentCard per comment
+            <CommentCard key={comment.id} comment={comment} currentUser={currentUser} refreshComments={refreshComments} /> // Render one CommentCard per comment
           ))
         ) : (
           <p>No comments yet. Be the first to comment!</p>

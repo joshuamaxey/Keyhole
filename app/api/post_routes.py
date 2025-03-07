@@ -57,10 +57,11 @@ def get_post_likes(post_id):
 @post_routes.route('/<int:post_id>/comments', methods=['GET'])
 def get_comments_for_post(post_id):
     """
-    Retrieves all comments associated with a specific post.
+    Retrieves all comments associated with a specific post, ordered by creation date (newest first).
     """
-    comments = Comment.query.filter_by(post_id=post_id).all()
+    comments = Comment.query.filter_by(post_id=post_id).order_by(Comment.created_at.desc()).all()
     return jsonify({"comments": [comment.to_dict() for comment in comments]}), 200
+
 
 #! --------------------------------------------------------------------------
 

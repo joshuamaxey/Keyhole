@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./PostCard.module.css";
-import { useDispatch } from "react-redux";
-import { thunkDeletePost } from "../../../redux/post";
+import { useModal } from "../../../context/Modal";
+import UpdatePostModal from "../UpdatePostModal";
+import DeletePostModal from "../DeletePostModal";
+import CreateCommentModal from "../CreateCommentModal";
 
-const PostCard = ({ post, onClick, currentUser }) => {
+const PostCard = ({ post, onClick, currentUser, refreshComments }) => {
   const [user, setUser] = useState(null);
   const [community, setCommunity] = useState(null);
-  const [commentsCount, setCommentsCount] = useState(0); // State for comments count
-  const [likesCount, setLikesCount] = useState(0); // State for likes count
-  const dispatch = useDispatch()
+  const [commentsCount, setCommentsCount] = useState(0);
+  const [likesCount, setLikesCount] = useState(0);
+  const [refreshTrigger, setRefreshTrigger] = useState(false); // Fixed useState declaration
+  const { setModalContent, openModal } = useModal();
 
   // Fetch user and community data when the component mounts
   useEffect(() => {
@@ -40,7 +44,7 @@ const PostCard = ({ post, onClick, currentUser }) => {
     fetchCommunity();
   }, [post.user_id, post.community_id]);
 
-  // Fetch comments count and likes count when the post ID is available
+  // Fetch comments and likes when the post ID or refreshTrigger changes
   useEffect(() => {
     const fetchCommentsAndLikes = async () => {
       try {
@@ -63,18 +67,35 @@ const PostCard = ({ post, onClick, currentUser }) => {
     };
 
     fetchCommentsAndLikes();
-  }, [post.id]);
+  }, [post.id, refreshTrigger]); // Added refreshTrigger here
 
-  const handleDelete = async (e) => {
-    e.stopPropagation(); // Prevent triggering the `onClick` event for the PostCard
-    await dispatch(thunkDeletePost(post.id)); // Dispatch the delete thunk
+  const handleEditClick = () => {
+    setModalContent(<UpdatePostModal post={post} />);
+    openModal();
+  };
+
+  const handleDelete = () => {
+    setModalContent(<DeletePostModal postId={post.id} />);
+    openModal();
+  };
+
+  const handleCommentClick = () => {
+    setModalContent(
+      <CreateCommentModal
+        postId={post.id}
+        refreshComments={
+          refreshComments || (() => setRefreshTrigger((prev) => !prev)) // Use refreshTrigger toggle if refreshComments isn't passed
+        }
+      />
+    );
+    openModal();
   };
 
   return (
     <div className={styles.postCardContainer} onClick={onClick} style={{ cursor: "pointer" }}>
       {/* Community Name */}
       <div className={styles.communityName}>
-        {community ? community.name : "Loading community..."}
+        {post.community_id === null ? "Keyhole" : community ? community.name : "Loading community..."}
       </div>
 
       {/* Content Row: Avatar and Main Content */}
@@ -91,23 +112,54 @@ const PostCard = ({ post, onClick, currentUser }) => {
 
       {/* Action Buttons */}
       <div className={styles.postFooter}>
-        <button className={styles.likeButton}>LIKE</button>
+        {currentUser && (
+        <button
+          className={styles.likeButton}
+          onClick={(e) => e.stopPropagation()}
+        >
+          LIKE
+        </button>
+        )}
         <div className={styles.postStats}>
           <span>{likesCount} Likes</span>
           <span>{commentsCount} Comments</span>
         </div>
-        <button className={styles.commentButton}>COMMENT</button>
-
-        {/* Conditionally render the Delete button */}
+        {currentUser && (
+        <button
+          className={styles.commentButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleCommentClick();
+          }}
+        >
+          COMMENT
+        </button>
+        )}
         {currentUser && currentUser.id === post.user_id && (
-          <button className={styles.deleteButton} onClick={handleDelete}>
-            DELETE
-          </button>
+          <>
+            <button
+              className={styles.updateButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleEditClick();
+              }}
+            >
+              UPDATE
+            </button>
+            <button
+              className={styles.deleteButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(e);
+              }}
+            >
+              DELETE
+            </button>
+          </>
         )}
       </div>
     </div>
   );
-
 };
 
 export default PostCard;
