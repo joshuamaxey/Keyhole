@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./PostCard.module.css";
 import { useDispatch } from "react-redux";
 import { thunkDeletePost } from "../../../redux/post";
+import { useModal } from "../../../context/Modal";
+import UpdatePostModal from "../UpdatePostModal";
+
 
 const PostCard = ({ post, onClick, currentUser }) => {
   const [user, setUser] = useState(null);
@@ -9,6 +12,7 @@ const PostCard = ({ post, onClick, currentUser }) => {
   const [commentsCount, setCommentsCount] = useState(0); // State for comments count
   const [likesCount, setLikesCount] = useState(0); // State for likes count
   const dispatch = useDispatch()
+  const { setModalContent, openModal } = useModal();
 
   // Fetch user and community data when the component mounts
   useEffect(() => {
@@ -70,11 +74,16 @@ const PostCard = ({ post, onClick, currentUser }) => {
     await dispatch(thunkDeletePost(post.id)); // Dispatch the delete thunk
   };
 
+  const handleEditClick = () => {
+    setModalContent(<UpdatePostModal post={post} />); // Set the modal content
+    openModal(); // Open the modal
+  };
+
   return (
     <div className={styles.postCardContainer} onClick={onClick} style={{ cursor: "pointer" }}>
       {/* Community Name */}
       <div className={styles.communityName}>
-        {community ? community.name : "Loading community..."}
+        {post.community_id === null ? "Keyhole" : community ? community.name : "Loading community..."}
       </div>
 
       {/* Content Row: Avatar and Main Content */}
@@ -98,11 +107,28 @@ const PostCard = ({ post, onClick, currentUser }) => {
         </div>
         <button className={styles.commentButton}>COMMENT</button>
 
-        {/* Conditionally render the Delete button */}
+        {/* Conditionally render the Update and Delete buttons */}
         {currentUser && currentUser.id === post.user_id && (
-          <button className={styles.deleteButton} onClick={handleDelete}>
-            DELETE
-          </button>
+          <>
+            <button
+              className={styles.updateButton}
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent triggering the PostCard onClick
+                handleEditClick() // Open the UpdatePostModal
+              }}
+            >
+              UPDATE
+            </button>
+            <button
+              className={styles.deleteButton}
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent triggering the PostCard onClick
+                handleDelete(e); // Trigger delete functionality
+              }}
+            >
+              DELETE
+            </button>
+          </>
         )}
       </div>
     </div>

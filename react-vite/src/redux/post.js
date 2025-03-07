@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 const SET_POSTS = "posts/SET_POSTS";
 const ADD_POST = "post/ADD_POST";
 const DELETE_POST = "post/DELETE_POST";
+const UPDATE_POST = "post/UPDATE_POST";
 
 
 // Action Creators
@@ -19,9 +20,14 @@ export const addPost = (post) => ({
     post, // Pass the new post as the payload
   });
 
-  export const deletePost = (postId) => ({
+export const deletePost = (postId) => ({
     type: DELETE_POST,
     postId, // Pass the ID of the post to be deleted
+  });
+
+export const updatePost = (post) => ({
+    type: UPDATE_POST,
+    post, // Pass the updated post as the payload
   });
 
 
@@ -105,6 +111,38 @@ export const thunkDeletePost = (postId) => async (dispatch) => {
 };
 
 
+export const thunkUpdatePost = (postId, content) => async (dispatch) => {
+  try {
+    // Retrieve the CSRF token
+    const csrfToken = Cookies.get("XSRF-TOKEN");
+
+    // Make the PATCH/PUT request
+    const response = await fetch(`/api/posts/${postId}`, {
+      method: "PUT", // Use PATCH or PUT depending on your backend setup
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": csrfToken, // Include the CSRF token
+      },
+      body: JSON.stringify({ content }), // Send the updated content
+    });
+
+    if (response.ok) {
+      const updatedPost = await response.json();
+      dispatch(updatePost(updatedPost)); // Dispatch the action to update the post
+      return null; // Indicate success
+    } else if (response.status < 500) {
+      const errorData = await response.json();
+      return errorData.errors || { error: "Validation failed." };
+    } else {
+      return { error: "An error occurred. Please try again later." };
+    }
+  } catch (error) {
+    console.error("Failed to update post:", error);
+    return { error: "An error occurred. Please try again later." };
+  }
+};
+
+
 
   // Initial State
   const initialState = {
@@ -133,6 +171,14 @@ export const thunkDeletePost = (postId) => async (dispatch) => {
         return {
           ...state,
           posts: state.posts.filter((post) => post.id !== action.postId), // Remove the post by its ID
+        };
+
+      case UPDATE_POST: // Handle updating a post
+        return {
+          ...state,
+          posts: state.posts.map((post) =>
+            post.id === action.post.id ? action.post : post // Replace the old post with the updated one
+          ),
         };
 
       default:
