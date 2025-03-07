@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { thunkCreatePost } from "../../../redux/post";
 import styles from "./CreatePostCard.module.css";
 
@@ -7,6 +7,7 @@ const CreatePostCard = () => {
   const dispatch = useDispatch();
   const [content, setContent] = useState(""); // State for the post content
   const [errors, setErrors] = useState({}); // State for validation errors
+  const currentUser = useSelector((state) => state.session.user)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +22,10 @@ const CreatePostCard = () => {
       setErrors({}); // Clear errors on success
     }
   };
+
+  if (!currentUser) {
+    return;
+  }
 
   return (
     <div className={styles.postCardContainer}>

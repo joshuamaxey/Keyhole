@@ -73,8 +73,7 @@ const Profile = () => {
 
         {/* Middle: Description */}
         <p className={styles.bio}>
-          {user.bio ||
-            "Hi, I'm demo. I was created with this project, and the purpose of my existence is to help..."}
+          {user.bio}
         </p>
 
         {/* Bottom: Following and Followers */}
