@@ -12,16 +12,17 @@ auth_routes = Blueprint('auth', __name__)
 
 @auth_routes.route('/csrf/restore', methods=["GET"])
 def restore_csrf():
-    if os.environ.get("FLASK_ENV") != "production":
-        csrf_token = generate_csrf()  # Generate a new CSRF Token
-        response = make_response(jsonify({"XSRF-Token": csrf_token}))
-        # Set the CSRF Token as a cookie
-        response.set_cookie(
-            "XSRF-TOKEN",
-            csrf_token,
-            samesite="Strict" if os.environ.get("FLASK_ENV") == "production" else None
-        )
-        return response
+    csrf_token = generate_csrf()  # Generate a new CSRF Token
+    response = make_response(jsonify({"XSRF-TOKEN": csrf_token}))
+    response.set_cookie(
+        "XSRF-TOKEN",
+        csrf_token,
+        samesite="Strict" if os.environ.get("FLASK_ENV") == "production" else None,
+        secure=True if os.environ.get("FLASK_ENV") == "production" else False,  # Use `Secure` in production
+        httponly=False  # Ensure the frontend can access this cookie
+    )
+    return response
+
 
 
 @auth_routes.route('/')
