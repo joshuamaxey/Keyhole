@@ -2,7 +2,7 @@ import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import "./LoginForm.css";
+import styles from "./LoginFormModal.module.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -29,32 +29,35 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div className={styles["modal-container"]}>
+      <form onSubmit={handleSubmit} className={styles["login-form"]}>
+        <label className={styles["login-label"]}>
           Username
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            className={styles["login-input"]}
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
+        {errors.username && <p className={styles["error-message"]}>{errors.username}</p>}
+        <label className={styles["login-label"]}>
           Password
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className={styles["login-input"]}
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+        {errors.password && <p className={styles["error-message"]}>{errors.password}</p>}
+        <button type="submit" className={styles["submit-button"]}>
+          Log In
+        </button>
       </form>
-    </>
+    </div>
   );
 }
 

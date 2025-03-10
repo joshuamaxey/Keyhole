@@ -23,24 +23,28 @@ function UpdatePostModal({ post }) {
   };
 
   return (
-    <>
-      <h1>Update Post</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div className={styles["modal-container"]}>
+      {/* <h1>Update Post</h1> */}
+      <form onSubmit={handleSubmit} className={styles["update-form"]}>
+        <label className={styles["update-label"]}>
           Content
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
-            maxLength={500} // Match the max length from your backend form
+            maxLength={500}
             placeholder="Update your post content..."
+            className={styles["update-textarea"]}
           />
         </label>
-        {errors.content && <p className={styles.error}>{errors.content}</p>} {/* Display errors for content */}
-        <button type="submit" className={styles.submitButton}>Update</button>
+        {errors.content && <p className={styles["update-error"]}>{errors.content}</p>}
+        <button type="submit" className={styles["update-submit-button"]}>
+          Update
+        </button>
       </form>
-    </>
+    </div>
   );
+
 }
 
 export default UpdatePostModal;

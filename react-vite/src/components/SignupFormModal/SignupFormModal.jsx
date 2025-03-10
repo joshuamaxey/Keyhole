@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
-import { generateUsername } from 'unique-username-generator';
-import "./SignupForm.css";
+import { generateUsername } from "unique-username-generator";
+import styles from "./SignupFormModal.module.css"
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -13,18 +13,19 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const checkUsernameExists = async (username) => {
     const response = await fetch(`/api/users/exists?username=${username}`);
     const data = await response.json();
-    return data.exists;  // Adjust the response based on your actual API endpoint
+    return data.exists; // Adjust the response based on your actual API endpoint
   };
 
   useEffect(() => {
     const generateUniqueUsername = async () => {
-      let newUsername = generateUsername('_');
+      let newUsername = generateUsername("_");
       while (await checkUsernameExists(newUsername)) {
-        newUsername = generateUsername('_');
+        newUsername = generateUsername("_");
       }
       setUsername(newUsername);
     };
@@ -34,17 +35,22 @@ function SignupFormModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Local validation for password match
     if (password !== confirmPassword) {
       return setErrors({
-        confirmPassword: "Confirm Password field must be the same as the Password field",
+        confirmPassword:
+          "Confirm Password field must be the same as the Password field",
       });
     }
 
+    setIsSubmitting(true);
+    // Include `confirmPassword` in the payload
     const serverResponse = await dispatch(
       thunkSignup({
         username,
         bio,
         password,
+        confirm_password: confirmPassword, // Send to the backend
       })
     );
 
@@ -53,22 +59,24 @@ function SignupFormModal() {
     } else {
       closeModal();
     }
+    setIsSubmitting(false);
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
+    <div className={styles["signup-modal-container"]}>
+      {errors.server && <p className={styles["signup-server-error"]}>{errors.server}</p>}
+      <form onSubmit={handleSubmit} className={styles["signup-form"]}>
         <div>
-          <label>
+          <label className={styles["signup-label"]}>
             Username
             <p>{username}</p>
           </label>
         </div>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className={styles["signup-error"]}>{errors.username}</p>}
 
-        <label htmlFor="bio">Bio:</label>
+        <label className={styles["signup-label"]}>
+        <span>Bio ({bio.length}/250)</span>
+        </label>
         <textarea
           id="bio"
           name="bio"
@@ -76,37 +84,47 @@ function SignupFormModal() {
           onChange={(e) => setBio(e.target.value)}
           maxLength="250"
           rows="5"
-          cols="50"
-          style={{ resize: 'none' }}
+          className={styles["signup-textarea"]}
         />
-        {errors.bio && <p>{errors.bio}</p>}
+        {errors.bio && <p className={styles["signup-error"]}>{errors.bio}</p>}
 
-        <label>
+        <label className={styles["signup-label"]}>
           Password
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className={styles["signup-input"]}
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className={styles["signup-error"]}>{errors.password}</p>}
 
-        <label>
+        <label className={styles["signup-label"]}>
           Confirm Password
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            className={styles["signup-input"]}
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className={styles["signup-error"]}>{errors.confirmPassword}</p>}
 
-        <button type="submit">Sign Up</button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={styles["signup-submit-button"]}
+        >
+          {isSubmitting ? "Signing Up..." : "Sign Up"}
+        </button>
       </form>
-    </>
+    </div>
   );
+
+
+
 }
 
 export default SignupFormModal;
