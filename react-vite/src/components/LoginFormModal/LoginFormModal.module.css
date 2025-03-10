@@ -1,0 +1,104 @@
+/* Center the modal content */
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+  max-width: 400px;
+  margin: auto;
+}
+
+/* Style for the heading */
+.modal-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Scoped style for the form */
+.login-form {
+  width: 100%; /* Ensure the form spans the modal width */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scoped label styling */
+.login-label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #555;
+  display: flex;
+  flex-direction: column; /* Stack label and input */
+}
+
+/* Scoped input fields */
+.login-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
+  font-size: 1rem;
+  width: 100%;
+  align-self: center;
+  justify-self: center;
+}
+
+.login-input:focus {
+  border-color: #007bff; /* Highlight border on focus */
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5); /* Subtle glow effect */
+}
+
+/* Scoped error messages */
+.error-message {
+  color: #ff4d4f;
+  font-size: 0.9rem;
+  margin: 5px 0 10px 0;
+}
+
+/* Scoped submit button */
+.submit-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  justify-self: center;
+  align-self: center;
+  width: 100%
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.submit-button:active {
+  background-color: #003f7f; /* Even darker blue on click */
+}
+
+.submit-button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+  color: #aaa;
+}
+
+/* Mobile-friendly adjustments */
+@media (max-width: 768px) {
+  .modal-container {
+    padding: 15px;
+    width: 90%;
+  }
+
+  .submit-button {
+    font-size: 0.9rem;
+  }
+}

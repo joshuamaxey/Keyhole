@@ -80,17 +80,22 @@ def sign_up():
     """
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
+        # Create a new user if form validation passes
         user = User(
             username=form.data['username'],
-            password=form.data['password'],
+            password=form.data['password'],  # Only the password is stored
             bio=form.data['bio']
         )
         db.session.add(user)
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    return form.errors, 401
+
+    # If validation fails, return the form errors as JSON
+    return jsonify(form.errors), 401
+
 
 
 @auth_routes.route('/unauthorized')

@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserCircle } from 'react-icons/fa';
-import { thunkLogout } from "../../redux/session";
+import { thunkLogout, thunkLogin } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import styles from "./ProfileButton.module.css";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function ProfileButton() {
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+    e.stopPropagation();
     setShowMenu(!showMenu);
   };
 
@@ -39,13 +40,23 @@ function ProfileButton() {
     closeMenu();
   };
 
+  const demoLogin = async () => {
+    await dispatch(
+      thunkLogin({
+        username: "Demo_User",
+        password: "password",
+      })
+    );
+    closeMenu();
+  };
+
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button onClick={toggleMenu} className={styles["profile-button"]}>
         <FaUserCircle />
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <ul className={styles["profile-dropdown"]} ref={ulRef}>
           {user ? (
             <>
               <li>{user.username}</li>
@@ -65,6 +76,9 @@ function ProfileButton() {
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
+              <li>
+                <button onClick={demoLogin}>Log in as Demo User</button>
+              </li>
             </>
           )}
         </ul>
@@ -74,3 +88,4 @@ function ProfileButton() {
 }
 
 export default ProfileButton;
+

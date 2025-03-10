@@ -1,0 +1,78 @@
+/* Style the profile dropdown button */
+.profile-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333; /* Adjust based on your theme */
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+
+  .profile-button:hover {
+    color: #007bff; /* Add hover color for the button */
+  }
+
+  /* Container for the dropdown menu */
+  .profile-dropdown {
+    position: absolute; /* Position it over the navigation */
+    top: 100%; /* Show directly below the button */
+    right: 0; /* Align to the right */
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 6px;
+    overflow: hidden;
+    z-index: 1000;
+    padding: 0; /* Remove padding from the container */
+    width: 200px; /* Adjust width as needed */
+  }
+
+  /* Menu items inside the dropdown */
+  .profile-dropdown li {
+    list-style: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    border-bottom: 1px solid #eee; /* Divider between items */
+  }
+
+  .profile-dropdown li:last-child {
+    border-bottom: none; /* Remove divider for the last item */
+  }
+
+  /* Hover state for dropdown items */
+  .profile-dropdown li:hover {
+    background-color: #f8f9fa;
+    color: #007bff; /* Add a hover effect */
+  }
+
+  /* Buttons inside the dropdown */
+  .profile-dropdown button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #333;
+    width: 100%;
+    text-align: left; /* Align text to the left */
+    padding: 10px 0;
+  }
+
+  .profile-dropdown button:hover {
+    color: #007bff;
+  }
+
+  /* Adjustments for mobile responsiveness */
+  @media (max-width: 768px) {
+    .profile-dropdown {
+      width: 100%;
+      left: 0;
+      right: 0;
+    }
+
+    .profile-button {
+      font-size: 1.25rem;
+    }
+  }
