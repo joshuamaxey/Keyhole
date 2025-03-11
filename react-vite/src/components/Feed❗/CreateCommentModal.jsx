@@ -27,24 +27,24 @@ const CreateCommentModal = ({ postId, refreshComments }) => {
 
 
 
-    return (
-      <div className={styles.commentModalContainer}>
-        <form onSubmit={handleSubmit}>
-          <textarea
-            className={styles.inputField}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Write a comment..."
-            required
-            maxLength={500}
-          />
-          {errors.content && <p className={styles.error}>{errors.content}</p>}
-          <button type="submit" className={styles.commentButton}>
-            Comment
-          </button>
-        </form>
-      </div>
-    );
+      return (
+        <div className={styles.commentModalContainer}>
+          <form onSubmit={handleSubmit} className={styles.commentForm}>
+            <textarea
+              className={styles.inputField}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="Write a comment..."
+              required
+              maxLength={500}
+            />
+            {errors.content && <p className={styles.error}>{errors.content}</p>}
+            <button type="submit" className={styles.commentButton}>
+              Comment
+            </button>
+          </form>
+        </div>
+      );
   };
 
   export default CreateCommentModal;

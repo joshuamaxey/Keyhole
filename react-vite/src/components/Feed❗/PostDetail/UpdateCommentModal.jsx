@@ -24,24 +24,28 @@ function UpdateCommentModal({ comment, refreshComments}) {
   };
 
   return (
-    <>
-      <h1>Update Comment</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div className={styles["modal-container"]}>
+      {/* <h1>Update Comment</h1> */}
+      <form onSubmit={handleSubmit} className={styles["update-form"]}>
+        <label className={styles["update-label"]}>
           Content
+        </label>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
-            maxLength={500} // Match the max length from your backend form
+            maxLength={500}
             placeholder="Update your comment content..."
-          />
-        </label>
-        {errors.content && <p className={styles.error}>{errors.content}</p>} {/* Display errors for content */}
-        <button type="submit" className={styles.submitButton}>Update</button>
+            className={styles["update-textarea"]}
+            />
+        {errors.content && <p className={styles["update-error"]}>{errors.content}</p>}
+        <button type="submit" className={styles["submit-button"]}>
+          Update
+        </button>
       </form>
-    </>
+    </div>
   );
+
 }
 
 export default UpdateCommentModal;
