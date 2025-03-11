@@ -5,6 +5,7 @@ const SET_POSTS = "posts/SET_POSTS";
 const ADD_POST = "post/ADD_POST";
 const DELETE_POST = "post/DELETE_POST";
 const UPDATE_POST = "post/UPDATE_POST";
+const SET_COMMUNITY_POSTS = "posts/SET_COMMUNITY_POSTS";
 
 
 // Action Creators
@@ -28,6 +29,12 @@ export const deletePost = (postId) => ({
 export const updatePost = (post) => ({
     type: UPDATE_POST,
     post, // Pass the updated post as the payload
+  });
+
+export const setCommunityPosts = (communityId, posts) => ({
+    type: SET_COMMUNITY_POSTS,
+    communityId,
+    posts,
   });
 
 
@@ -142,6 +149,19 @@ export const thunkUpdatePost = (postId, content) => async (dispatch) => {
   }
 };
 
+export const fetchCommunityPostsThunk = (communityId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/posts/community/${communityId}`);
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(setCommunityPosts(communityId, data.posts));
+    } else {
+      console.error(`Failed to fetch posts for community with ID ${communityId}:`, response.status);
+    }
+  } catch (error) {
+    console.error("An error occurred while fetching community posts:", error);
+  }
+};
 
 
   // Initial State
@@ -161,24 +181,31 @@ export const thunkUpdatePost = (postId, content) => async (dispatch) => {
           error: action.error,
         };
 
-      case ADD_POST: // Handle adding a new post
+      case ADD_POST:
         return {
           ...state,
-          posts: [action.post, ...state.posts], // Add the new post to the beginning of the posts array
+          posts: [action.post, ...state.posts],
         };
 
-      case DELETE_POST: // Handle deleting a post
+      case DELETE_POST:
         return {
           ...state,
-          posts: state.posts.filter((post) => post.id !== action.postId), // Remove the post by its ID
+          posts: state.posts.filter((post) => post.id !== action.postId),
         };
 
-      case UPDATE_POST: // Handle updating a post
+      case UPDATE_POST:
         return {
           ...state,
           posts: state.posts.map((post) =>
-            post.id === action.post.id ? action.post : post // Replace the old post with the updated one
+            post.id === action.post.id ? action.post : post
           ),
+        };
+
+      case SET_COMMUNITY_POSTS:
+        return {
+          ...state,
+          posts: action.posts, // Replace the posts array with community-specific posts
+          communityId: action.communityId, // Track the community the posts belong to (optional)
         };
 
       default:

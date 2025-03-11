@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCommunitiesThunk, fetchCommunityMembersThunk } from "../../redux/community";
 import CommunityCard from "./CommunityCard";
+import { useNavigate } from "react-router-dom"; // Assuming React Router is used
 import styles from "./Communities.module.css";
 
-const Communities = () => {
+const Communities = ({onCommunitySelect}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Hook to navigate to another route
 
   useEffect(() => {
     dispatch(fetchCommunitiesThunk());
@@ -23,7 +25,6 @@ const Communities = () => {
     }
   }, [communitiesObject, dispatch]);
 
-  // Convert the communities object to an array
   const communities = communitiesObject ? Object.values(communitiesObject) : [];
 
   if (communities.length === 0) {
@@ -37,7 +38,8 @@ const Communities = () => {
           key={community.id}
           name={community.name}
           description={community.description}
-          members={community.members.length} // Pass the length of members
+          members={community.members.length}
+          onView={() => onCommunitySelect(community.id)}
         />
       ))}
     </div>

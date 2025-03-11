@@ -1,38 +1,48 @@
 import Navigation from "../Navigation/Navigation";
 import React, { useState } from "react";
-import { useSelector } from "react-redux"; // Import useSelector to get the current user from Redux
+import { useSelector } from "react-redux";
 import styles from "./Feed.module.css";
 import CreatePostCard from "./PostFeed/CreatePostCard";
 import PostFeed from "./PostFeed/PostFeed";
 import PostDetail from "./PostDetail/PostDetail";
+import CommunityDetail from "./CommunityDetail/CommunityDetail";
 
-const Feed = () => {
+const Feed = ({ selectedCommunity, onBackToFeed }) => {
   const [selectedPost, setSelectedPost] = useState(null); // Track the selected post
-  const currentUser = useSelector((state) => state.session.user); // Fetch the current user from the Redux store
+  const currentUser = useSelector((state) => state.session.user);
 
   const handlePostClick = (post) => {
     setSelectedPost(post); // Set the clicked post to show PostDetail
   };
 
-  const handleBackToFeed = () => {
-    setSelectedPost(null); // Reset to show the main feed
+  const handleBackToPostFeed = () => {
+    setSelectedPost(null); // Reset selected post
   };
 
   return (
     <div className={styles.feedContainer}>
       <Navigation />
-      {selectedPost ? ( // Conditional rendering
+      {selectedPost ? (
+        // Render PostDetail if a post is selected
         <PostDetail
           post={selectedPost}
-          onBack={handleBackToFeed}
-          currentUser={currentUser} // Pass currentUser to PostDetail
+          onBack={handleBackToPostFeed}
+          currentUser={currentUser}
+        />
+      ) : selectedCommunity ? (
+        // Render CommunityDetail if a community is selected
+        <CommunityDetail
+          communityId={selectedCommunity}
+            onBack={onBackToFeed} // Trigger reset when "back" is clicked in CommunityDetail
+            onPostClick={handlePostClick}
         />
       ) : (
+        // Default Feed (PostFeed + CreatePostCard)
         <>
           <CreatePostCard />
           <PostFeed
             onPostClick={handlePostClick}
-            currentUser={currentUser} // Pass currentUser to PostFeed
+            currentUser={currentUser}
           />
         </>
       )}

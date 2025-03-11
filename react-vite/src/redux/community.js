@@ -1,5 +1,6 @@
 const SET_COMMUNITIES = "communities/SET_COMMUNITIES";
 const SET_COMMUNITY_MEMBERS = "community/SET_COMMUNITY_MEMBERS";
+const SET_SINGLE_COMMUNITY = "communities/SET_SINGLE_COMMUNITY";
 
 // Action Creators
 export const setCommunities = (communities) => ({
@@ -12,6 +13,12 @@ export const setCommunityMembers = (communityId, members) => ({
     communityId,
     members,
 });
+
+export const setSingleCommunity = (community) => ({
+  type: SET_SINGLE_COMMUNITY,
+  community,
+});
+
 
 // Thunk Actions
 export const fetchCommunitiesThunk = () => async (dispatch) => {
@@ -35,35 +42,55 @@ export const fetchCommunityMembersThunk = (communityId) => async (dispatch) => {
     }
 };
 
+export const fetchSingleCommunityThunk = (communityId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/communities/${communityId}`);
+    if (response.ok) {
+      const community = await response.json();
+      dispatch(setSingleCommunity(community));
+    } else {
+      console.error(`Failed to fetch community with ID ${communityId}:`, response.status);
+    }
+  } catch (error) {
+    console.error("An error occurred while fetching the community:", error);
+  }
+};
+
+
 // Initial State
 const initialState = [];
 
 // Reducer
 const communitiesReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case SET_COMMUNITIES:
-        // Set the initial list of communities
-        return action.communities.reduce((acc, community) => {
-          acc[community.id] = { ...community, members: [] }; // Add an empty members array
-          return acc;
-        }, {});
+  switch (action.type) {
+    case SET_COMMUNITIES:
+      return action.communities.reduce((acc, community) => {
+        acc[community.id] = { ...community, members: [] };
+        return acc;
+      }, {});
 
-      case SET_COMMUNITY_MEMBERS: {
-        // Update the members array for a specific community
-        const { communityId, members } = action;
-        return {
-          ...state,
-          [communityId]: {
-            ...state[communityId],
-            members,
-          },
-        };
-      }
-
-      default:
-        return state;
+    case SET_COMMUNITY_MEMBERS: {
+      const { communityId, members } = action;
+      return {
+        ...state,
+        [communityId]: {
+          ...state[communityId],
+          members,
+        },
+      };
     }
-  };
 
+    case SET_SINGLE_COMMUNITY: {
+      const { community } = action;
+      return {
+        ...state,
+        [community.id]: { ...community, members: state[community.id]?.members || [] }, // Keep existing members if available
+      };
+    }
+
+    default:
+      return state;
+  }
+};
 
 export default communitiesReducer;

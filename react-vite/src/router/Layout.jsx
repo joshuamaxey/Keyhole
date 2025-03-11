@@ -11,6 +11,7 @@ import styles from "./Layout.module.css";
 export default function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [selectedCommunity, setSelectedCommunity] = useState(null);
 
   // Authenticate the user
   useEffect(() => {
@@ -33,6 +34,14 @@ export default function Layout() {
     restoreCSRF();
   }, []);
 
+  const handleCommunitySelect = (communityId) => {
+    setSelectedCommunity(communityId);
+  }
+
+  const handleBackToFeed = () => {
+    setSelectedCommunity(null); // Reset the selected community
+  };
+
   return (
     <>
       <ModalProvider>
@@ -41,10 +50,11 @@ export default function Layout() {
             <Profile />
           </div>
           <div className={styles.communities}>
-            <Communities />
+            <Communities onCommunitySelect={handleCommunitySelect} />
           </div>
           <div className={styles.feed}>
-            <Feed />
+            <Feed selectedCommunity={selectedCommunity}
+            onBackToFeed={handleBackToFeed}/>
           </div>
         </div>
         {isLoaded && <Outlet />}
