@@ -1,93 +1,100 @@
+/* Main CommentCard Container */
 .commentCard {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 8px;
-    background-color: #f9f9f9;
-  }
+  border: 1px solid var(--text-primary); /* Subtle border in medium gray */
+  border-radius: 8px; /* Smooth rounded corners */
+  padding: 10px;
+  /* margin-bottom: 8px; */
+  background-color: #202532; /* A slightly darker shade to distinguish from PostCard */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  color: var(--text-secondary); /* Light gray for content text */
+}
 
-  .commentHeader {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 8px;
-  }
+/* Comment Header */
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--text-primary); /* Medium gray for headers */
+  margin-bottom: 8px;
+}
 
-  .commentAuthor {
-    font-weight: bold;
-  }
+/* Comment Author */
+.commentAuthor {
+  font-weight: bold;
+}
 
-  .commentDate {
-    font-style: italic;
-  }
+/* Comment Date */
+.commentDate {
+  font-style: italic;
+}
 
-  .commentContent {
-    font-size: 1rem;
-    color: #333;
-    line-height: 1.4;
-  }
+/* Comment Content */
+.commentContent {
+  font-size: 1rem;
+  color: var(--text-secondary); /* Light gray for comment content */
+  line-height: 1.4;
+}
 
-  .likeButton {
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+/* Footer Section (Buttons and Stats) */
+.commentFooter {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--text-primary); /* Medium gray for stats text */
+}
 
-  .commentFooter {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+/* Like Button */
+.likeButton {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff; /* White for contrast */
+  background-color: var(--accent); /* Bright blue for Like button */
+  border: none;
+  border-radius: 4px; /* Rounded edges */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .deleteButton {
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #ff0000;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.likeButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
 
-  .updateButton {
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #0cb457;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+/* Delete Button */
+.deleteButton {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ff4d4f; /* Slightly muted red for delete button */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.deleteButton:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+/* Update Button */
+.updateButton {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #0cb457; /* Vibrant green for update button */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.updateButton:hover {
+  background-color: #088f3a; /* Slightly darker green on hover */
+}

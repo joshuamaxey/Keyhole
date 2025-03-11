@@ -7,10 +7,12 @@
   justify-content: space-between; /* Spread out items */
   width: 100%;
   height: 60px;
-  background-color: #333;
+  background-color: var(--secondary-bg); /* Use secondary background for the navbar */
   padding: 16px;
   box-sizing: border-box;
   position: relative; /* Ensures alignment control for absolute centering */
+  border-bottom: 1px solid var(--text-primary); /* Subtle border for separation */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add slight shadow for depth */
 }
 
 /* Navigation List */
@@ -26,18 +28,20 @@
 
 /* Centered Link (Keyhole) */
 .navLink {
-  position: absolute; /* Make it independent of flexbox layout */
+  position: absolute; /* Independent of flexbox layout */
   left: 50%; /* Move to the horizontal center */
-  top: 35%;
-  transform: translateX(-50%); /* Adjust for its width */
-  color: white;
+  top: 50%;
+  transform: translate(-50%, -50%); /* Center both horizontally and vertically */
+  color: var(--accent); /* Accent blue for the link */
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
 .navLink:hover {
   text-decoration: underline;
+  color: #0056b3; /* Slightly darker blue on hover */
 }
 
 /* Profile Button Container */

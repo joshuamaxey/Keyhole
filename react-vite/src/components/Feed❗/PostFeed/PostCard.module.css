@@ -1,159 +1,132 @@
-/* PostCard.module.css */
-
 /* Main PostCard Container */
 .postCardContainer {
-    width: 100%; /* Take the full width of the parent container */
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    padding: 16px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Include padding in dimensions */
-    align-self: center;
-  }
+  width: 100%; /* Keep the full width of the parent container */
+  border: 1px solid var(--text-primary); /* Subtle border with medium gray */
+  border-radius: 8px; /* Smooth rounded corners */
+  background-color: var(--secondary-bg); /* Blue-gray background for the card */
+  padding: 10px;
+  /* margin-bottom: 16px; */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+  box-sizing: border-box; /* Include padding in dimensions */
+  align-self: center;
+  color: var(--text-secondary); /* Light gray for content text */
+}
 
+/* Community Name */
+.communityName {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--accent); /* Bright blue for community name */
+  text-align: center; /* Center-align the community name */
+  margin-bottom: 12px;
+}
 
-  /* Community Name */
-  .communityName {
-    font-size: 14px;
-    font-weight: bold;
-    color: #007bff;
-    text-align: center; /* Center-align the community name */
-    margin-bottom: 12px;
-  }
+/* Content Row */
+.contentRow {
+  display: flex;
+  align-items: flex-start;
+  /* gap: 16px; */
+  margin-bottom: 12px;
+}
 
-  /* Content Row */
-  .contentRow {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 12px;
-  }
+/* Avatar */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Fully round avatar */
+  background-color: var(--primary-bg); /* Dark background for the avatar */
+  color: var(--text-secondary); /* Light gray for initials */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+}
 
-  /* Avatar */
-  .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-  }
+/* Content Section */
+.content {
+  flex-grow: 1; /* Allow content to take up the remaining space */
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-secondary) !important;/* Light gray for post content */
+}
 
-  /* Content Section */
-  .content {
-    flex-grow: 1; /* Allow content to take up the remaining space */
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-  }
+/* Author Name */
+.authorName {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--text-primary); /* Medium gray for author name */
+  margin-bottom: 12px;
+  text-align: center; /* Center-align the author's name */
+}
 
-  /* Author Name */
-  .authorName {
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 12px;
-    text-align: center; /* Center-align the author's name */
-  }
+/* Footer Section (Buttons) */
+.postFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
 
-  /* Footer Section (Buttons) */
-  .postFooter {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-  }
+/* Post Statistics */
+.postStats {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-primary); /* Medium gray for stats */
+}
 
-  .postStats {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    /* border: 2px solid red; */
-  }
+/* Action Buttons */
+.likeButton,
+.commentButton,
+.updateButton,
+.deleteButton {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff; /* White text for buttons */
+  border: none;
+  border-radius: 4px; /* Rounded button edges */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  /* Action Buttons */
-  .likeButton {
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.likeButton {
+  background-color: var(--accent); /* Bright blue for Like button */
+}
 
-  .commentButton {
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.likeButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
 
-  .deleteButton {
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #ff0000;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.commentButton {
+  background-color: var(--accent); /* Same bright blue for consistency */
+}
 
-  .updateButton {
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #0cb457;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.commentButton:hover {
+  background-color: #0056b3;
+}
 
-  .likeButton:hover,
-  .commentButton:hover {
-    background-color: #0056b3;
-  }
+.updateButton {
+  background-color: #0cb457; /* Vibrant green for Update button */
+}
+
+.updateButton:hover {
+  background-color: #088f3a; /* Slightly darker green on hover */
+}
+
+.deleteButton {
+  background-color: #ff0000; /* Bright red for Delete button */
+}
+
+.deleteButton:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+.CONTENT {
+  color: var(--text-secondary)
+}

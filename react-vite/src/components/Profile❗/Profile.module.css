@@ -1,93 +1,104 @@
 /* Profile.module.css */
 
-.container {
-    /* border: 2px solid purple; */
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly
-}
-
+/* Outer Profile Container */
 .profileContainer {
-    text-align: center;
-    padding: 20px;
-    max-width: 480px; /* Add max-width */
-    height: 288px; /* Set fixed height */
-    margin: 0 auto; /* Center the container horizontally */
-    overflow-y: auto; /* Handle overflow just in case */
-    border: 2px solid purple; /* Existing border for clarity */
-    border-radius: 8px; /* Rounded edges */
-    box-sizing: border-box; /* Include padding in the dimensions */
+  text-align: center;
+  padding: 20px;
+  max-width: 480px; /* Add max-width */
+  height: 288px; /* Fixed height */
+  margin: 0 auto; /* Center the container horizontally */
+  overflow-y: auto; /* Handle overflow just in case */
+  /* border: 2px solid var(--primary-bg); Subtle border using medium gray */
+  background-color: var(--secondary-bg); /* Blue-gray background for the profile card */
+  border-radius: 8px; /* Rounded edges */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); Add shadow for depth */
+  box-sizing: border-box; /* Include padding in dimensions */
+  border: 2px solid var(--text-primary)
 }
 
-/* Avatar, Username, and Edit Button Container */
+/* Inner Container */
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+/* Header Row */
 .headerRow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 16px;
-    /* border: 2px solid red; */
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
 
-  /* Avatar */
-  .avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    font-weight: bold;
-  }
+/* Avatar */
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--accent); /* Electric blue for avatar background */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
 
-  /* Username */
-  .username {
-    font-size: 24px;
-    font-weight: bold;
-    margin-left: 16px;
-    flex-grow: 1; /* Push the Edit button to the far right */
-  }
+/* Username */
+.username {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 16px;
+  color: var(--text-secondary); /* Light gray for username text */
+  flex-grow: 1; /* Push the Edit button to the far right */
+}
 
-  /* Edit Button */
-  .editButton {
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+/* Edit Button */
+.editButton {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--accent); /* Electric blue button */
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  height: 30px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
 
-  .editButton:hover {
-    background-color: #0056b3;
-  }
+.editButton:hover {
+  background-color: #0056b3; /* Slightly darker blue for hover */
+}
 
-  /* Profile Description */
-  .bio {
-    font-size: 14px;
-    color: #555;
-    margin: 16px 0;
-    text-align: left; /* Align text to the left for better readability */
-    line-height: 1.4; /* Improve readability */
-    /* border: 2px solid red; */
-    height: 35%;
-  }
+/* Bio Section */
+.bio {
+  font-size: 14px;
+  color: var(--text-secondary); /* Medium gray for bio text */
+  margin: 16px 0;
+  text-align: left; /* Align text to the left for readability */
+  line-height: 1.4; /* Improve readability */
+}
 
-  /* Following and Followers Container */
-  .followData {
-    display: flex;
-    justify-content: space-between;
-    font-size: 16px;
-    font-weight: 500;
-    /* border: 2px solid red; */
-  }
+/* Follow Data Section */
+.followData {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-secondary); /* Light gray for follow data */
+}
+
+.loggedOutMessage {
+  color: var(--text-secondary)
+}
+
+.loggedOutSubMessage {
+  color: var(--text-secondary)
+}

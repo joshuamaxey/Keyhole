@@ -1,1 +1,45 @@
 /* TODO: Add sitewide styles */
+:root {
+    --primary-bg: #121212; /* Deep Charcoal */
+    --secondary-bg: #1E1E2E; /* Slate Blue-Gray */
+    --text-primary: #474A57; /* Steel Gray */
+    --text-secondary: #A1A6B0; /* Cool Light Gray */
+    --accent: #007BFF; /* Electric Blue */
+  }
+
+  * {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  html, body {
+    background-color: var(--primary-bg); /* Set the dark background globally */
+    margin: 0; /* Remove default spacing */
+    height: 100%; /* Ensure it spans the full viewport height */
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body fills the entire viewport height */
+  }
+
+  /* General scrollbar styling for all scrollable elements */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-bg);
+  border-radius: 4px;
+  border: 2px solid white
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent);
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--secondary-bg);
+  border-radius: 4px;
+}

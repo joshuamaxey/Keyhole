@@ -1,106 +1,102 @@
-/* Center the modal content */
+/* Main Modal Container */
 .modal-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    width: 500px;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: var(--secondary-bg); /* Blue-gray background for modal */
+  border-radius: 8px; /* Smooth rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  width: 500px;
+  margin: auto;
+  color: var(--text-secondary); /* Light gray for text */
+}
+
+/* Scoped style for the form in the modal */
+.modal-form {
+  width: 100%; /* Ensure the form spans the modal width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Scoped label styling */
+.modal-label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: var(--text-primary); /* Medium gray for labels */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Textarea styling */
+.modal-textarea {
+  padding: 10px;
+  border: 1px solid var(--text-primary); /* Medium gray border */
+  border-radius: 6px;
+  margin-top: 5px;
+  font-size: 1rem;
+  resize: none; /* Disable resizing */
+  width: 100%;
+  height: 100px; /* Default height */
+  background-color: var(--primary-bg); /* Darker input background */
+  color: var(--text-secondary); /* Light gray text */
+  align-self: center;
+  justify-self: center;
+}
+
+.modal-textarea:focus {
+  border-color: var(--accent); /* Highlight border with accent blue */
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Subtle glow for focus */
+}
+
+/* Error message styling */
+.error {
+  color: #ff4d4f; /* Keep error red for visibility */
+  font-size: 0.9rem;
+  margin: 5px 0 10px 0;
+}
+
+/* Submit button styling */
+.submitButton {
+  padding: 10px 20px;
+  background-color: var(--accent); /* Bright blue button */
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  align-self: center;
+  width: 100%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submitButton:hover {
+  background-color: #0056b3; /* Slightly darker blue on hover */
+}
+
+.submitButton:active {
+  background-color: #003f7f; /* Even darker blue on click */
+}
+
+.submitButton:disabled {
+  background-color: #ddd; /* Disabled state */
+  cursor: not-allowed;
+  color: #aaa;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .modal-container {
+    padding: 15px;
+    width: 90%;
   }
 
-  /* Style the heading */
-  .modal-container h1 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center;
-  }
-
-  /* Scoped style for the form in the modal */
-  .modal-form {
-    width: 100%; /* Ensure the form spans the modal width */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  /* Scoped label styling */
-  .modal-form label {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #555;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Scoped textarea styling */
-  .modal-textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-top: 5px;
-    font-size: 1rem;
-    resize: none; /* Disable resizing */
-    width: 100%;
-    height: 100px; /* Set a default height */
-    align-self: center;
-    justify-self: center;
-  }
-
-  .modal-textarea:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5); /* Subtle glow effect */
-  }
-
-  /* Error message styling */
-  .error {
-    color: #ff4d4f;
-    font-size: 0.9rem;
-    margin: 5px 0 10px 0;
-  }
-
-  /* Scoped submit button styling */
   .submitButton {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 15px;
-    align-self: center;
-    width: 100%;
+    font-size: 0.9rem;
   }
-
-  .submitButton:hover {
-    background-color: #0056b3;
-  }
-
-  .submitButton:active {
-    background-color: #003f7f;
-  }
-
-  .submitButton:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-    color: #aaa;
-  }
-
-  /* Responsive design */
-  @media (max-width: 768px) {
-    .modal-container {
-      padding: 15px;
-      width: 90%;
-    }
-
-    .submitButton {
-      font-size: 0.9rem;
-    }
-  }
+}

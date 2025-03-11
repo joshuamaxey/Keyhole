@@ -1,67 +1,88 @@
 /* CommunityCard.module.css */
-* {
-    font-family: Arial, Helvetica, sans-serif
+.card {
+  border: 1px solid var(--text-primary); /* Medium gray border */
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: var(--secondary-bg); /* Secondary background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some depth */
 }
 
-.card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-  }
+/* Community Name */
+.name {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+  color: var(--text-secondary); /* Light gray for headings */
+}
 
-  .name {
-    margin: 0 0 5px 0;
-    font-size: 20px;
-  }
+/* Community Description */
+.description {
+  font-size: 16px;
+  color: var(--text-secondary); /* Light gray for text */
+  margin: 0 0 10px 0;
+}
 
-  .description {
-    font-size: 14px;
-    color: #555;
-    margin: 0 0 10px 0;
-    font-size: 16px
-  }
+/* Members Count */
+.members {
+  font-size: 14px;
+  color: var(--text-primary); /* Medium gray for secondary details */
+  margin: 0 0 10px 0;
+}
 
-  .members {
-    font-size: 12px;
-    color: #777;
-    margin: 0 0 10px 0;
-  }
+/* Buttons Container */
+.buttons {
+  display: flex;
+  gap: 10px;
+}
 
-  .buttons {
-    display: flex;
-    gap: 10px;
-  }
+/* View Button */
+.buttonView {
+  padding: 5px 10px;
+  background-color: var(--accent); /* Electric blue */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
 
-  .buttonView {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.buttonView:hover {
+  background-color: #0056b3; /* Slightly darker blue for hover state */
+}
 
-  .buttonJoin {
-    padding: 5px 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.buttonView:active {
+  background-color: #003f7f; /* Even darker blue for active state */
+}
+
+/* Join Button */
+.buttonJoin {
+  padding: 5px 10px;
+  background-color: #28a745; /* Vibrant green for the join button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.buttonJoin:hover {
+  background-color: #218838; /* Slightly darker green for hover state */
+}
+
+.buttonJoin:active {
+  background-color: #1c7430; /* Even darker green for active state */
+}

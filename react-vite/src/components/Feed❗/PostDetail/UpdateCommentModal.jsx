@@ -45,7 +45,6 @@ function UpdateCommentModal({ comment, refreshComments}) {
       </form>
     </div>
   );
-
 }
 
 export default UpdateCommentModal;

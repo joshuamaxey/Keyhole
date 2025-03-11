@@ -15,8 +15,8 @@ function DeletePostModal({ postId }) {
 
   return (
     <div className={styles.deleteModalContainer}>
-      <h2>Confirm Deletion</h2>
-      <p>Are you sure you want to delete this post? This action cannot be undone.</p>
+      <h2 className={styles.deletePostModalTitle}>Confirm Deletion</h2>
+      <p className={styles.deletePostModalContent}>Are you sure you want to delete this post? This action cannot be undone.</p>
       <button
         onClick={handleDelete}
         className={styles.deleteButton}

@@ -77,7 +77,7 @@ function ProfileButton() {
                 modalComponent={<SignupFormModal />}
               />
               <li>
-                <button onClick={demoLogin}>Log in as Demo User</button>
+                <button onClick={demoLogin}>Demo User</button>
               </li>
             </>
           )}
@@ -88,4 +88,3 @@ function ProfileButton() {
 }
 
 export default ProfileButton;
-

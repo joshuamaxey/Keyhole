@@ -1,108 +1,104 @@
 /* Modal container for centering content */
 .modal-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    width: 400px;
-    margin: auto;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: var(--secondary-bg); /* Blue-gray modal background */
+  border-radius: 8px; /* Smooth rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  width: 400px;
+  margin: auto;
+  color: var(--text-secondary); /* Light gray for text */
+}
 
-  /* Modal heading */
-  .modal-container h1 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center;
-  }
+/* Form styles */
+.update-form {
+  width: 100%; /* Ensure the form spans the modal width */
+  display: flex;
+  flex-direction: column;
+}
 
-  /* Form styles */
-  .update-form {
-    width: 100%; /* Ensure the form spans the modal width */
-    display: flex;
-    flex-direction: column;
-  }
+/* Label styles */
+.update-label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: var(--text-primary); /* Medium gray for labels */
+  display: flex;
+  flex-direction: column; /* Stack label and textarea */
+  align-self: left;
+  padding-left: 20px;
+}
 
-  /* Label styles */
-  .update-label {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #555;
-    display: flex;
-    flex-direction: column; /* Stack label and textarea */
-    align-self: left;
-    padding-left: 20px;
-  }
+/* Textarea for content input */
+.update-textarea {
+  padding: 10px;
+  border: 1px solid var(--text-primary); /* Medium gray border */
+  border-radius: 6px;
+  margin-top: 5px;
+  font-size: 1rem;
+  width: 90%;
+  height: 150px; /* Default height for textarea */
+  resize: none; /* Disable resizing */
+  background-color: var(--primary-bg); /* Darker input background */
+  color: var(--text-secondary); /* Light gray text for readability */
+  align-self: center;
+  justify-self: center;
+}
 
-  /* Textarea for content input */
-  .update-textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-top: 5px;
-    font-size: 1rem;
+.update-textarea:focus {
+  border-color: var(--accent); /* Highlight border with accent color */
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Subtle glow effect */
+}
+
+/* Error messages */
+.update-error {
+  color: #ff4d4f; /* Bright red for validation errors */
+  font-size: 0.9rem;
+  margin: 5px 0 10px 0;
+}
+
+/* Submit button */
+.submit-button {
+  padding: 10px 20px;
+  background-color: var(--accent); /* Bright blue button */
+  color: #fff; /* White text for contrast */
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  width: 90%;
+  align-self: center;
+  justify-self: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Slightly darker blue on hover */
+}
+
+.submit-button:active {
+  background-color: #003f7f; /* Even darker blue on click */
+}
+
+.submit-button:disabled {
+  background-color: #ddd; /* Disabled state background */
+  cursor: not-allowed;
+  color: #aaa; /* Disabled state text color */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .modal-container {
+    padding: 15px;
     width: 90%;
-    height: 150px; /* Default height for textarea */
-    resize: none; /* Disable resizing */
-    align-self: center;
-    justify-self: center;
   }
 
-  .update-textarea:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5); /* Subtle glow effect */
-  }
-
-  /* Error messages */
-  .update-error {
-    color: #ff4d4f;
-    font-size: 0.9rem;
-    margin: 5px 0 10px 0;
-  }
-
-  /* Submit button */
   .submit-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 15px;
-    width: 100%;
-    align-self: center;
-    justify-self: center;
+    font-size: 0.9rem;
   }
-
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-
-  .submit-button:active {
-    background-color: #003f7f;
-  }
-
-  .submit-button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-    color: #aaa;
-  }
-
-  /* Responsive design */
-  @media (max-width: 768px) {
-    .modal-container {
-      padding: 15px;
-      width: 90%;
-    }
-
-    .submit-button {
-      font-size: 0.9rem;
-    }
-  }
+}

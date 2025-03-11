@@ -60,6 +60,7 @@ const Profile = () => {
   };
 
   return (
+    <div className={styles.outerContainer}>
     <div className={styles.profileContainer}>
       {/* Top Row: Avatar, Username, Edit Button */}
       <div className={styles.container}>
@@ -82,7 +83,8 @@ const Profile = () => {
           <span>Followers: {user.followers ? user.followers.length : 0}</span>
         </div>
       </div>
-    </div>
+      </div>
+      </div>
   );
 };
 

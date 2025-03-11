@@ -39,7 +39,7 @@ const CreatePostCard = () => {
         />
         {errors.content && <p className={styles.error}>{errors.content}</p>}
         <button type="submit" className={styles.postButton}>
-          Post
+          POST
         </button>
       </form>
     </div>

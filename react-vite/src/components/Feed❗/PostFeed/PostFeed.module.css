@@ -1,17 +1,25 @@
-/* PostFeed.module.css */
-
 /* Main Feed Container */
 .postFeedContainer {
-    width: 95%; /* Take the full width of the parent (Feed) */
-    align-self: center;
-    height: 100%; /* Allow the height to fill the remaining space */
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding: 16px; /* Add padding for spacing */
-    margin-left: 2%;
-    padding-right: none;
-    box-sizing: border-box; /* Include padding in dimensions */
-    display: flex;
-    flex-direction: column;
-    gap: 16px; /* Space between PostCards */
-    /* border: 2px solid red; */
-  }
+  width: 90%; /* Keep the width as is */
+  align-self: center;
+  height: 100%; /* Keep the height consistent */
+  overflow-y: auto; /* Retain vertical scrolling */
+  padding: 10px; /* Keep existing padding */
+  margin-left: 2%;
+  padding-right: none; /* Retain the original structure */
+  box-sizing: border-box; /* Keep box-sizing for accurate dimensions */
+  display: flex;
+  flex-direction: column; /* Retain vertical stacking */
+  gap: 10px; /* Keep spacing between PostCards */
+  background-color: var(--primary-bg); /* Update to dark theme background */
+  border: 1px solid var(--text-primary); /* Subtle border in medium gray */
+  border-radius: 8px; /* Retain rounded corners */
+  color: var(--text-secondary); /* Update text color to light gray */
+}
+
+/* Loading, Error, or Fallback Text */
+.postFeedContainer p {
+  font-size: 16px;
+  color: var(--text-secondary); /* Ensure fallback text matches the theme */
+  text-align: center; /* Keep messages centered */
+}
