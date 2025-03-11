@@ -6,7 +6,7 @@
   padding: 20px;
   max-width: 480px; /* Add max-width */
   height: 288px; /* Fixed height */
-  margin: 0 auto; /* Center the container horizontally */
+  margin: 10px auto; /* Center the container horizontally */
   overflow-y: auto; /* Handle overflow just in case */
   /* border: 2px solid var(--primary-bg); Subtle border using medium gray */
   background-color: var(--secondary-bg); /* Blue-gray background for the profile card */
