@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./CommunityCard.module.css";
 import { useSelector } from "react-redux";
 
-const CommunityCard = ({ name, description, members }) => {
-
+const CommunityCard = ({ name, description, members, onView }) => {
   const currentUser = useSelector((state) => state.session.user);
 
   return (
@@ -19,9 +18,14 @@ const CommunityCard = ({ name, description, members }) => {
 
       {/* Buttons */}
       <div className={styles.buttons}>
-        <button className={styles.buttonView}>VIEW</button>
+        <button
+          className={styles.buttonView}
+          onClick={onView} // Trigger the onView prop when clicked
+        >
+          VIEW
+        </button>
         {currentUser && (
-        <button className={styles.buttonJoin}>JOIN</button>
+          <button className={styles.buttonJoin}>JOIN</button>
         )}
       </div>
     </div>
