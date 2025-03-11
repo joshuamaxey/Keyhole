@@ -35,7 +35,7 @@ function UpdateProfileModal() {
     <div className={styles["modal-container"]}>
       <form onSubmit={handleSubmit} className={styles["modal-form"]}>
         <label className={styles["modal-label"]}>
-          Bio
+          {/* Bio */}
           <textarea
             value={bio}
             onChange={(e) => setBio(e.target.value)}
