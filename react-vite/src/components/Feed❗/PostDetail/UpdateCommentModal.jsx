@@ -28,7 +28,7 @@ function UpdateCommentModal({ comment, refreshComments}) {
       {/* <h1>Update Comment</h1> */}
       <form onSubmit={handleSubmit} className={styles["update-form"]}>
         <label className={styles["update-label"]}>
-          Content
+          {/* Content */}
         </label>
           <textarea
             value={content}
@@ -45,7 +45,6 @@ function UpdateCommentModal({ comment, refreshComments}) {
       </form>
     </div>
   );
-
 }
 
 export default UpdateCommentModal;

@@ -25,8 +25,6 @@ const CreateCommentModal = ({ postId, refreshComments }) => {
         }
       };
 
-
-
       return (
         <div className={styles.commentModalContainer}>
           <form onSubmit={handleSubmit} className={styles.commentForm}>

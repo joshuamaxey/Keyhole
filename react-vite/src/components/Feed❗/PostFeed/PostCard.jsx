@@ -101,7 +101,7 @@ const PostCard = ({ post, onClick, currentUser, refreshComments }) => {
       {/* Content Row: Avatar and Main Content */}
       <div className={styles.contentRow}>
         <div className={styles.content}>
-          <p>{post.content}</p>
+          <p className={styles.CONTENT}>{post.content}</p>
         </div>
       </div>
 

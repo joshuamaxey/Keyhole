@@ -1,14 +1,15 @@
 /* Feed.module.css */
 
+/* Feed Container */
 .feedContainer {
-    max-width: 1152px;
-    height: 888px;
-    margin: 0 auto; /* Center horizontally */
-    overflow: hidden; /* Prevent content from overflowing */
-    border: 1px solid #ddd; /* Optional: Border for structure visibility */
-    border-radius: 8px; /* Optional: Add rounded corners */
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
-    background-color: #f9f9f9; /* Light background for better visibility */
-    border: 2px solid green;
-  }
+  max-width: 1152px;
+  height: 888px;
+  margin: 0 auto; /* Center horizontally */
+  overflow: hidden; /* Prevent content from overflowing */
+  border: 1px solid var(--text-primary); /* Subtle border using medium gray */
+  border-radius: 8px; /* Rounded corners */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  background-color: var(--secondary-bg); /* Dark background for Feed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some depth */
+}

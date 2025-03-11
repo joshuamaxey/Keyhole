@@ -1,50 +1,59 @@
-/* CreatePostCard.module.css */
-
 /* Main Container */
 .postCardContainer {
-    width: 90%; /* Make it span the full width of its container */
-    align-self: center;
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    box-sizing: border-box; /* Include padding in the total width/height */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 16px; /* Add spacing between this and the next component */
-    margin-top: 50px;
-  }
+  width: 90%; /* Keep the full width of the container */
+  align-self: center;
+  padding: 16px;
+  border: 1px solid var(--text-primary); /* Medium gray border */
+  border-radius: 8px; /* Retain rounded corners */
+  background-color: var(--secondary-bg); /* Dark theme background */
+  box-sizing: border-box; /* Include padding in dimensions */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
+  margin-bottom: 16px; /* Space below for separation */
+  margin-top: 50px; /* Space above for better positioning */
+  color: var(--text-secondary); /* Ensure text matches dark theme */
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-  /* Input Field */
-  .inputField {
-    width: 100%;
-    min-height: 60px;
-    font-size: 14px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: none;
-    box-sizing: border-box;
-  }
+/* Input Field */
+.inputField {
+  width: 100%; /* Full width */
+  min-height: 60px; /* Maintain consistent height */
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid var(--text-primary); /* Medium gray for the input border */
+  border-radius: 4px; /* Rounded edges */
+  resize: none; /* Disable resizing */
+  box-sizing: border-box;
+  background-color: var(--primary-bg); /* Darker input field background */
+  color: var(--text-secondary); /* Light text for readability */
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-  /* Post Button */
-  .postButton {
-    margin-top: 12px;
-    padding: 10px 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.inputField:focus {
+  border-color: var(--accent); /* Highlight border with accent blue */
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Subtle glow effect */
+}
 
-  .postButton:hover {
-    background-color: #0056b3;
-  }
+/* Post Button */
+.postButton {
+  margin-top: 12px; /* Space above the button */
+  padding: 10px 16px;
+  color: #fff; /* Keep text white for contrast */
+  background-color: var(--accent); /* Bright blue for the button */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postButton:hover {
+  background-color: #0056b3; /* Slightly darker blue on hover */
+}

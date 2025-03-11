@@ -1,15 +1,20 @@
+/* Container for Community Cards */
 .container {
-    height: 445px; /*New maximum height*/
-    overflow-y: scroll;
-    border: 1px solid #ccc;
-    padding: 10px;
-    max-width: 500px; /* New maximum width */
-    margin: 0 auto; /* Center the container horizontally */
-    border-radius: 5px;
-    /* border: 2px solid blue; */
-    margin-left: 20px;
-  }
-  .loading {
-    font-size: 16px;
-    color: #777;
-  }
+  height: 445px; /* New maximum height */
+  overflow-y: scroll;
+  border: 1px solid var(--text-primary); /* Subtle border using medium gray */
+  background-color: var(--primary-bg); /* Use secondary background for the container */
+  padding: 10px;
+  max-width: 500px; /* New maximum width */
+  margin: 0 auto; /* Center the container horizontally */
+  border-radius: 8px; /* Adjusted to match the new rounded theme */
+  margin-left: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+}
+
+/* Loading Text */
+.loading {
+  font-size: 16px;
+  color: var(--text-secondary); /* Subtle text for loading state */
+  text-align: center; /* Center the loading text */
+}

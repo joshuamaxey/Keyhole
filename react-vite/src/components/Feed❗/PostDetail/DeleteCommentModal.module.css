@@ -1,75 +1,76 @@
 /* Modal container */
 .deleteModalContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    width: 400px;
-    margin: auto;
-    text-align: center; /* Center-align text content */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: var(--secondary-bg); /* Blue-gray modal background */
+  border-radius: 8px; /* Smooth rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  width: 400px; /* Adjusted for balance */
+  margin: auto;
+  text-align: center; /* Center-align text content */
+  color: var(--text-secondary); /* Light gray for text */
+}
+
+/* Heading style */
+.deleteModalContainer h2 {
+  font-size: 1.5rem;
+  color: var(--text-secondary); /* Light gray for heading text */
+  margin-bottom: 15px;
+}
+
+/* Paragraph style for warning */
+.deleteModalContainer p {
+  font-size: 1rem;
+  color: var(--text-primary); /* Medium gray for paragraph text */
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Delete button styling */
+.deleteButton {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff; /* White text for contrast */
+  background-color: #ff4d4f; /* Bright red for delete action */
+  border: none;
+  border-radius: 6px; /* Rounded edges */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+}
+
+/* Hover and Active States */
+.deleteButton:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+.deleteButton:active {
+  background-color: #b8001d; /* Even darker red on click */
+  transform: scale(0.95); /* Slight shrinking effect on click */
+}
+
+.deleteButton:disabled {
+  background-color: #ddd; /* Gray background for disabled state */
+  cursor: not-allowed;
+  color: #aaa; /* Disabled text color */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .deleteModalContainer {
+    padding: 15px;
+    width: 90%;
   }
 
-  /* Heading style */
-  .deleteModalContainer h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 15px;
-  }
-
-  /* Paragraph style for warning */
-  .deleteModalContainer p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-
-  /* Delete button styling */
   .deleteButton {
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #ff0000;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 0.9rem;
   }
-
-  .deleteButton:hover {
-    background-color: #e60026; /* Slightly darker red on hover */
-  }
-
-  .deleteButton:active {
-    background-color: #b8001d; /* Even darker red on click */
-  }
-
-  .deleteButton:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-    color: #aaa;
-  }
-
-  /* Responsive design */
-  @media (max-width: 768px) {
-    .deleteModalContainer {
-      padding: 15px;
-      width: 90%;
-    }
-
-    .deleteButton {
-      font-size: 0.9rem;
-    }
-  }
+}

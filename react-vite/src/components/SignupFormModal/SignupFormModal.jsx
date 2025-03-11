@@ -69,7 +69,7 @@ function SignupFormModal() {
         <div>
           <label className={styles["signup-label"]}>
             Username
-            <p>{username}</p>
+            <p className={styles.userName}>{username}</p>
           </label>
         </div>
         {errors.username && <p className={styles["signup-error"]}>{errors.username}</p>}
@@ -87,7 +87,7 @@ function SignupFormModal() {
           className={styles["signup-textarea"]}
         />
         {errors.bio && <p className={styles["signup-error"]}>{errors.bio}</p>}
-
+        <br></br>
         <label className={styles["signup-label"]}>
           Password
           <input
@@ -99,7 +99,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.password && <p className={styles["signup-error"]}>{errors.password}</p>}
-
+        <br></br>
         <label className={styles["signup-label"]}>
           Confirm Password
           <input
@@ -122,9 +122,6 @@ function SignupFormModal() {
       </form>
     </div>
   );
-
-
-
 }
 
 export default SignupFormModal;
