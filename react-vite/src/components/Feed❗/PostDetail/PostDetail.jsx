@@ -46,7 +46,7 @@ const PostDetail = ({ post, onBack }) => {
 
   return (
     <div className={styles.postDetailContainer}>
-      <button onClick={onBack} className={styles.backButton}>Back to Feed</button>
+      <button onClick={onBack} className={styles.backButton}>Back</button>
       <div className={styles.postCardWrapper}>
         <PostCard post={post} currentUser={currentUser} refreshComments={refreshComments} /> {/* Render the selected PostCard */}
       </div>

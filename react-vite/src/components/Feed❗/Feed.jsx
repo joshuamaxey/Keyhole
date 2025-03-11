@@ -33,7 +33,8 @@ const Feed = ({ selectedCommunity, onBackToFeed }) => {
         // Render CommunityDetail if a community is selected
         <CommunityDetail
           communityId={selectedCommunity}
-          onBack={onBackToFeed} // Trigger reset when "back" is clicked in CommunityDetail
+            onBack={onBackToFeed} // Trigger reset when "back" is clicked in CommunityDetail
+            onPostClick={handlePostClick}
         />
       ) : (
         // Default Feed (PostFeed + CreatePostCard)

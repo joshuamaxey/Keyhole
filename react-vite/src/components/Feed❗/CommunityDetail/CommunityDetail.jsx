@@ -7,7 +7,7 @@ import CommunityCard from "../../Communities❗/CommunityCard";
 import PostCard from "../PostFeed/PostCard"; // Import PostCard
 import styles from "./CommunityDetail.module.css";
 
-const CommunityDetail = ({ communityId, onBack }) => {
+const CommunityDetail = ({ communityId, onBack, onPostClick }) => {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]); // Local state to store posts
   const community = useSelector((state) => state.communities[communityId]); // Fetch community from Redux
@@ -64,7 +64,8 @@ const CommunityDetail = ({ communityId, onBack }) => {
               key={post.id}
               post={post}
               currentUser={currentUser}
-              refreshPosts={refreshPosts} // Pass the refresh function
+                  refreshPosts={refreshPosts} // Pass the refresh function
+                  onClick={() => onPostClick(post)}
             />
           ))
         ) : (
