@@ -24,6 +24,7 @@ function DeleteCommentModal({ commentId, refreshComments }) {
       </button>
     </div>
   );
+
 }
 
 export default DeleteCommentModal;
