@@ -1,0 +1,88 @@
+/* Modal container */
+.commentModalContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 400px;
+    margin: auto;
+  }
+
+  /* Form styling */
+  .commentForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Textarea for comment input */
+  .inputField {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    width: 100%;
+    height: 100px; /* Default height for textarea */
+    resize: none; /* Disable resizing */
+    align-self: center;
+    justify-self: center;
+  }
+
+  .inputField:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5); /* Subtle glow effect */
+  }
+
+  /* Error messages */
+  .error {
+    color: #ff4d4f;
+    font-size: 0.9rem;
+    margin: 5px 0 10px 0;
+  }
+
+  /* Comment button */
+  .commentButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    align-self: center;
+    justify-self: center;
+    width: 100%
+  }
+
+  .commentButton:hover {
+    background-color: #0056b3;
+  }
+
+  .commentButton:active {
+    background-color: #003f7f;
+  }
+
+  .commentButton:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+    color: #aaa;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .commentModalContainer {
+      padding: 15px;
+      width: 90%;
+    }
+
+    .commentButton {
+      font-size: 0.9rem;
+    }
+  }
