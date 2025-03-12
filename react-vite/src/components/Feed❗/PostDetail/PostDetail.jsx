@@ -48,7 +48,7 @@ const PostDetail = ({ post, onBack }) => {
     <div className={styles.postDetailContainer}>
       <button onClick={onBack} className={styles.backButton}>Back</button>
       <div className={styles.postCardWrapper}>
-        <PostCard post={post} currentUser={currentUser} refreshComments={refreshComments} /> {/* Render the selected PostCard */}
+        <PostCard post={post} currentUser={currentUser} refreshComments={refreshComments} onBack={onBack} /> {/* Render the selected PostCard */}
       </div>
       <div className={styles.commentsWrapper}>
         {comments.length > 0 ? (
