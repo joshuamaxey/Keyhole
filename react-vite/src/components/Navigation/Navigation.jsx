@@ -11,9 +11,6 @@ function Navigation() {
             Keyhole
           </NavLink>
         </li>
-        <li className={styles.navItem}>
-          <ProfileButton />
-        </li>
       </ul>
     </nav>
   );

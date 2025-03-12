@@ -27,6 +27,19 @@ function LoginFormModal() {
       closeModal();
     }
   };
+  const closeMenu = () => setShowMenu(false);
+
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    await dispatch(
+      thunkLogin({
+        username: "Demo_User",
+        password: "password",
+      })
+    );
+    closeModal();
+    closeMenu();
+  };
 
   return (
     <div className={styles["modal-container"]}>
@@ -55,6 +68,9 @@ function LoginFormModal() {
         {errors.password && <p className={styles["error-message"]}>{errors.password}</p>}
         <button type="submit" className={styles["submit-button"]}>
           Log In
+        </button>
+        <button onClick={demoLogin} className={styles["submit-button"]}>
+          Demo User
         </button>
       </form>
     </div>
