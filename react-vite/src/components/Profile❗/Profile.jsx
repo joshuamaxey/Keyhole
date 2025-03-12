@@ -1,19 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserThunk, fetchFollowing, fetchFollowers } from "../../redux/user";
-import { useModal } from "../../context/Modal"; // Import useModal
-import UpdateProfileModal from "./UpdateProfileModal"; // Import the modal component
+import { thunkLogout } from "../../redux/session";
+import { useModal } from "../../context/Modal";
+import UpdateProfileModal from "./UpdateProfileModal";
 import styles from "./Profile.module.css";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { setModalContent, openModal } = useModal(); // Access modal context
+  const user = useSelector((state) => state.user);
+  const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
+  const { setModalContent, openModal } = useModal();
+  const [showMenu, setShowMenu] = useState(false); // State for dropdown visibility
+  const dropdownRef = useRef();
 
-  // Select relevant states from Redux
-  const user = useSelector((state) => state.user); // Current user data
-  const isAuthenticated = useSelector((state) => state.session.isAuthenticated); // Track auth state
-
-  // Fetch user data when the component mounts or auth state changes
+  // Fetch user data on mount
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(fetchUserThunk());
@@ -28,29 +32,39 @@ const Profile = () => {
     }
   }, [dispatch, user.id]);
 
-  // Open the UpdateProfileModal when "EDIT" is clicked
-  const handleEditClick = () => {
-    setModalContent(<UpdateProfileModal />); // Set the modal content
-    openModal(); // Open the modal
+  // Close the dropdown when clicking outside of it
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  // Handle dropdown toggling
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    setShowMenu((prev) => !prev);
   };
 
-  // Render a message if the user is not logged in
-  if (!isAuthenticated) {
-    return (
-      <div className={styles.profileContainer}>
-        <div className={styles.container}>
-          <h2 className={styles.loggedOutMessage}>Log in or Sign up</h2>
-          <p className={styles.loggedOutSubMessage}>
-            to view your profile
-          </p>
-        </div>
-      </div>
-    );
-  }
+  // Handle log out functionality
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(thunkLogout());
+    setShowMenu(false); // Close the dropdown after logging out
+  };
 
-  if (!user.username) {
-    return <div>Loading...</div>; // Show a loading message while fetching data
-  }
+  // Handle edit profile modal
+  const handleEditClick = () => {
+    setModalContent(<UpdateProfileModal />);
+    openModal();
+  };
 
   const getInitials = (username) => {
     return username
@@ -59,33 +73,85 @@ const Profile = () => {
       .join("");
   };
 
+  if (!isAuthenticated) {
+    return (
+      <div className={styles.profileContainer}>
+        <div className={styles.container}>
+          <h2 className={styles.loggedOutMessage}>
+            <span className={styles.inlineLink}>
+              <OpenModalMenuItem
+                itemText="Log in"
+                modalComponent={<LoginFormModal />}
+              />
+            </span>
+            {" or "}
+            <span className={styles.inlineLink}>
+              <OpenModalMenuItem
+                itemText="Sign up"
+                modalComponent={<SignupFormModal />}
+              />
+            </span>
+          </h2>
+          <p className={styles.loggedOutSubMessage}>
+            to view your profile
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+
+  if (!user.username) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.outerContainer}>
-    <div className={styles.profileContainer}>
-      {/* Top Row: Avatar, Username, Edit Button */}
-      <div className={styles.container}>
-        <div className={styles.headerRow}>
-          <div className={styles.avatar}>{getInitials(user.username)}</div>
-          <h2 className={styles.username}>{user.username}</h2>
-          <button className={styles.editButton} onClick={handleEditClick}>
-            EDIT
-          </button>
-        </div>
+      <div className={styles.profileContainer}>
+        <div className={styles.container}>
+          {/* Top Row: Avatar, Username, Edit Button */}
+          <div className={styles.headerRow}>
+            {/* Avatar with Dropdown Menu */}
+            <div className={styles.avatarContainer}>
+              <div
+                className={styles.avatar}
+                onClick={toggleMenu} // Toggle the dropdown on click
+                ref={dropdownRef}
+              >
+                {getInitials(user.username)}
+              </div>
 
-        {/* Middle: Description */}
-        <p className={styles.bio}>
-          {user.bio}
-        </p>
+              {/* Dropdown Menu */}
+              {showMenu && (
+                <ul className={styles.dropdownMenu}>
+                  <li>{user.username}</li>
+                  <li>
+                    <button onClick={logout} className={styles.logoutButton}>
+                      Log Out
+                    </button>
+                  </li>
+                </ul>
+              )}
+            </div>
+            <h2 className={styles.username}>{user.username}</h2>
+            <button className={styles.editButton} onClick={handleEditClick}>
+              EDIT
+            </button>
+          </div>
 
-        {/* Bottom: Following and Followers */}
-        <div className={styles.followData}>
-          <span>Following: {user.following ? user.following.length : 0}</span>
-          <span>Followers: {user.followers ? user.followers.length : 0}</span>
+          {/* Middle: Description */}
+          <p className={styles.bio}>{user.bio}</p>
+
+          {/* Bottom: Following and Followers */}
+          <div className={styles.followData}>
+            <span>Following: {user.following ? user.following.length : 0}</span>
+            <span>Followers: {user.followers ? user.followers.length : 0}</span>
+          </div>
         </div>
       </div>
-      </div>
-      </div>
+    </div>
   );
+
 };
 
 export default Profile;

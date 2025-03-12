@@ -8,8 +8,10 @@
   max-width: 500px; /* New maximum width */
   margin: 0 auto; /* Center the container horizontally */
   border-radius: 8px; /* Adjusted to match the new rounded theme */
-  margin-left: 20px;
+  margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+  align-self: center;
+  justify-self: center
 }
 
 /* Loading Text */
