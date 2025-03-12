@@ -6,7 +6,7 @@ import UpdatePostModal from "../UpdatePostModal";
 import DeletePostModal from "../DeletePostModal";
 import CreateCommentModal from "../CreateCommentModal";
 
-const PostCard = ({ post, onClick, currentUser, refreshComments }) => {
+const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
   const [user, setUser] = useState(null);
   const [community, setCommunity] = useState(null);
   const [commentsCount, setCommentsCount] = useState(0);
@@ -75,7 +75,7 @@ const PostCard = ({ post, onClick, currentUser, refreshComments }) => {
   };
 
   const handleDelete = () => {
-    setModalContent(<DeletePostModal postId={post.id} />);
+    setModalContent(<DeletePostModal postId={post.id} onBack={onBack} />);
     openModal();
   };
 

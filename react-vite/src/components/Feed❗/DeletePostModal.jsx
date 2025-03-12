@@ -4,7 +4,7 @@ import { thunkDeletePost } from "../../redux/post";
 import { useModal } from "../../context/Modal";
 import styles from "./DeletePostModal.module.css";
 
-function DeletePostModal({ postId }) {
+function DeletePostModal({ postId, onBack }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -18,7 +18,10 @@ function DeletePostModal({ postId }) {
       <h2 className={styles.deletePostModalTitle}>Confirm Deletion</h2>
       <p className={styles.deletePostModalContent}>Are you sure you want to delete this post? This action cannot be undone.</p>
       <button
-        onClick={handleDelete}
+        onClick={() => {
+          handleDelete();
+          onBack();
+        }}
         className={styles.deleteButton}
       >
         DELETE
