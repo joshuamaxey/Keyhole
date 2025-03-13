@@ -12,6 +12,7 @@ export default function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [selectedCommunity, setSelectedCommunity] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
 
   // Authenticate the user
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Layout() {
 
   const handleCommunitySelect = (communityId) => {
     setSelectedCommunity(communityId);
+    setSelectedPost(null);
   }
 
   const handleBackToFeed = () => {
@@ -53,8 +55,13 @@ export default function Layout() {
             <Communities onCommunitySelect={handleCommunitySelect} />
           </div>
           <div className={styles.feed}>
-            <Feed selectedCommunity={selectedCommunity}
-            onBackToFeed={handleBackToFeed}/>
+            <Feed
+              selectedCommunity={selectedCommunity}
+              setSelectedCommunity={setSelectedCommunity}
+              selectedPost={selectedPost}
+              setSelectedPost={setSelectedPost}
+              onBackToFeed={handleBackToFeed}
+            />
           </div>
         </div>
         {isLoaded && <Outlet />}

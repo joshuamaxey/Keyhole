@@ -44,7 +44,7 @@ const CommunityDetail = ({ communityId, onBack, onPostClick }) => {
     <div className={styles.communityDetailContainer}>
       {/* Back Button */}
       <button onClick={onBack} className={styles.backButton}>
-        Back to Feed
+        Back
       </button>
 
       {/* CommunityCard for the community */}
