@@ -7,8 +7,7 @@ import PostFeed from "./PostFeed/PostFeed";
 import PostDetail from "./PostDetail/PostDetail";
 import CommunityDetail from "./CommunityDetail/CommunityDetail";
 
-const Feed = ({ selectedCommunity, onBackToFeed }) => {
-  const [selectedPost, setSelectedPost] = useState(null); // Track the selected post
+const Feed = ({ selectedCommunity, setSelectedCommunity, selectedPost, setSelectedPost, onBackToFeed }) => {
   const currentUser = useSelector((state) => state.session.user);
 
   const handlePostClick = (post) => {
@@ -22,22 +21,21 @@ const Feed = ({ selectedCommunity, onBackToFeed }) => {
   return (
     <div className={styles.feedContainer}>
       <Navigation />
+
+      {/* Prioritize PostDetail when selected */}
       {selectedPost ? (
-        // Render PostDetail if a post is selected
         <PostDetail
           post={selectedPost}
-          onBack={handleBackToPostFeed}
+          onBack={handleBackToPostFeed} // Go back to CommunityDetail or PostFeed
           currentUser={currentUser}
         />
       ) : selectedCommunity ? (
-        // Render CommunityDetail if a community is selected
         <CommunityDetail
           communityId={selectedCommunity}
-            onBack={onBackToFeed} // Trigger reset when "back" is clicked in CommunityDetail
-            onPostClick={handlePostClick}
+          onBack={onBackToFeed}
+          onPostClick={handlePostClick} // Allow navigating to PostDetail
         />
       ) : (
-        // Default Feed (PostFeed + CreatePostCard)
         <>
           <CreatePostCard />
           <PostFeed
@@ -49,5 +47,7 @@ const Feed = ({ selectedCommunity, onBackToFeed }) => {
     </div>
   );
 };
+
+
 
 export default Feed;
