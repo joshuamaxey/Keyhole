@@ -10,13 +10,15 @@ import userReducer from "./user";
 import communitiesReducer from "./community";
 import postReducer from "./post";
 import commentReducer from "./comment";
+import communityMembershipsReducer from "./communityMemberships";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   user: userReducer,
   communities: communitiesReducer,
   posts: postReducer,
-  comments: commentReducer
+  comments: commentReducer,
+  communityMemberships: communityMembershipsReducer
 });
 
 let enhancer;

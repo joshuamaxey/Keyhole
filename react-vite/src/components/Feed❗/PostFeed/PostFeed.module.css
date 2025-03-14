@@ -23,3 +23,8 @@
   color: var(--text-secondary); /* Ensure fallback text matches the theme */
   text-align: left; /* Keep messages centered */
 }
+
+.noPosts {
+  align-self: center;
+  justify-self: center;
+}

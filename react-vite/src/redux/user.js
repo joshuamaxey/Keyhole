@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 const FETCH_USER = "user/FETCH_USER";
 const SET_FOLLOWING = "user/setFollowing"
 const SET_FOLLOWERS = "user/setFollowers"
@@ -30,7 +32,6 @@ export const updateBio = (bio) => ({
   type: UPDATE_BIO,
   bio, // This will be the updated bio string
 });
-
 
 // Thunk Action
 export const fetchUserThunk = () => async (dispatch) => {
@@ -93,7 +94,7 @@ export const fetchUsersThunk = (posts) => async (dispatch) => {
   }
 };
 
-import Cookies from "js-cookie";
+
 
 export const thunkUpdateBio = (bio) => async (dispatch) => {
   try {
@@ -130,7 +131,6 @@ const initialState = {
   status: "idle",
   error: null,
 };
-
 
 
 // Reducer
