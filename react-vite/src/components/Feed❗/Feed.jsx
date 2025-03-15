@@ -15,6 +15,12 @@ const Feed = ({
   onBackToFeed,
 }) => {
   const currentUser = useSelector((state) => state.session.user);
+  const communityMemberships = useSelector(
+    (state) => state.communityMemberships
+  );
+  const communityMembershipIds = communityMemberships.map(
+    (community) => community.id
+  );
 
   const handlePostClick = (post) => {
     setSelectedPost(post); // Set the clicked post to show PostDetail
@@ -37,7 +43,10 @@ const Feed = ({
         />
       ) : selectedCommunity ? (
         <>
-          <CreatePostCard communityId={selectedCommunity} />
+          {communityMembershipIds.includes(selectedCommunity) && (
+            <CreatePostCard communityId={selectedCommunity} />
+          )}
+
           <CommunityDetail
             communityId={selectedCommunity}
             onBack={onBackToFeed}
