@@ -29,15 +29,15 @@ const PostFeed = ({ onPostClick, currentUser }) => {
     if (currentUser) {
       dispatch(fetchCommunityMembershipsThunk(currentUser.id));
     }
-  }, [dispatch, currentUser]);
+  }, [dispatch, currentUser]); // Add communityMemberships here
 
-  // Filter posts for logged-in users
   const filteredPosts = currentUser
-    ? posts.filter(
-        (post) =>
-          post.community_id === null || communityMembershipIds.includes(post.community_id)
-      )
-    : posts; // Show all posts for logged-out users
+  ? posts.filter(
+      (post) =>
+        post.community_id === null || communityMembershipIds.includes(post.community_id)
+    )
+  : posts; // React's natural reactivity handles re-filtering
+
 
   return (
     <div className={styles.postFeedContainer}>

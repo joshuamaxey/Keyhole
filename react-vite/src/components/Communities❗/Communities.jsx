@@ -2,18 +2,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCommunitiesThunk, fetchCommunityMembersThunk } from "../../redux/community";
 import CommunityCard from "./CommunityCard";
-import { useNavigate } from "react-router-dom"; // Assuming React Router is used
+import { useNavigate } from "react-router-dom";
 import styles from "./Communities.module.css";
 
-const Communities = ({onCommunitySelect}) => {
+const Communities = ({ onCommunitySelect }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Hook to navigate to another route
 
   useEffect(() => {
     dispatch(fetchCommunitiesThunk());
   }, [dispatch]);
 
   const communitiesObject = useSelector((state) => state.communities);
+  const communityMemberships = useSelector((state) => state.communityMemberships);
+  const communityMembershipIds = communityMemberships.map((community) => community.id); // Map community IDs
 
   useEffect(() => {
     if (communitiesObject && Object.keys(communitiesObject).length > 0) {
@@ -36,9 +37,11 @@ const Communities = ({onCommunitySelect}) => {
       {communities.map((community) => (
         <CommunityCard
           key={community.id}
+          id={community.id}
           name={community.name}
           description={community.description}
           members={community.members.length}
+          isMember={communityMembershipIds.includes(community.id)} // Pass membership status
           onView={() => onCommunitySelect(community.id)}
         />
       ))}

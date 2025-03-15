@@ -1,9 +1,18 @@
 import React from "react";
 import styles from "./CommunityCard.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { joinCommunityThunk, leaveCommunityThunk } from "../../redux/communityMemberships";
 
-const CommunityCard = ({ name, description, members, onView }) => {
-  const currentUser = useSelector((state) => state.session.user);
+const CommunityCard = ({ id, name, description, members, isMember, onView }) => {
+  const dispatch = useDispatch();
+
+  const handleJoin = () => {
+    dispatch(joinCommunityThunk(id)); // Dispatch JOIN thunk
+  };
+
+  const handleLeave = () => {
+    dispatch(leaveCommunityThunk(id)); // Dispatch LEAVE thunk
+  };
 
   return (
     <div className={styles.card}>
@@ -24,8 +33,14 @@ const CommunityCard = ({ name, description, members, onView }) => {
         >
           VIEW
         </button>
-        {currentUser && (
-          <button className={styles.buttonJoin}>JOIN</button>
+        {isMember ? (
+          <button className={styles.buttonLeave} onClick={handleLeave}>
+            LEAVE
+          </button>
+        ) : (
+          <button className={styles.buttonJoin} onClick={handleJoin}>
+            JOIN
+          </button>
         )}
       </div>
     </div>
