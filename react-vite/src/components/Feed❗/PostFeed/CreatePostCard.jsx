@@ -3,28 +3,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { thunkCreatePost } from "../../../redux/post";
 import styles from "./CreatePostCard.module.css";
 
-const CreatePostCard = () => {
+const CreatePostCard = ({ communityId }) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState(""); // State for the post content
   const [errors, setErrors] = useState({}); // State for validation errors
-  const currentUser = useSelector((state) => state.session.user)
+  const currentUser = useSelector((state) => state.session.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Build postData conditionally
+    const postData = {
+      content,
+      ...(communityId !== undefined && communityId !== null && { community_id: communityId }),
+    };
 
-    const postData = { content }; // Only content is required here
+    console.log("Post Data:", postData); // Debugging step to ensure correctness
+
     const serverResponse = await dispatch(thunkCreatePost(postData)); // Dispatch the thunk
 
     if (serverResponse) {
-      setErrors(serverResponse); // Handle validation errors from the server
+      setErrors(serverResponse); // Handle validation errors
     } else {
-      setContent(""); // Clear the input field on success
-      setErrors({}); // Clear errors on success
+      setContent(""); // Clear input on success
+      setErrors({});
     }
   };
 
   if (!currentUser) {
-    return;
+    return null; // Prevent rendering if the user is not logged in
   }
 
   return (

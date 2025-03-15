@@ -9,7 +9,9 @@ import styles from "./CommunityDetail.module.css";
 
 const CommunityDetail = ({ communityId, onBack, onPostClick }) => {
   const dispatch = useDispatch();
-  const [posts, setPosts] = useState([]); // Local state to store posts
+  const posts = useSelector((state) =>
+    state.posts.posts.filter((post) => post.community_id === communityId)
+  );
   const community = useSelector((state) => state.communities[communityId]); // Fetch community from Redux
   const currentUser = useSelector((state) => state.session.user); // Fetch the current user
   const communityMemberships = useSelector((state) => state.communityMemberships);
