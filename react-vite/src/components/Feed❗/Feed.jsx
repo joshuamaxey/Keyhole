@@ -1,5 +1,5 @@
 import Navigation from "../Navigation/Navigation";
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./Feed.module.css";
 import CreatePostCard from "./PostFeed/CreatePostCard";

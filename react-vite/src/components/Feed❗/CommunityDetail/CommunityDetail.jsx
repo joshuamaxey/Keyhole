@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleCommunityThunk } from "../../../redux/community";
-import { fetchCommunityPostsThunk } from "../../../redux/post";
 import CommunityCard from "../../Communities❗/CommunityCard";
 import PostCard from "../PostFeed/PostCard"; // Import PostCard
 import styles from "./CommunityDetail.module.css";

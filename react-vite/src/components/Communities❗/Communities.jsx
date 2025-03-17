@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCommunitiesThunk, fetchCommunityMembersThunk } from "../../redux/community";
 import CommunityCard from "./CommunityCard";
-import { useNavigate } from "react-router-dom";
 import styles from "./Communities.module.css";
 
 const Communities = ({ onCommunitySelect }) => {
