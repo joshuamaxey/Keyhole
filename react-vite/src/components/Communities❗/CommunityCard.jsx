@@ -1,10 +1,11 @@
 import React from "react";
-import styles from "./CommunityCard.module.css";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { joinCommunityThunk, leaveCommunityThunk } from "../../redux/communityMemberships";
+import styles from "./CommunityCard.module.css";
 
 const CommunityCard = ({ id, name, description, members, isMember, onView }) => {
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.session.user); // Subscribe to session slice
 
   const handleJoin = () => {
     dispatch(joinCommunityThunk(id)); // Dispatch JOIN thunk
@@ -25,7 +26,7 @@ const CommunityCard = ({ id, name, description, members, isMember, onView }) => 
       {/* Member Count */}
       <p className={styles.members}>Members: {members}</p>
 
-      {/* Buttons */}
+      {/* Buttons - Only render if there is a logged-in user */}
       <div className={styles.buttons}>
         <button
           className={styles.buttonView}
@@ -33,14 +34,16 @@ const CommunityCard = ({ id, name, description, members, isMember, onView }) => 
         >
           VIEW
         </button>
-        {isMember ? (
-          <button className={styles.buttonLeave} onClick={handleLeave}>
-            LEAVE
-          </button>
-        ) : (
-          <button className={styles.buttonJoin} onClick={handleJoin}>
-            JOIN
-          </button>
+        {currentUser && ( // Conditionally render JOIN/LEAVE buttons
+          isMember ? (
+            <button className={styles.buttonLeave} onClick={handleLeave}>
+              LEAVE
+            </button>
+          ) : (
+            <button className={styles.buttonJoin} onClick={handleJoin}>
+              JOIN
+            </button>
+          )
         )}
       </div>
     </div>
