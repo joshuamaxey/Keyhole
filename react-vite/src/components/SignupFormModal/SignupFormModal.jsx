@@ -24,13 +24,26 @@ function SignupFormModal() {
   useEffect(() => {
     const generateUniqueUsername = async () => {
       let newUsername = generateUsername("_");
+
+      // Function to capitalize each word
+      const capitalizeWords = (username) => {
+        return username
+          .split("_") // Split the username by "_"
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+          .join("_"); // Join the words back with "_"
+      };
+
       while (await checkUsernameExists(newUsername)) {
         newUsername = generateUsername("_");
       }
+
+      newUsername = capitalizeWords(newUsername); // Capitalize the username
       setUsername(newUsername);
     };
+
     generateUniqueUsername();
   }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
