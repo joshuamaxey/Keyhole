@@ -127,5 +127,6 @@
 }
 
 .userName {
-  color: var(--accent)
+  color: var(--accent);
+  font-weight: bold
 }
