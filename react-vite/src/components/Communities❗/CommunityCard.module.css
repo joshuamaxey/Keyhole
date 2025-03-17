@@ -86,3 +86,28 @@
 .buttonJoin:active {
   background-color: #1c7430; /* Even darker green for active state */
 }
+
+.buttonLeave {
+  padding: 5px 10px;
+  background-color: #ff0000; /* Vibrant green for the join button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.buttonLeave:hover {
+  background-color: #cc0000; /* Slightly darker green for hover state */
+}
+
+.buttonLeave:active {
+  background-color: #ff0000; /* Even darker green for active state */
+}

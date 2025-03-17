@@ -2,16 +2,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleCommunityThunk } from "../../../redux/community";
-import { fetchCommunityPostsThunk } from "../../../redux/post";
 import CommunityCard from "../../Communities❗/CommunityCard";
 import PostCard from "../PostFeed/PostCard"; // Import PostCard
 import styles from "./CommunityDetail.module.css";
 
 const CommunityDetail = ({ communityId, onBack, onPostClick }) => {
   const dispatch = useDispatch();
-  const [posts, setPosts] = useState([]); // Local state to store posts
+  const posts = useSelector((state) =>
+    state.posts.posts.filter((post) => post.community_id === communityId)
+  );
   const community = useSelector((state) => state.communities[communityId]); // Fetch community from Redux
   const currentUser = useSelector((state) => state.session.user); // Fetch the current user
+  const communityMemberships = useSelector((state) => state.communityMemberships);
+  const communityMembershipIds = communityMemberships.map((community) => community.id);
+
 
   useEffect(() => {
     // Fetch community details when the component mounts
@@ -50,9 +54,11 @@ const CommunityDetail = ({ communityId, onBack, onPostClick }) => {
       {/* CommunityCard for the community */}
       <div className={styles.communityCardWrapper}>
         <CommunityCard
+          id={community.id} // Pass the community ID
           name={community.name}
           description={community.description}
           members={community.members.length}
+          isMember={communityMembershipIds.includes(community.id)} // Check if user is a member
         />
       </div>
 
@@ -64,8 +70,8 @@ const CommunityDetail = ({ communityId, onBack, onPostClick }) => {
               key={post.id}
               post={post}
               currentUser={currentUser}
-                  refreshPosts={refreshPosts} // Pass the refresh function
-                  onClick={() => onPostClick(post)}
+              refreshPosts={refreshPosts} // Pass the refresh function
+              onClick={() => onPostClick(post)}
             />
           ))
         ) : (
@@ -74,6 +80,7 @@ const CommunityDetail = ({ communityId, onBack, onPostClick }) => {
       </div>
     </div>
   );
+
 };
 
 export default CommunityDetail;

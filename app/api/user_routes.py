@@ -127,3 +127,16 @@ def username_exists():
     username = request.args.get('username')
     exists = User.query.filter_by(username=username).first() is not None
     return jsonify({"exists": exists})
+
+
+@user_routes.route('/<int:user_id>/communities', methods=['GET'])
+def get_user_communities(user_id):
+    """
+    Retrieves a list of communities the user has joined.
+    """
+    user = User.query.get_or_404(user_id)
+
+    # Get the communities through the community_members relationship
+    joined_communities = [member.community.to_dict() for member in user.community_members]
+
+    return jsonify({"communities": joined_communities}), 200
