@@ -135,7 +135,7 @@ const Profile = () => {
             </div>
             <h2 className={styles.username}>{user.username}</h2>
             <button className={styles.editButton} onClick={handleEditClick}>
-              EDIT
+              ...
             </button>
           </div>
 

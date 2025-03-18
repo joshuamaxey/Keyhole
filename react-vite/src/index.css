@@ -5,6 +5,11 @@
     --text-primary: #474A57; /* Steel Gray */
     --text-secondary: #A1A6B0; /* Cool Light Gray */
     --accent: #007BFF; /* Electric Blue */
+    --accent-hover: #0056b3;
+    --teal: #00aaff;
+    --teal-hover: #3aa3a3;
+    --red: #cc4444;
+    --red-hover: #aa3333;
   }
 
   * {

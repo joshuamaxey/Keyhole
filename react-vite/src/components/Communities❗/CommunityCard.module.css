@@ -64,8 +64,8 @@
 /* Join Button */
 .buttonJoin {
   padding: 5px 10px;
-  background-color: #28a745; /* Vibrant green for the join button */
-  color: white;
+  background-color: var(--teal); /* Vibrant green for the join button */
+  color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -80,7 +80,7 @@
 }
 
 .buttonJoin:hover {
-  background-color: #218838; /* Slightly darker green for hover state */
+  background-color: var(--teal-hover); /* Slightly darker green for hover state */
 }
 
 .buttonJoin:active {
@@ -89,7 +89,7 @@
 
 .buttonLeave {
   padding: 5px 10px;
-  background-color: #ff0000; /* Vibrant green for the join button */
+  background-color: var(--red); /* Vibrant green for the join button */
   color: white;
   border: none;
   border-radius: 4px;
@@ -105,7 +105,7 @@
 }
 
 .buttonLeave:hover {
-  background-color: #cc0000; /* Slightly darker green for hover state */
+  background-color: var(--red-hover); /* Slightly darker green for hover state */
 }
 
 .buttonLeave:active {

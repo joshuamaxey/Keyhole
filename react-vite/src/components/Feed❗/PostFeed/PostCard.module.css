@@ -100,7 +100,7 @@
 }
 
 .likeButton:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: var(--accent-hover); /* Darker blue on hover */
 }
 
 .commentButton {
@@ -108,23 +108,24 @@
 }
 
 .commentButton:hover {
-  background-color: #0056b3;
+  background-color: var(--accent-hover);
 }
 
 .updateButton {
-  background-color: #0cb457; /* Vibrant green for Update button */
+  background-color: var(--teal); /* Vibrant green for Update button */
+  color: black
 }
 
 .updateButton:hover {
-  background-color: #088f3a; /* Slightly darker green on hover */
+  background-color: var(--teal-hover); /* Slightly darker green on hover */
 }
 
 .deleteButton {
-  background-color: #ff0000; /* Bright red for Delete button */
+  background-color: var(--red); /* Bright red for Delete button */
 }
 
 .deleteButton:hover {
-  background-color: #cc0000; /* Darker red on hover */
+  background-color: var(--red-hover); /* Darker red on hover */
 }
 
 .CONTENT {

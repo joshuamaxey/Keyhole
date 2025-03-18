@@ -98,3 +98,52 @@
 .updateButton:hover {
   background-color: #088f3a; /* Slightly darker green on hover */
 }
+
+.commentFooter {
+  display: flex;
+  justify-content: space-between; /* Separate left and right groups */
+  align-items: center;
+  padding: 10px 0;
+}
+
+.likesCount {
+  font-size: 14px;
+  color: var(--text-primary); /* Optional: Customize color for likes count */
+  align-self: center;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px; /* Spacing between buttons */
+}
+
+.updateButton {
+  background-color: var(--teal); /* Teal (Update Button) */
+  color: black;
+}
+
+.updateButton:hover {
+  background-color: var(--teal-hover);
+}
+
+.deleteButton {
+  background-color: var(--red); /* Muted red (Delete Button) */
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: (--red-hover);
+}
+
+.likeButton {
+  background-color: var(--accent); /* Neutral color */
+  color: white;
+}
+
+.likeButton.liked {
+  background-color: #4ecccc; /* Match Update Button when liked */
+}
+
+.likeButton:hover {
+  background-color: #555;
+}
