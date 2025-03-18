@@ -18,7 +18,7 @@ function SignupFormModal() {
   const checkUsernameExists = async (username) => {
     const response = await fetch(`/api/users/exists?username=${username}`);
     const data = await response.json();
-    return data.exists; // Adjust the response based on your actual API endpoint
+    return data.exists;
   };
 
   useEffect(() => {

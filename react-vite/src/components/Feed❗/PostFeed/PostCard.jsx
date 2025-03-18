@@ -144,7 +144,7 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
                 handleEditClick();
               }}
             >
-              UPDATE
+              ...
             </button>
             <button
               className={styles.deleteButton}
@@ -153,7 +153,7 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
                 handleDelete(e);
               }}
             >
-              DELETE
+              X
             </button>
           </>
         )}

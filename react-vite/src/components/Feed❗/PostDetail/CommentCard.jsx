@@ -9,7 +9,7 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
   const [user, setUser] = useState(null);
   const [likesCount, setLikesCount] = useState(0); // State to track comment likes
   const [liked, setLiked] = useState(false); // Track if the comment is liked
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { setModalContent, openModal } = useModal();
 
   // Fetch the user data when the component mounts
@@ -33,7 +33,9 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
   useEffect(() => {
     const fetchCommentLikes = async () => {
       try {
-        const response = await fetch(`/api/comments/${comment.id}/comment_likes`);
+        const response = await fetch(
+          `/api/comments/${comment.id}/comment_likes`
+        );
         if (response.ok) {
           const data = await response.json();
           setLikesCount(data.comment_likes); // Assuming backend returns a key `comment_likes` with the count
@@ -49,9 +51,12 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
   // Handle the "Like" button click
   const handleLike = async () => {
     try {
-      const response = await fetch(`/api/comments/${comment.id}/comment_likes`, {
-        method: liked ? "DELETE" : "POST", // Toggle between like and unlike
-      });
+      const response = await fetch(
+        `/api/comments/${comment.id}/comment_likes`,
+        {
+          method: liked ? "DELETE" : "POST", // Toggle between like and unlike
+        }
+      );
 
       if (response.ok) {
         const updatedLikes = await response.json();
@@ -64,12 +69,19 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
   };
 
   const handleDelete = () => {
-    setModalContent(<DeleteCommentModal commentId={comment.id} refreshComments={refreshComments} />); // Set the modal content
+    setModalContent(
+      <DeleteCommentModal
+        commentId={comment.id}
+        refreshComments={refreshComments}
+      />
+    ); // Set the modal content
     openModal(); // Open the modal
   };
 
   const handleEdit = () => {
-    setModalContent(<UpdateCommentModal comment={comment} refreshComments={refreshComments} />); // Set the modal content
+    setModalContent(
+      <UpdateCommentModal comment={comment} refreshComments={refreshComments} />
+    ); // Set the modal content
     openModal(); // Open the modal
   };
 
@@ -85,38 +97,46 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
       </div>
       <p className={styles.commentContent}>{comment.content}</p>
       <div className={styles.commentFooter}>
-        <span>{likesCount} Likes</span>
-        {currentUser && currentUser.id === comment.user_id && (
-                  <>
-                    <button
-                      className={styles.updateButton}
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent triggering the PostCard onClick
-                        handleEdit(); // Open the UpdatePostModal
-                      }}
-                    >
-                      UPDATE
-                    </button>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent triggering the PostCard onClick
-                        handleDelete(e); // Trigger delete functionality
-                      }}
-                    >
-                      DELETE
-                    </button>
-                  </>
-        )}
-        {currentUser && (
+  {/* Left-aligned Likes Count with LIKE Button */}
+  <div className={styles.likesSection}>
+    <button
+      onClick={handleLike}
+      className={`${styles.likeButton} ${liked ? styles.liked : ""}`}
+    >
+      {liked ? "UNLIKE" : "LIKE"}
+    </button>
+
+  </div>
+
+  {/* Right-aligned Buttons */}
+  <div className={styles.actionButtons}>
+    {currentUser && currentUser.id === comment.user_id && (
+      <>
         <button
-          onClick={handleLike}
-          className={`${styles.likeButton} ${liked ? styles.liked : ""}`}
+          className={styles.updateButton}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent triggering the PostCard onClick
+            handleEdit(); // Open the UpdateCommentModal
+          }}
         >
-          {liked ? "UNLIKE" : "LIKE"}
+          ...
         </button>
-        )}
-      </div>
+        <button
+          className={styles.deleteButton}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent triggering the PostCard onClick
+            handleDelete(e); // Trigger delete functionality
+          }}
+        >
+          X
+              </button>
+      </>
+    )}
+    <span className={styles.likesCount}>{likesCount} Likes</span>
+  </div>
+</div>
+
+
     </div>
   );
 };
