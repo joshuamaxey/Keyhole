@@ -11,6 +11,7 @@ import communitiesReducer from "./community";
 import postReducer from "./post";
 import commentReducer from "./comment";
 import communityMembershipsReducer from "./communityMemberships";
+import likeReducer from "./like";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   communities: communitiesReducer,
   posts: postReducer,
   comments: commentReducer,
-  communityMemberships: communityMembershipsReducer
+  communityMemberships: communityMembershipsReducer,
+  likes: likeReducer
 });
 
 let enhancer;

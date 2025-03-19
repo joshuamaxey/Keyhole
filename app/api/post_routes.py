@@ -34,7 +34,7 @@ def get_posts_by_community_id(community_id):
     posts = Post.query.filter_by(community_id=community_id).all()
     return jsonify({"posts": [post.to_dict() for post in posts]}), 200
 
-#^ ---------------------------LIKE ROUTE-------------------------------------
+#^ ---------------------------LIKE ROUTES------------------------------------
 
 @post_routes.route('/<int:post_id>/post_likes', methods=['GET'])
 def get_post_likes(post_id):
@@ -48,6 +48,17 @@ def get_post_likes(post_id):
 
     return jsonify({"post_likes": post_likes_count}), 200
 
+@post_routes.route('/<int:post_id>/like-status', methods=['GET'])
+@login_required
+def get_like_status(post_id):
+    """
+    Check if the current user has liked the post
+    """
+    # Query the database to check if the current user has liked the post
+    like = PostLike.query.filter_by(user_id=current_user.id, post_id=post_id).first()
+
+    # Return true if like exists, false otherwise
+    return jsonify({"liked": bool(like)}), 200
 
 #^ --------------------------------------------------------------------------
 
