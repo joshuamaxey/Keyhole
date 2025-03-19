@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./PostCard.module.css";
 import { useModal } from "../../../context/Modal";
 import UpdatePostModal from "../UpdatePostModal";
 import DeletePostModal from "../DeletePostModal";
 import CreateCommentModal from "../CreateCommentModal";
+import { likePostThunk } from "../../../redux/like";
+import { fetchLikeStatusThunk } from "../../../redux/like";
+import { unlikePostThunk } from "../../../redux/like";
+import { fetchPostLikesThunk } from "../../../redux/like";
 
 const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
   const [user, setUser] = useState(null);
   const [community, setCommunity] = useState(null);
   const [commentsCount, setCommentsCount] = useState(0);
-  const [likesCount, setLikesCount] = useState(0);
+  const isLiked = useSelector((state) => {
+    return state.likes.postsLikes[post.id]?.isLiked || false;
+  });
+
+  const likesCount = useSelector((state) =>
+    state.likes.postsLikes[post.id]?.likesCount || 0
+  );
+
   const [refreshTrigger, setRefreshTrigger] = useState(false); // Fixed useState declaration
   const { setModalContent, openModal } = useModal();
+  const dispatch = useDispatch();
 
   // Fetch user and community data when the component mounts
   useEffect(() => {
@@ -54,20 +66,25 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
           const commentsData = await commentsResponse.json();
           setCommentsCount(commentsData.comments.length); // Assuming comments are returned as an array
         }
-
-        // Fetch likes count
-        const likesResponse = await fetch(`/api/posts/${post.id}/post_likes`);
-        if (likesResponse.ok) {
-          const likesData = await likesResponse.json();
-          setLikesCount(likesData.post_likes); // Use "post_likes" key from the backend response
-        }
       } catch (error) {
-        console.error("Error fetching comments or likes:", error);
+        console.error("Error fetching comments:", error);
       }
     };
 
     fetchCommentsAndLikes();
-  }, [post.id, refreshTrigger]); // Added refreshTrigger here
+  }, [post.id, refreshTrigger]); // Only dependent on post and refreshTrigger
+
+  useEffect(() => {
+    if (currentUser) { // Only fetch like status if the user is logged in
+      console.log("Dispatching fetchLikeStatusThunk for post:", post.id);
+      dispatch(fetchLikeStatusThunk(post.id));
+    }
+  }, [dispatch, post.id, currentUser]);
+
+  useEffect(() => {
+    dispatch(fetchPostLikesThunk(post.id)); // Fetch and update likes count for this post
+  }, [dispatch, post.id]);
+
 
   const handleEditClick = () => {
     setModalContent(<UpdatePostModal post={post} />);
@@ -90,6 +107,19 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
     );
     openModal();
   };
+
+  const handleLike = async () => {
+    try {
+      if (isLiked) {
+        await dispatch(unlikePostThunk(post.id)); // Unlike the post
+      } else {
+        await dispatch(likePostThunk(post.id)); // Like the post
+      }
+    } catch (error) {
+      console.error("Error toggling like status:", error);
+    }
+  };
+
 
   return (
     <div className={styles.postCardContainer} onClick={onClick} style={{ cursor: "pointer" }}>
@@ -114,11 +144,15 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
       <div className={styles.postFooter}>
         {currentUser && (
         <button
-          className={styles.likeButton}
-          onClick={(e) => e.stopPropagation()}
-        >
-          LIKE
-        </button>
+        className={styles.likeButton}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleLike(); // Call handleLike when the button is clicked
+        }}
+      >
+        {isLiked ? "UNLIKE" : "LIKE"}
+      </button>
+
         )}
         <div className={styles.postStats}>
           <span>{likesCount} Likes</span>
