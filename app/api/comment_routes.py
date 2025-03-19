@@ -19,6 +19,19 @@ def get_comment_likes(comment_id):
 
     return jsonify({"comment_likes": comment_likes_count}), 200
 
+@comment_routes.route('/<int:comment_id>/like-status', methods=['GET'])
+@login_required
+def get_comment_like_status(comment_id):
+    """
+    Retrieves whether the current authenticated user has liked the specified comment.
+    """
+    # Check if the comment exists
+    comment = Comment.query.get_or_404(comment_id)
+
+    # Check if the current user has liked the comment
+    has_liked = CommentLike.query.filter_by(user_id=current_user.id, comment_id=comment_id).first() is not None
+
+    return jsonify({"liked": has_liked}), 200
 
 @comment_routes.route('/<int:comment_id>/like', methods=['POST'])
 @login_required

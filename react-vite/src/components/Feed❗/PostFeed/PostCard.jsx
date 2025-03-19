@@ -5,26 +5,26 @@ import { useModal } from "../../../context/Modal";
 import UpdatePostModal from "../UpdatePostModal";
 import DeletePostModal from "../DeletePostModal";
 import CreateCommentModal from "../CreateCommentModal";
-import { likePostThunk } from "../../../redux/like";
-import { fetchLikeStatusThunk } from "../../../redux/like";
-import { unlikePostThunk } from "../../../redux/like";
-import { fetchPostLikesThunk } from "../../../redux/like";
+import { likePostThunk } from "../../../redux/postLike";
+import { fetchLikeStatusThunk } from "../../../redux/postLike";
+import { unlikePostThunk } from "../../../redux/postLike";
+import { fetchPostLikesThunk } from "../../../redux/postLike";
 
 const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
   const [user, setUser] = useState(null);
   const [community, setCommunity] = useState(null);
   const [commentsCount, setCommentsCount] = useState(0);
+  const [refreshTrigger, setRefreshTrigger] = useState(false); // Fixed useState declaration
+  const { setModalContent, openModal } = useModal();
+  const dispatch = useDispatch();
+
   const isLiked = useSelector((state) => {
     return state.likes.postsLikes[post.id]?.isLiked || false;
   });
 
-  const likesCount = useSelector((state) =>
-    state.likes.postsLikes[post.id]?.likesCount || 0
+  const likesCount = useSelector(
+    (state) => state.likes.postsLikes[post.id]?.likesCount || 0
   );
-
-  const [refreshTrigger, setRefreshTrigger] = useState(false); // Fixed useState declaration
-  const { setModalContent, openModal } = useModal();
-  const dispatch = useDispatch();
 
   // Fetch user and community data when the component mounts
   useEffect(() => {
@@ -75,7 +75,8 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
   }, [post.id, refreshTrigger]); // Only dependent on post and refreshTrigger
 
   useEffect(() => {
-    if (currentUser) { // Only fetch like status if the user is logged in
+    if (currentUser) {
+      // Only fetch like status if the user is logged in
       console.log("Dispatching fetchLikeStatusThunk for post:", post.id);
       dispatch(fetchLikeStatusThunk(post.id));
     }
@@ -84,7 +85,6 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
   useEffect(() => {
     dispatch(fetchPostLikesThunk(post.id)); // Fetch and update likes count for this post
   }, [dispatch, post.id]);
-
 
   const handleEditClick = () => {
     setModalContent(<UpdatePostModal post={post} />);
@@ -120,12 +120,19 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
     }
   };
 
-
   return (
-    <div className={styles.postCardContainer} onClick={onClick} style={{ cursor: "pointer" }}>
+    <div
+      className={styles.postCardContainer}
+      onClick={onClick}
+      style={{ cursor: "pointer" }}
+    >
       {/* Community Name */}
       <div className={styles.communityName}>
-        {post.community_id === null ? "Keyhole" : community ? community.name : "Loading community..."}
+        {post.community_id === null
+          ? "Keyhole"
+          : community
+          ? community.name
+          : "Loading community..."}
       </div>
 
       {/* Content Row: Avatar and Main Content */}
@@ -143,31 +150,30 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
       {/* Action Buttons */}
       <div className={styles.postFooter}>
         {currentUser && (
-        <button
-        className={styles.likeButton}
-        onClick={(e) => {
-          e.stopPropagation();
-          handleLike(); // Call handleLike when the button is clicked
-        }}
-      >
-        {isLiked ? "UNLIKE" : "LIKE"}
-      </button>
-
+          <button
+            className={styles.likeButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleLike(); // Call handleLike when the button is clicked
+            }}
+          >
+            {isLiked ? "UNLIKE" : "LIKE"}
+          </button>
         )}
         <div className={styles.postStats}>
           <span>{likesCount} Likes</span>
           <span>{commentsCount} Comments</span>
         </div>
         {currentUser && (
-        <button
-          className={styles.commentButton}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleCommentClick();
-          }}
-        >
-          COMMENT
-        </button>
+          <button
+            className={styles.commentButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCommentClick();
+            }}
+          >
+            COMMENT
+          </button>
         )}
         {currentUser && currentUser.id === post.user_id && (
           <>

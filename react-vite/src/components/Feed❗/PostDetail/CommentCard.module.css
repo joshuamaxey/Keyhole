@@ -132,18 +132,27 @@
 }
 
 .deleteButton:hover {
-  background-color: (--red-hover);
+  background-color: var(--red-hover);
 }
 
 .likeButton {
-  background-color: var(--accent); /* Neutral color */
-  color: white;
+  background-color: var(--teal); /* Neutral color */
+  color: black;
+  font-weight: bold;
 }
 
 .likeButton.liked {
-  background-color: #4ecccc; /* Match Update Button when liked */
+  background-color: var(--teal); /* Match Update Button when liked */
 }
 
 .likeButton:hover {
-  background-color: #555;
+  background-color: var(--accent-hover);
+}
+
+.likesSection {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
