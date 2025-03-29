@@ -6,8 +6,6 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask_wtf.csrf import generate_csrf
 
 
-
-
 auth_routes = Blueprint('auth', __name__)
 
 @auth_routes.route('/csrf/restore', methods=["GET"])

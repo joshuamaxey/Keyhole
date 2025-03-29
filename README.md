@@ -1,131 +1,138 @@
-# Flask React Project
+# Keyhole
 
-This is the starter for the Flask React project.
+Link to our live application: https://keyhole-gzof.onrender.com
 
-## Getting started
+[Keyhole](https://keyhole-gzof.onrender.com/) is a blogging and social networking application that allows users to create and share content within communities. The backend of our application is built with Python3 and Flask, using a PostgreSQL database. The frontend is built with React, and we use Redux for creating and managing a normalized global state. Below is an overview of the structure and layout of Keyhole's frontend pages and components. This excerpt from our documentation will guide you through the different sections, highlighting key functionalities. To view the full documentation for the Keyhole application, click [here](https://github.com/joshuamaxey/Keyhole/wiki).
 
-1. Clone this repository (only this branch).
+## Homepage
 
-2. Install dependencies.
+* Main Feed
+* Communities
+* Profile
 
-   ```bash
-   pipenv install -r requirements.txt
-   ```
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/db464602-71f4-4365-bd49-5a1306f5ba96" />
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+### Keyhole Homepage Functionality
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
+**Overview:**
+Keyhole is designed to be a truly 'single-page' application, ensuring a seamless and user-friendly experience. The Homepage includes three primary components: the Feed, Communities, and Profile. These components work together to provide users with easy access to posts, communities, and their own profile information.
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
+### Components:
 
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
+#### 1. Feed:
+- **Purpose**: Displays posts from Keyhole users and allows user to post.
+- **Default Behavior**: Allows users to post. Posts from communities the user belongs to are shown at the top of the feed, followed by other posts.
+- **Interactions**:
+  - **Create Post Card**: Users can post content to Keyhole and to a chosen community.
+  - **LIKE and COMMENT Buttons**: Users can like or comment on any post in the feed.
+  - **Post Card**: Clicking on a Post Card changes the feed to display that Post Detail Page.
+  - **Community 'VIEW' Button**: Clicking this filters the feed to show posts belonging to that community only.
 
-   ```bash
-   pipenv shell
-   ```
+#### 2. Communities:
+- **Purpose**: Shows a list of Keyhole communities.
+- **Default Behavior**: Communities the user belongs to are shown at the top of the list for easier access.
+- **Interactions**:
+  - **VIEW Button**: Shifts the feed to show the community's detail page.
+  - **JOIN Button**: Users can join or leave a community. Joining a community means that posts in that community will show in a user's feed.
 
-   ```bash
-   flask db upgrade
-   ```
+#### 3. Profile:
+- **Purpose**: Displays the current user's information.
+- **Content**:
+  - **Icon and Name**: Shows the user's profile icon and name.
+  - **Bio Preview**: A brief preview of the user's bio.
+  - **Statistics**: Displays follower and following counts.
+  - **Edit Button**: Allows the user to edit their bio.
 
-   ```bash
-   flask seed all
-   ```
+### Navigation:
+- **Nav Bar**:
+  - **Community Name**: If a community view has been selected, that community's name is shown on the Nav
+  - **Keyhole Logo**: Displays "Keyhole" over the general feed if no community view has been selected.
+  - **Dropdown Menu**:
+    - **Not Logged In**: Options to log in or sign up.
+    - **Logged In**: Options to log out or create a community.
 
-   ```bash
-   flask run
-   ```
+### Summary:
+The Keyhole homepage is designed to provide a consistent and intuitive user experience, allowing users to easily navigate between posts, communities, and profile details without leaving the main page. The single-page application approach enhances performance and ensures seamless interactions.
 
-7. The React frontend has no styling applied. Copy the __.css__ files from your
-   Authenticate Me project into the corresponding locations in the
-   __react-vite__ folder to give your project a unique look.
 
-8. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+## Post Detail
 
-## Deployment through Render.com
+> Clicking on a Post Card will shift the feed to display the Post Detail page. The Post Detail page provides a full view of the content of the post, including the number of likes and comments. Comments related to the post will be displayed beneath the post. If the post belongs to the current user, EDIT and DELETE buttons will also be present, allowing the user to modify or remove their post.
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+* Post Detail
+* Communities
+* Profile
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/cb332272-648c-4e7b-be03-343bcac461b4" />
 
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
+## Community Detail
 
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
+> Clicking the 'VIEW' button on one of the community cards will navigate to that community's detail page. While on a community detail page, the feed will only show posts from that community. Clicking the 'x' button on the left side of the nav will exit the community's detail page and return to the regular feed.
 
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
+* Community Detail
+* Communities
+* Profile
 
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/6d8421f0-43d9-40de-8d8a-082cdf3033ab" />
 
-Start by giving your application a name.
+## Profile Detail
 
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
+> When a user clicks on their own Profile Card or the Profile Icon of another user, the feed will shift to display the Profile Detail page. This view shows the user's full bio, profile icon, name, and statistics (followers and following count). If the profile belongs to the current user, an EDIT button will be available to allow them to modify their bio. Below the Profile Detail card, a list of the selected user's posts will be displayed. If the user is viewing their own Profile Detail page, they will see an EDIT button on the Profile Detail car. If they're viewing another user's Profile Detail page, they will see a FOLLOW / UNFOLLOW button instead.
 
-Select "Free" as your Instance Type.
+* Profile Detail
+* Communities
+* Profile
 
-### Add environment variables
+### Current User
 
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/7ed1e962-b45f-49a1-8c6b-8042a8b371d3" />
 
-Add the following keys and values in the Render GUI form:
+### Another User
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/fd52dd4a-27a1-42ce-9f6e-a435b046e8a7" />
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+## Modals
 
-Add the following keys and values:
+> Most of the create, edit, and delete functionalities within the Keyhole application are handled using modals. These functionalities include signing up and logging in, creating a comment or community, editing a post, comment, community, or the user's bio, and deleting a post, comment, or community. Creating posts is managed by the Create Post card on the main feed, so there is no modal for post creation. Logging out is handled with a single click of the LOG OUT button, so there is no modal involved.
 
-- DATABASE_URL (copy value from the **External Database URL** field)
+### Login and Signup
 
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
+> Note that the only parameters required for signup and login are username and password. Username is generated automatically, so password is the only parameter that the user is actually required to enter.
 
-### Deploy
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/37f67587-d155-43a8-805d-66ffbd163c0b" />
 
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
+### Create a Comment or Community
 
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/1ad4fb73-0c4e-4ab2-8cc2-c39a7630ffd4" />
 
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
+### Edit Post, Comment, Community, or Profile (bio)
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/e4aa0265-3252-4b5e-ac27-28e29f18927a" />
+
+### Delete Post, Comment, or Community
+
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/83333c36-5c5d-4c25-b495-cb7ef3e8853d" />
+
+## Color Scheme
+
+Dark Theme Color Palette
+
+1. Deep Charcoal (Primary Background)
+    - Hex: #121212
+    - Description: A solid black-gray tone that’s perfect for the app's main background. It provides a modern, minimalist foundation.
+
+2. Slate Blue-Gray (Secondary Background or Card Backgrounds)
+    - Hex: #1E1E2E
+    - Description: A subtle blue-gray tone for cards, modals, or secondary sections, adding just enough contrast without overwhelming.
+
+3. Steel Gray (Text or Muted Borders)
+    - Hex: #474A57
+    - Description: A medium-gray with a slightly metallic edge, perfect for neutral text, icons, or border lines.
+
+4. Cool Light Gray (Highlight Text or Muted Elements)
+    - Hex: #A1A6B0
+    - Description: A soft light gray for secondary text, dividers, or muted UI elements to ensure readability.
+
+5. Electric Blue (Accent or Interactive Elements)
+    - Hex: #007BFF
+    - Description: A vibrant blue to make buttons, links, and interactive components pop on the dark background.
