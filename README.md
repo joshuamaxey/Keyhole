@@ -1,7 +1,5 @@
 # Keyhole
 
-Link to our live application: https://keyhole-gzof.onrender.com
-
 [Keyhole](https://keyhole-gzof.onrender.com/) is a blogging and social networking application that allows users to create and share content within communities. The backend of our application is built with Python3 and Flask, using a PostgreSQL database. The frontend is built with React, and we use Redux for creating and managing a normalized global state. Below is an overview of the structure and layout of Keyhole's frontend pages and components. This excerpt from our documentation will guide you through the different sections, highlighting key functionalities. To view the full documentation for the Keyhole application, click [here](https://github.com/joshuamaxey/Keyhole/wiki).
 
 ## Homepage
