@@ -1,8 +1,8 @@
 .compact { display: flex; align-items: center; gap: 11px; border: 1px solid transparent; background: transparent; text-align: left; width: 100%; padding: 10px 8px; }
 .compact:hover, .selected { background: var(--secondary-bg); border-color: var(--border); }
-.icon { flex-shrink: 0; display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; color: #b6c5ad; background: #303b30; font-size: 18px; }
-.icon[data-tone="1"] { background: #353040; color: #c7b9dc; }
-.icon[data-tone="2"] { background: #40362b; color: #dfbe8e; }
+.icon { flex-shrink: 0; display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; color: var(--avatar-text); background: var(--avatar-bg); font-size: 18px; }
+.icon[data-tone="1"] { background: #303653; color: #c4cef5; }
+.icon[data-tone="2"] { background: #243e50; color: #a7d4ed; }
 .compactText { min-width: 0; display: grid; gap: 5px; }
 .compactText strong { font-size: 12px; font-weight: 500; line-height: 1.4; }
 .compactText small { color: var(--text-secondary); font-size: 10px; font-weight: 400; }

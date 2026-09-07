@@ -2,7 +2,7 @@
 .commentHeader { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 .commentAuthor { font-size: 12px; font-weight: 600; color: var(--text-primary); }
 .commentDate { font-size: 10px; color: var(--text-secondary); }
-.commentContent { color: #dedfd5; font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
+.commentContent { color: var(--text-body); font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
 .commentFooter, .likesSection, .actionButtons { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .commentFooter { justify-content: space-between; }
 .likesCount { font-size: 11px; color: var(--text-secondary); }

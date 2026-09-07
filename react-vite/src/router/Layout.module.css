@@ -8,6 +8,19 @@
 .explore { margin-left: auto; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--text-primary); text-decoration: none; }
 .layoutContainer { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 56px; max-width: 1240px; margin: auto; padding: 40px 36px 72px; align-items: start; }
 .sidebar { min-width: 0; }
+@media (min-width: 701px) {
+  .sidebar {
+    position: sticky;
+    top: 12px;
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+    /* Leave room for keyboard focus outlines inside the scroll area. */
+    padding: 6px;
+    margin: -6px;
+  }
+  .sidebarNote { margin-bottom: 0; }
+}
 .homeLink { display: flex; align-items: center; gap: 12px; width: 100%; margin: 18px 0 32px; padding: 13px 16px; text-align: left; background: transparent; border-color: transparent; }
 .homeLink span { margin-left: auto; }
 .active { background: var(--accent-soft); color: var(--accent); border-color: var(--accent-border); }
