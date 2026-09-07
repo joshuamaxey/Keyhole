@@ -1,133 +1,18 @@
-/* Main PostCard Container */
-.postCardContainer {
-  width: 100%; /* Keep the full width of the parent container */
-  border: 1px solid var(--text-primary); /* Subtle border with medium gray */
-  border-radius: 8px; /* Smooth rounded corners */
-  background-color: var(--secondary-bg); /* Blue-gray background for the card */
-  padding: 10px;
-  /* margin-bottom: 16px; */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
-  box-sizing: border-box; /* Include padding in dimensions */
-  align-self: center;
-  color: var(--text-secondary); /* Light gray for content text */
-}
-
-/* Community Name */
-.communityName {
-  font-size: 14px;
-  font-weight: bold;
-  color: var(--accent); /* Bright blue for community name */
-  text-align: center; /* Center-align the community name */
-  margin-bottom: 12px;
-}
-
-/* Content Row */
-.contentRow {
-  display: flex;
-  align-items: flex-start;
-  /* gap: 16px; */
-  margin-bottom: 12px;
-}
-
-/* Avatar */
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%; /* Fully round avatar */
-  background-color: var(--primary-bg); /* Dark background for the avatar */
-  color: var(--text-secondary); /* Light gray for initials */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* Content Section */
-.content {
-  flex-grow: 1; /* Allow content to take up the remaining space */
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--text-secondary) !important;/* Light gray for post content */
-}
-
-/* Author Name */
-.authorName {
-  font-size: 14px;
-  font-weight: bold;
-  color: var(--text-primary); /* Medium gray for author name */
-  margin-bottom: 12px;
-  text-align: center; /* Center-align the author's name */
-}
-
-/* Footer Section (Buttons) */
-.postFooter {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-/* Post Statistics */
-.postStats {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  font-size: 14px;
-  color: var(--text-primary); /* Medium gray for stats */
-}
-
-/* Action Buttons */
-.likeButton,
-.commentButton,
-.updateButton,
-.deleteButton {
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #fff; /* White text for buttons */
-  border: none;
-  border-radius: 4px; /* Rounded button edges */
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.likeButton {
-  background-color: var(--accent); /* Bright blue for Like button */
-}
-
-.likeButton:hover {
-  background-color: var(--accent-hover); /* Darker blue on hover */
-}
-
-.commentButton {
-  background-color: var(--accent); /* Same bright blue for consistency */
-}
-
-.commentButton:hover {
-  background-color: var(--accent-hover);
-}
-
-.updateButton {
-  background-color: var(--teal); /* Vibrant green for Update button */
-  color: black
-}
-
-.updateButton:hover {
-  background-color: var(--teal-hover); /* Slightly darker green on hover */
-}
-
-.deleteButton {
-  background-color: var(--red); /* Bright red for Delete button */
-}
-
-.deleteButton:hover {
-  background-color: var(--red-hover); /* Darker red on hover */
-}
-
-.CONTENT {
-  color: var(--text-secondary)
-}
+.postCardContainer { padding: 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--secondary-bg); transition: border-color .15s; overflow-wrap: anywhere; }
+.postCardContainer:hover { border-color: #56604f; }
+.postHeader { display: flex; align-items: center; gap: 11px; }
+.avatar { width: 38px; height: 38px; border-radius: 50%; background: #354133; color: #c3d6b6; display: grid; place-items: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.byline { display: grid; gap: 5px; min-width: 0; }
+.authorName { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.communityName { font-size: 11px; color: var(--accent); }
+.date { margin-left: auto; color: var(--text-secondary); font-size: 11px; flex-shrink: 0; }
+.CONTENT { font-size: 15px; line-height: 1.8; margin: 20px 0 14px; white-space: pre-wrap; color: #dedfd5; }
+.readButton { padding: 5px 0; border: 0; background: transparent; color: var(--accent); font-size: 11px; font-weight: 500; }
+.readButton:hover { background: transparent; color: var(--accent-hover); }
+.postFooter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; border-top: 1px solid var(--border); padding-top: 14px; margin-top: 18px; }
+.postFooter button { background: transparent; border-color: transparent; color: var(--text-secondary); font-size: 11px; padding: 7px 8px; }
+.postFooter button:hover { background: var(--surface-raised); color: var(--text-primary); }
+.postFooter .likeButton[aria-pressed="true"] { color: var(--accent); background: var(--accent-soft); }
+.postStats { display: flex; gap: 12px; font-size: 10px; color: var(--text-secondary); margin-right: auto; }
+.postFooter .deleteButton:hover { color: var(--red); }
+@media (max-width: 700px) { .postCardContainer { padding: 18px; } .CONTENT { font-size: 14px; } .postStats { gap: 8px; } }

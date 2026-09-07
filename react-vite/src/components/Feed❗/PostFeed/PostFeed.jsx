@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPostsThunk } from "../../../redux/post";
-import { fetchCommunityMembershipsThunk } from "../../../redux/communityMemberships";
+
 import styles from "./PostFeed.module.css";
 import PostCard from "./PostCard";
 
@@ -24,13 +24,6 @@ const PostFeed = ({ onPostClick, currentUser }) => {
     }
   }, [status, dispatch]);
 
-  // Fetch community memberships when a user logs in
-  useEffect(() => {
-    if (currentUser) {
-      dispatch(fetchCommunityMembershipsThunk(currentUser.id));
-    }
-  }, [dispatch, currentUser]); // Add communityMemberships here
-
   const filteredPosts = currentUser
   ? posts.filter(
       (post) =>
@@ -42,10 +35,10 @@ const PostFeed = ({ onPostClick, currentUser }) => {
   return (
     <div className={styles.postFeedContainer}>
       {/* Handle loading state */}
-      {status === "loading" && <p>Loading posts...</p>}
+      {status === "loading" && <p className="empty-state" role="status">Gathering the latest stories…</p>}
 
       {/* Handle error state */}
-      {status === "failed" && <p>Error: {error}</p>}
+      {status === "failed" && <div className="empty-state" role="alert"><p>We couldn’t load the feed. {error}</p><button onClick={() => dispatch(fetchPostsThunk())}>Try again</button></div>}
 
       {/* Render filtered posts if fetching succeeded */}
       {status === "succeeded" && filteredPosts.length > 0 &&

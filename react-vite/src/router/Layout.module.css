@@ -1,46 +1,22 @@
-/* Layout.module.css */
-
-/* Layout Container */
-.layoutContainer {
-  display: grid;
-  grid-template-areas:
-    "profile feed"
-    "communities feed";
-  grid-template-columns: auto 1fr; /* Profile/Communities on one side, Feed taking remaining space */
-  grid-template-rows: auto auto;
-  gap: 96px; /* Spacing between the components */
-  max-width: 1920px;
-  height: 1080px;
-  margin: 0 auto; /* Center the entire layout horizontally */
-  padding: 96px; /* Outer Spacing */
-  box-sizing: border-box; /* Include padding in max dimensions */
-  background-color: var(--primary-bg); /* Apply the primary dark background */
-  border: none; /* Remove the red border */
-}
-
-/* Profile Section */
-.profile {
-  grid-area: profile; /* Assign to the top-left area */
-  background-color: var(--secondary-bg); /* Optional: Add a slight contrast */
-  border-radius: 8px; /* Match the rounded theme */
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-}
-
-/* Communities Section */
-.communities {
-  grid-area: communities; /* Assign to the bottom-left area */
-  background-color: var(--secondary-bg); /* Optional contrast */
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-}
-
-/* Feed Section */
-.feed {
-  grid-area: feed; /* Assign to the right side */
-  background-color: var(--secondary-bg); /* Optional contrast */
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-}
+.header { border-bottom: 1px solid var(--border); background: var(--primary-bg); }
+.headerInner { max-width: 1240px; margin: auto; padding: 24px 36px; display: flex; align-items: center; gap: 32px; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 0; background: transparent; border: 0; color: var(--text-primary); font: bold 32px Georgia, serif; letter-spacing: -1.5px; }
+.brand:hover { background: transparent; color: var(--accent); }
+.brandMark { display: grid; place-items: center; width: 35px; height: 40px; border: 1px solid var(--accent); border-radius: 18px 18px 7px 7px; color: var(--accent); font-size: 19px; }
+.brandDot { color: var(--accent); margin-left: -10px; }
+.tagline { color: var(--text-secondary); font-size: 13px; }
+.explore { margin-left: auto; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--text-primary); text-decoration: none; }
+.layoutContainer { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 56px; max-width: 1240px; margin: auto; padding: 40px 36px 72px; align-items: start; }
+.sidebar { min-width: 0; }
+.homeLink { display: flex; align-items: center; gap: 12px; width: 100%; margin: 18px 0 32px; padding: 13px 16px; text-align: left; background: transparent; border-color: transparent; }
+.homeLink span { margin-left: auto; }
+.active { background: var(--accent-soft); color: var(--accent); border-color: var(--accent-border); }
+.sectionHeading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.sectionHeading h2 { font-size: 14px; font-weight: 600; margin: 0; }
+.sectionHeading span { font-size: 11px; color: var(--text-secondary); }
+.communities { scroll-margin-top: 24px; }
+.profile { margin-top: 28px; border-top: 1px solid var(--border); padding-top: 24px; }
+.sidebarNote { color: var(--text-secondary); font: italic 14px/1.7 Georgia, serif; margin-top: 24px; }
+.feed { min-width: 0; scroll-margin-top: 24px; }
+@media (max-width: 1000px) { .layoutContainer { gap: 28px; grid-template-columns: 230px minmax(0, 1fr); padding: 28px 24px; } .headerInner { padding: 20px 24px; } .tagline { display: none; } }
+@media (max-width: 700px) { .headerInner { padding: 18px 20px; } .brand { font-size: 28px; } .explore { font-size: 12px; } .layoutContainer { display: flex; flex-direction: column; padding: 24px 18px 48px; gap: 28px; } .sidebar { width: 100%; display: grid; grid-template-columns: 1fr; } .sidebar > :global(.eyebrow), .homeLink, .sidebarNote { display: none; } .communities { order: 2; margin-top: 22px; } .profile { margin: 0; padding: 0; border: 0; } .feed { width: 100%; } }

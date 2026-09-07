@@ -1,113 +1,15 @@
-/* CommunityCard.module.css */
-.card {
-  border: 1px solid var(--text-primary); /* Medium gray border */
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: var(--secondary-bg); /* Secondary background */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some depth */
-}
-
-/* Community Name */
-.name {
-  margin: 0 0 5px 0;
-  font-size: 20px;
-  color: var(--text-secondary); /* Light gray for headings */
-}
-
-/* Community Description */
-.description {
-  font-size: 16px;
-  color: var(--text-secondary); /* Light gray for text */
-  margin: 0 0 10px 0;
-}
-
-/* Members Count */
-.members {
-  font-size: 14px;
-  color: var(--text-primary); /* Medium gray for secondary details */
-  margin: 0 0 10px 0;
-}
-
-/* Buttons Container */
-.buttons {
-  display: flex;
-  gap: 10px;
-}
-
-/* View Button */
-.buttonView {
-  padding: 5px 10px;
-  background-color: var(--accent); /* Electric blue */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  height: 30px;
-  width: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.2s ease;
-}
-
-.buttonView:hover {
-  background-color: #0056b3; /* Slightly darker blue for hover state */
-}
-
-.buttonView:active {
-  background-color: #003f7f; /* Even darker blue for active state */
-}
-
-/* Join Button */
-.buttonJoin {
-  padding: 5px 10px;
-  background-color: var(--teal); /* Vibrant green for the join button */
-  color: black;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  height: 30px;
-  width: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.2s ease;
-}
-
-.buttonJoin:hover {
-  background-color: var(--teal-hover); /* Slightly darker green for hover state */
-}
-
-.buttonJoin:active {
-  background-color: #1c7430; /* Even darker green for active state */
-}
-
-.buttonLeave {
-  padding: 5px 10px;
-  background-color: var(--red); /* Vibrant green for the join button */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  height: 30px;
-  width: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.2s ease;
-}
-
-.buttonLeave:hover {
-  background-color: var(--red-hover); /* Slightly darker green for hover state */
-}
-
-.buttonLeave:active {
-  background-color: #ff0000; /* Even darker green for active state */
-}
+.compact { display: flex; align-items: center; gap: 11px; border: 1px solid transparent; background: transparent; text-align: left; width: 100%; padding: 10px 8px; }
+.compact:hover, .selected { background: var(--secondary-bg); border-color: var(--border); }
+.icon { flex-shrink: 0; display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; color: #b6c5ad; background: #303b30; font-size: 18px; }
+.icon[data-tone="1"] { background: #353040; color: #c7b9dc; }
+.icon[data-tone="2"] { background: #40362b; color: #dfbe8e; }
+.compactText { min-width: 0; display: grid; gap: 5px; }
+.compactText strong { font-size: 12px; font-weight: 500; line-height: 1.4; }
+.compactText small { color: var(--text-secondary); font-size: 10px; font-weight: 400; }
+.arrow { flex-shrink: 0; margin-left: auto; color: var(--text-secondary); font-size: 13px; }
+.card { background: var(--secondary-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.name { font: normal 26px Georgia, serif; margin: 14px 0; }
+.description { color: var(--text-secondary); font-size: 14px; }
+.buttons { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; }
+.members { color: var(--text-secondary); font-size: 12px; }
+@media (max-width: 700px) { .compact { width: 205px; flex-shrink: 0; border-color: var(--border); background: var(--secondary-bg); } .card { padding: 20px; } }

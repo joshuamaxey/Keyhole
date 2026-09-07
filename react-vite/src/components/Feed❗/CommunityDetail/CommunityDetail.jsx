@@ -1,86 +1,28 @@
-// CommunityDetail.js
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleCommunityThunk } from "../../../redux/community";
+import { fetchPostsThunk } from "../../../redux/post";
 import CommunityCard from "../../Communities❗/CommunityCard";
-import PostCard from "../PostFeed/PostCard"; // Import PostCard
+import PostCard from "../PostFeed/PostCard";
 import styles from "./CommunityDetail.module.css";
 
-const CommunityDetail = ({ communityId, onBack, onPostClick }) => {
+export default function CommunityDetail({ communityId, onBack, onPostClick, composer }) {
   const dispatch = useDispatch();
-  const posts = useSelector((state) =>
-    state.posts.posts.filter((post) => post.community_id === communityId)
-  );
-  const community = useSelector((state) => state.communities[communityId]); // Fetch community from Redux
-  const currentUser = useSelector((state) => state.session.user); // Fetch the current user
-  const communityMemberships = useSelector((state) => state.communityMemberships);
-  const communityMembershipIds = communityMemberships.map((community) => community.id);
-
-
-  useEffect(() => {
-    // Fetch community details when the component mounts
-    dispatch(fetchSingleCommunityThunk(communityId));
-    fetchPosts(); // Fetch posts for the community
-  }, [dispatch, communityId]);
-
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(`/api/posts/community/${communityId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setPosts(data.posts); // Update posts state
-      } else {
-        console.error("Failed to fetch posts for the community.");
-      }
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
-  };
-
-  const refreshPosts = async () => {
-    // Refresh the posts dynamically
-    await fetchPosts();
-  };
-
-  if (!community) return <p>Loading community details...</p>; // Placeholder for loading
-
-  return (
-    <div className={styles.communityDetailContainer}>
-      {/* Back Button */}
-      <button onClick={onBack} className={styles.backButton}>
-        Back
-      </button>
-
-      {/* CommunityCard for the community */}
-      <div className={styles.communityCardWrapper}>
-        <CommunityCard
-          id={community.id} // Pass the community ID
-          name={community.name}
-          description={community.description}
-          members={community.members.length}
-          isMember={communityMembershipIds.includes(community.id)} // Check if user is a member
-        />
-      </div>
-
-      {/* Posts for the community */}
-      <div className={styles.postsWrapper}>
-        {posts.length > 0 ? (
-          posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              currentUser={currentUser}
-              refreshPosts={refreshPosts} // Pass the refresh function
-              onClick={() => onPostClick(post)}
-            />
-          ))
-        ) : (
-          <p>No posts in this community yet.</p>
-        )}
-      </div>
-    </div>
-  );
-
-};
-
-export default CommunityDetail;
+  const allPosts = useSelector(state => state.posts.posts);
+  const status = useSelector(state => state.posts.status);
+  const community = useSelector(state => state.communities[communityId]);
+  const currentUser = useSelector(state => state.session.user);
+  const memberships = useSelector(state => state.communityMemberships);
+  useEffect(() => { if (status === "idle") dispatch(fetchPostsThunk()); }, [dispatch, status]);
+  if (!community) return <p role="status">Loading community…</p>;
+  const posts = allPosts.filter(post => post.community_id === communityId);
+  return <div className={styles.communityDetailContainer}>
+    <button onClick={onBack} className={styles.backButton}>← Home feed</button>
+    <CommunityCard {...community} members={community.members?.length || 0} isMember={memberships.some(item => item.id === communityId)} />
+    {composer}
+    <h2 className={styles.postsHeading}>Community conversations</h2>
+    {status === "loading" && <p className="empty-state" role="status">Loading conversations…</p>}
+    {status === "failed" && <div className="empty-state" role="alert"><p>Couldn’t load conversations.</p><button onClick={() => dispatch(fetchPostsThunk())}>Try again</button></div>}
+    <div className={styles.postsWrapper}>{posts.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} onClick={() => onPostClick(post)} />)}</div>
+    {status === "succeeded" && !posts.length && <p className="empty-state">No conversations yet. {composer ? "Start one above." : "Join this community to share the first thought."}</p>}
+  </div>;
+}

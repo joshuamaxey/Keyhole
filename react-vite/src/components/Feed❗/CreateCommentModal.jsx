@@ -27,8 +27,9 @@ const CreateCommentModal = ({ postId, refreshComments }) => {
 
       return (
         <div className={styles.commentModalContainer}>
-          <form onSubmit={handleSubmit} className={styles.commentForm}>
-            <textarea
+          <h2>Join the conversation</h2>
+      <form onSubmit={handleSubmit} className={styles.commentForm}>
+            <textarea aria-label="Comment"
               className={styles.inputField}
               value={content}
               onChange={(e) => setContent(e.target.value)}

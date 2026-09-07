@@ -1,53 +1,33 @@
-import React from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { FiArrowUpRight, FiHash, FiCheck } from "react-icons/fi";
 import { joinCommunityThunk, leaveCommunityThunk } from "../../redux/communityMemberships";
+import { fetchCommunityMembersThunk } from "../../redux/community";
 import styles from "./CommunityCard.module.css";
 
-const CommunityCard = ({ id, name, description, members, isMember, onView }) => {
+export default function CommunityCard({ id, name, description, members, isMember, onView, compact, selected }) {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.session.user); // Subscribe to session slice
-
-  const handleJoin = () => {
-    dispatch(joinCommunityThunk(id)); // Dispatch JOIN thunk
+  const currentUser = useSelector(state => state.session.user);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const toggleMembership = async () => {
+    setBusy(true); setError("");
+    try {
+      await dispatch(isMember ? leaveCommunityThunk(id) : joinCommunityThunk(id));
+      await dispatch(fetchCommunityMembersThunk(id));
+    } catch { setError("Couldn’t update membership. Please try again."); }
+    finally { setBusy(false); }
   };
-
-  const handleLeave = () => {
-    dispatch(leaveCommunityThunk(id)); // Dispatch LEAVE thunk
-  };
-
-  return (
-    <div className={styles.card}>
-      {/* Community Name */}
-      <h3 className={styles.name}>{name}</h3>
-
-      {/* Community Description */}
-      <p className={styles.description}>{description}</p>
-
-      {/* Member Count */}
-      <p className={styles.members}>Members: {members}</p>
-
-      {/* Buttons - Only render if there is a logged-in user */}
-      <div className={styles.buttons}>
-        <button
-          className={styles.buttonView}
-          onClick={onView} // Trigger the onView prop when clicked
-        >
-          VIEW
-        </button>
-        {currentUser && ( // Conditionally render JOIN/LEAVE buttons
-          isMember ? (
-            <button className={styles.buttonLeave} onClick={handleLeave}>
-              LEAVE
-            </button>
-          ) : (
-            <button className={styles.buttonJoin} onClick={handleJoin}>
-              JOIN
-            </button>
-          )
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default CommunityCard;
+  if (compact) return <button className={`${styles.compact} ${selected ? styles.selected : ""}`} onClick={onView} aria-current={selected ? "page" : undefined}>
+    <span className={styles.icon} data-tone={id % 3}><FiHash aria-hidden="true" /></span>
+    <span className={styles.compactText}><strong>{name}</strong><small>{isMember ? "Joined" : `${members} members`}</small></span>
+    {isMember ? <FiCheck className={styles.arrow} aria-label="Joined" /> : <FiArrowUpRight className={styles.arrow} aria-hidden="true" />}
+  </button>;
+  return <section className={styles.card}>
+    <span className={styles.icon} data-tone={id % 3}><FiHash aria-hidden="true" /></span>
+    <h2 className={styles.name}>{name}</h2>
+    <p className={styles.description}>{description}</p>
+    <div className={styles.buttons}><span className={styles.members}>{members} members</span>{currentUser && <button disabled={busy} onClick={toggleMembership}>{busy ? "Updating…" : isMember ? "Leave community" : "Join community"}</button>}</div>
+    {error && <p role="alert">{error}</p>}
+  </section>;
+}

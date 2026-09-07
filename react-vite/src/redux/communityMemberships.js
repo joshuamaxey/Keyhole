@@ -37,58 +37,21 @@ export const fetchCommunityMembershipsThunk = (userId) => async (dispatch) => {
 };
 
 export const joinCommunityThunk = (communityId) => async (dispatch, getState) => {
-    try {
-      const response = await fetch(`/api/communities/${communityId}/join`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-TOKEN": Cookies.get("XSRF-TOKEN"),
-        },
-      });
+  const response = await fetch(`/api/communities/${communityId}/join`, {
+    method: "POST", headers: { "X-CSRF-TOKEN": Cookies.get("XSRF-TOKEN") },
+  });
+  if (!response.ok) throw new Error("Unable to join community");
+  await dispatch(fetchCommunityMembershipsThunk(getState().session.user.id));
+};
 
-      if (response.ok) {
-        const data = await response.json();
-        dispatch(joinCommunity(data)); // Update Redux state
-        // Optionally refetch memberships to ensure complete synchronization
-        const userId = getState().session.user.id;
-        dispatch(fetchCommunityMembershipsThunk(userId));
-      } else {
-        const error = await response.json();
-        console.error("Failed to join the community:", error.message);
-      }
-    } catch (err) {
-      console.error("Error joining the community:", err);
-    }
-  };
-
-
-  export const leaveCommunityThunk = (communityId) => async (dispatch, getState) => {
-    try {
-      const response = await fetch(`/api/communities/${communityId}/leave`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-TOKEN": Cookies.get("XSRF-TOKEN"),
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.message); // Optional: Log the success message
-        dispatch(leaveCommunity(communityId)); // Remove the community from Redux state
-
-        // Re-fetch memberships to ensure synchronization
-        const userId = getState().session.user.id;
-        dispatch(fetchCommunityMembershipsThunk(userId));
-      } else {
-        const error = await response.json();
-        console.error("Failed to leave the community:", error.message);
-      }
-    } catch (err) {
-      console.error("Error leaving the community:", err);
-    }
-  };
-
+export const leaveCommunityThunk = (communityId) => async (dispatch, getState) => {
+  const response = await fetch(`/api/communities/${communityId}/leave`, {
+    method: "DELETE", headers: { "X-CSRF-TOKEN": Cookies.get("XSRF-TOKEN") },
+  });
+  if (!response.ok) throw new Error("Unable to leave community");
+  dispatch(leaveCommunity(communityId));
+  await dispatch(fetchCommunityMembershipsThunk(getState().session.user.id));
+};
 
 // Reducer
 const initialState = [];

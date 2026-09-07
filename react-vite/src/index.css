@@ -1,50 +1,44 @@
-/* TODO: Add sitewide styles */
 :root {
-    --primary-bg: #121212; /* Deep Charcoal */
-    --secondary-bg: #1E1E2E; /* Slate Blue-Gray */
-    --text-primary: #474A57; /* Steel Gray */
-    --text-secondary: #A1A6B0; /* Cool Light Gray */
-    --accent: #007BFF; /* Electric Blue */
-    --accent-hover: #0056b3;
-    --teal: #00aaff;
-    --teal-hover: #3aa3a3;
-    --red: #cc4444;
-    --red-hover: #aa3333;
-  }
-
-  * {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  html, body {
-    background-color: var(--primary-bg); /* Set the dark background globally */
-    margin: 0; /* Remove default spacing */
-    height: 100%; /* Ensure it spans the full viewport height */
-  }
-
-  body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure the body fills the entire viewport height */
-  }
-
-  /* General scrollbar styling for all scrollable elements */
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  color-scheme: dark;
+  --primary-bg: #151817;
+  --secondary-bg: #1d211f;
+  --surface-raised: #252a27;
+  --text-primary: #f0eee6;
+  --text-secondary: #adb4ac;
+  --border: #363d36;
+  --accent: #e9bb76;
+  --accent-hover: #f3cc94;
+  --accent-soft: #302b22;
+  --accent-border: #5c4c32;
+  --teal: #e9bb76;
+  --teal-hover: #f3cc94;
+  --red: #ec9b90;
+  --red-hover: #ffc1b9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  color: var(--text-primary);
+  background: var(--primary-bg);
 }
-
-*::-webkit-scrollbar-thumb {
-  background-color: var(--secondary-bg);
-  border-radius: 4px;
-  border: 2px solid white
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background-color: var(--accent);
-}
-
-*::-webkit-scrollbar-track {
-  background-color: var(--secondary-bg);
-  border-radius: 4px;
-}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, input, textarea { font: inherit; }
+button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; background: var(--surface-raised); color: var(--text-primary); font-size: 13px; font-weight: 600; transition: background-color .15s, border-color .15s, color .15s; }
+button:hover { background: #303831; border-color: #626d60; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+button svg { vertical-align: middle; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+input, textarea { width: 100%; background: var(--primary-bg); color: var(--text-primary); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+textarea { resize: vertical; line-height: 1.6; }
+input::placeholder, textarea::placeholder { color: #969e94; }
+h1, h2, h3, p { overflow-wrap: anywhere; }
+p { line-height: 1.65; }
+::selection { background: #725732; color: white; }
+.eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 1.7px; font-weight: 700; color: var(--text-secondary); margin: 0; }
+.empty-state { text-align: center; padding: 38px 22px; border: 1px dashed var(--border); border-radius: 12px; color: var(--text-secondary); }
+.empty-state h1, .empty-state h2 { color: var(--text-primary); }
+.skip-link { position: fixed; top: -80px; left: 20px; padding: 12px 18px; background: var(--accent); color: var(--primary-bg); z-index: 200; }
+.skip-link:focus { top: 12px; }
+* { scrollbar-width: thin; scrollbar-color: #495246 var(--primary-bg); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }

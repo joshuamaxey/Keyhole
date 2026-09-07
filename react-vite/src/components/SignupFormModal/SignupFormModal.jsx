@@ -77,6 +77,7 @@ function SignupFormModal() {
 
   return (
     <div className={styles["signup-modal-container"]}>
+      <h2>Make yourself at home.</h2>
       {errors.server && <p className={styles["signup-server-error"]}>{errors.server}</p>}
       <form onSubmit={handleSubmit} className={styles["signup-form"]}>
         <div>
@@ -87,7 +88,7 @@ function SignupFormModal() {
         </div>
         {errors.username && <p className={styles["signup-error"]}>{errors.username}</p>}
 
-        <label className={styles["signup-label"]}>
+        <label htmlFor="bio" className={styles["signup-label"]}>
         <span>Bio ({bio.length}/250)</span>
         </label>
         <textarea
@@ -104,6 +105,7 @@ function SignupFormModal() {
         <label className={styles["signup-label"]}>
           Password
           <input
+            autoComplete="new-password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -116,6 +118,7 @@ function SignupFormModal() {
         <label className={styles["signup-label"]}>
           Confirm Password
           <input
+            autoComplete="new-password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

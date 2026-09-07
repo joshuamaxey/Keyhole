@@ -145,7 +145,7 @@ const userReducer = (state = initialState, action) => {
     case SET_FOLLOWERS:
       return { ...state, followers: action.followers };
 
-    case FETCH_USERS:
+    case FETCH_USERS: {
       const usersById = action.users.reduce((acc, user) => {
         acc[user.id] = user;
         return acc;
@@ -155,6 +155,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         usersById: { ...state.usersById, ...usersById },
       };
+
+    }
 
     case UPDATE_BIO:
       return {

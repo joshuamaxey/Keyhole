@@ -1,5 +1,5 @@
 // Container for PostCard with CommentCards
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import PostCard from "../PostFeed/PostCard"; // Import your existing PostCard component
 import CommentCard from "./CommentCard"; // Import the CommentCard

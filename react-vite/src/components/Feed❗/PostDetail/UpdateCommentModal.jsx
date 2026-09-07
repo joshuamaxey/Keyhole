@@ -26,11 +26,12 @@ function UpdateCommentModal({ comment, refreshComments}) {
   return (
     <div className={styles["modal-container"]}>
       {/* <h1>Update Comment</h1> */}
+      <h2>Edit your reply</h2>
       <form onSubmit={handleSubmit} className={styles["update-form"]}>
         <label className={styles["update-label"]}>
           {/* Content */}
         </label>
-          <textarea
+          <textarea aria-label="Comment"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required

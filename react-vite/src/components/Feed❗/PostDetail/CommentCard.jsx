@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./CommentCard.module.css";
 import { useModal } from "../../../context/Modal";
@@ -12,7 +12,7 @@ import { fetchCommentLikesThunk } from "../../../redux/commentLike";
 const CommentCard = ({ comment, currentUser, refreshComments }) => {
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
-  const { setModalContent, openModal } = useModal();
+  const { setModalContent } = useModal();
 
   // Retrieve like data from Redux
   const likesCount = useSelector((state) =>
@@ -40,8 +40,8 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
   }, [comment.user_id]);
 
   useEffect(() => {
-    dispatch(fetchCommentLikeStatusThunk(comment.id));
-  }, [dispatch, comment.id]);
+    if (currentUser) dispatch(fetchCommentLikeStatusThunk(comment.id));
+  }, [dispatch, comment.id, currentUser]);
 
   useEffect(() => {
     dispatch(fetchCommentLikesThunk(comment.id)); // Fetch the likes count
@@ -54,14 +54,12 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
         refreshComments={refreshComments}
       />
     ); // Set the modal content
-    openModal(); // Open the modal
   };
 
   const handleEdit = () => {
     setModalContent(
       <UpdateCommentModal comment={comment} refreshComments={refreshComments} />
     ); // Set the modal content
-    openModal(); // Open the modal
   };
 
   const handleLike = () => {
@@ -86,12 +84,13 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
       <div className={styles.commentFooter}>
         {/* Left-aligned Likes Section */}
         <div className={styles.likesSection}>
-          <button
+          {currentUser && <button
+            aria-pressed={isLiked}
             onClick={handleLike}
             className={`${styles.likeButton} ${isLiked ? styles.liked : ""}`}
           >
-            {isLiked ? "UNLIKE" : "LIKE"}
-          </button>
+            {isLiked ? "Liked" : "Like"}
+          </button>}
           <span className={styles.likesCount}>{likesCount} Likes</span>
         </div>
 
@@ -106,7 +105,7 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
                   handleEdit(); // Open the UpdateCommentModal
                 }}
               >
-                ...
+                Edit
               </button>
               <button
                 className={styles.deleteButton}
@@ -115,7 +114,7 @@ const CommentCard = ({ comment, currentUser, refreshComments }) => {
                   handleDelete(e); // Trigger delete functionality
                 }}
               >
-                X
+                Delete
               </button>
             </>
           )}

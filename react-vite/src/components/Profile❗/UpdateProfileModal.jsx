@@ -6,7 +6,7 @@ import { thunkUpdateBio, fetchUserThunk } from "../../redux/user"; // Import fet
 
 function UpdateProfileModal() {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.session.user); // Fetch current user from Redux store
+  const currentUser = useSelector((state) => state.user); // Fetch current user from Redux store
   const [bio, setBio] = useState(""); // New bio field
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
@@ -33,10 +33,11 @@ function UpdateProfileModal() {
 
   return (
     <div className={styles["modal-container"]}>
+      <h2>A little about you</h2>
       <form onSubmit={handleSubmit} className={styles["modal-form"]}>
         <label className={styles["modal-label"]}>
           {/* Bio */}
-          <textarea
+          <textarea aria-label="Bio"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             required

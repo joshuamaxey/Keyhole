@@ -22,14 +22,16 @@ export const setSingleCommunity = (community) => ({
 
 // Thunk Actions
 export const fetchCommunitiesThunk = () => async (dispatch) => {
-    const response = await fetch("/api/communities");
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Communities fetched from backend:", data.communities);
-      dispatch(setCommunities(data.communities));
-    } else {
-      console.error("Failed to fetch communities:", response.status);
-    }
+  const response = await fetch("/api/communities");
+  if (!response.ok) throw new Error("Unable to load communities");
+  const data = await response.json();
+  const communities = await Promise.all(data.communities.map(async community => {
+    const membersResponse = await fetch(`/api/communities/${community.id}/members`);
+    if (!membersResponse.ok) throw new Error("Unable to load members");
+    const { members } = await membersResponse.json();
+    return { ...community, members };
+  }));
+  dispatch(setCommunities(communities));
 };
 
 export const fetchCommunityMembersThunk = (communityId) => async (dispatch) => {
@@ -65,7 +67,7 @@ const communitiesReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_COMMUNITIES:
       return action.communities.reduce((acc, community) => {
-        acc[community.id] = { ...community, members: [] };
+        acc[community.id] = { ...community, members: community.members || [] };
         return acc;
       }, {});
 

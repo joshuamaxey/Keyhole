@@ -41,7 +41,7 @@ export const updateLikeStatus = (postId, isLiked) => {
 
 
 // Thunks
-export const likePostThunk = (postId) => async (dispatch, getState) => {
+export const likePostThunk = (postId) => async (dispatch) => {
     try {
       const csrfToken = Cookies.get("XSRF-TOKEN");
 
@@ -58,7 +58,6 @@ export const likePostThunk = (postId) => async (dispatch, getState) => {
         dispatch(likePost(postId, data.post_likes)); // Update the likes count
 
         // Optimistically update the "isLiked" status in Redux
-        const currentPostsLikes = getState().likes.postsLikes;
         dispatch(updateLikeStatus(postId, true)); // Mark the post as liked
       } else {
         const error = await response.json();
@@ -84,7 +83,7 @@ export const fetchLikeStatusThunk = (postId) => async (dispatch) => {
     }
   };
 
-  export const unlikePostThunk = (postId) => async (dispatch, getState) => {
+  export const unlikePostThunk = (postId) => async (dispatch) => {
     try {
       const csrfToken = Cookies.get("XSRF-TOKEN");
 
@@ -101,7 +100,6 @@ export const fetchLikeStatusThunk = (postId) => async (dispatch) => {
         dispatch(unlikePost(postId, data.post_likes)); // Update the likes count
 
         // Optimistically update the "isLiked" status in Redux
-        const currentPostsLikes = getState().likes.postsLikes;
         dispatch(updateLikeStatus(postId, false)); // Mark the post as unliked
       } else {
         const error = await response.json();

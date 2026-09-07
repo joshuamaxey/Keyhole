@@ -25,10 +25,11 @@ function UpdatePostModal({ post }) {
   return (
     <div className={styles["modal-container"]}>
       {/* <h1>Update Post</h1> */}
+      <h2>Edit your thought</h2>
       <form onSubmit={handleSubmit} className={styles["update-form"]}>
         <label className={styles["update-label"]}>
           {/* Content */}
-          <textarea
+          <textarea aria-label="Post content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required

@@ -1,59 +1,9 @@
-/* Main Container */
-.postCardContainer {
-  width: 90%; /* Keep the full width of the container */
-  align-self: center;
-  padding: 16px;
-  border: 1px solid var(--text-primary); /* Medium gray border */
-  border-radius: 8px; /* Retain rounded corners */
-  background-color: var(--secondary-bg); /* Dark theme background */
-  box-sizing: border-box; /* Include padding in dimensions */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
-  margin-bottom: 16px; /* Space below for separation */
-  margin-top: 50px; /* Space above for better positioning */
-  color: var(--text-secondary); /* Ensure text matches dark theme */
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Input Field */
-.inputField {
-  width: 100%; /* Full width */
-  min-height: 60px; /* Maintain consistent height */
-  font-size: 14px;
-  padding: 8px;
-  border: 1px solid var(--text-primary); /* Medium gray for the input border */
-  border-radius: 4px; /* Rounded edges */
-  resize: none; /* Disable resizing */
-  box-sizing: border-box;
-  background-color: var(--primary-bg); /* Darker input field background */
-  color: var(--text-secondary); /* Light text for readability */
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.inputField:focus {
-  border-color: var(--accent); /* Highlight border with accent blue */
-  outline: none;
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Subtle glow effect */
-}
-
-/* Post Button */
-.postButton {
-  margin-top: 12px; /* Space above the button */
-  padding: 10px 16px;
-  color: #fff; /* Keep text white for contrast */
-  background-color: var(--accent); /* Bright blue for the button */
-  border: none;
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  font-size: 14px;
-  font-weight: bold;
-  height: 30px;
-  width: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.postButton:hover {
-  background-color: #0056b3; /* Slightly darker blue on hover */
-}
+.postCardContainer { border: 1px solid var(--border); border-radius: 12px; background: var(--secondary-bg); padding: 20px; }
+.label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+.inputField { min-height: 90px; font-size: 14px; }
+.composerFooter { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
+.composerFooter span { font-size: 10px; color: var(--text-secondary); }
+.postButton { background: var(--accent); color: var(--primary-bg); border-color: var(--accent); flex-shrink: 0; font-size: 12px; }
+.postButton:hover { background: var(--accent-hover); }
+.error { color: var(--red); font-size: 13px; }
+@media (max-width: 400px) { .composerFooter { flex-wrap: wrap; } }

@@ -1,15 +1,9 @@
-/* Feed.module.css */
-
-/* Feed Container */
-.feedContainer {
-  max-width: 1152px;
-  height: 888px;
-  margin: 0 auto; /* Center horizontally */
-  overflow: hidden; /* Prevent content from overflowing */
-  border: 1px solid var(--text-primary); /* Subtle border using medium gray */
-  border-radius: 8px; /* Rounded corners */
-  display: flex;
-  flex-direction: column; /* Stack children vertically */
-  background-color: var(--secondary-bg); /* Dark background for Feed */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some depth */
-}
+.feedContainer { width: 100%; }
+.heading { margin: 0 0 30px; padding: 4px 0 28px; border-bottom: 1px solid var(--border); }
+.heading h1 { font: normal clamp(32px, 3.4vw, 46px)/1.12 Georgia, serif; letter-spacing: -1.4px; margin: 15px 0; max-width: 620px; }
+.heading > p:last-child { color: var(--text-secondary); font-size: 14px; margin: 0; max-width: 540px; }
+.feedLabel { display: flex; align-items: center; justify-content: space-between; margin: 28px 0 16px; gap: 12px; }
+.feedLabel h2 { font-size: 14px; margin: 0; font-weight: 600; }
+.feedLabel span { font-size: 11px; color: var(--text-secondary); }
+.feedLabel i { display: inline-block; background: #9cb994; width: 5px; height: 5px; border-radius: 50%; margin-right: 6px; }
+@media (max-width: 700px) { .heading { margin-bottom: 20px; } .heading h1 { max-width: 350px; font-size: 36px; } }

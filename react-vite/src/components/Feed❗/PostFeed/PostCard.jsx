@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { FiHeart, FiMessageCircle, FiArrowUpRight, FiEdit2, FiTrash2 } from "react-icons/fi";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./PostCard.module.css";
 import { useModal } from "../../../context/Modal";
@@ -15,7 +16,7 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
   const [community, setCommunity] = useState(null);
   const [commentsCount, setCommentsCount] = useState(0);
   const [refreshTrigger, setRefreshTrigger] = useState(false); // Fixed useState declaration
-  const { setModalContent, openModal } = useModal();
+  const { setModalContent } = useModal();
   const dispatch = useDispatch();
 
   const isLiked = useSelector((state) => {
@@ -53,7 +54,8 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
     };
 
     fetchUser();
-    fetchCommunity();
+    if (post.community_id != null) fetchCommunity();
+    else setCommunity(null);
   }, [post.user_id, post.community_id]);
 
   // Fetch comments and likes when the post ID or refreshTrigger changes
@@ -77,7 +79,7 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
   useEffect(() => {
     if (currentUser) {
       // Only fetch like status if the user is logged in
-      console.log("Dispatching fetchLikeStatusThunk for post:", post.id);
+
       dispatch(fetchLikeStatusThunk(post.id));
     }
   }, [dispatch, post.id, currentUser]);
@@ -88,12 +90,10 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
 
   const handleEditClick = () => {
     setModalContent(<UpdatePostModal post={post} />);
-    openModal();
   };
 
   const handleDelete = () => {
     setModalContent(<DeletePostModal postId={post.id} onBack={onBack} />);
-    openModal();
   };
 
   const handleCommentClick = () => {
@@ -105,7 +105,6 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
         }
       />
     );
-    openModal();
   };
 
   const handleLike = async () => {
@@ -124,40 +123,28 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
     <div
       className={styles.postCardContainer}
       onClick={onClick}
-      style={{ cursor: "pointer" }}
+
     >
-      {/* Community Name */}
-      <div className={styles.communityName}>
-        {post.community_id === null
-          ? "Keyhole"
-          : community
-          ? community.name
-          : "Loading community..."}
+      <div className={styles.postHeader}>
+        <span className={styles.avatar}>{user?.username?.split("_").map(word => word[0]).slice(0, 2).join("") || "·"}</span>
+        <div className={styles.byline}><span className={styles.authorName}>{user ? user.username.replaceAll("_", " ") : "Loading author…"}</span><span className={styles.communityName}>{post.community_id == null ? "Around Keyhole" : community?.name || "Community"}</span></div>
+        {post.created_at && <time className={styles.date} dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</time>}
       </div>
-
-      {/* Content Row: Avatar and Main Content */}
-      <div className={styles.contentRow}>
-        <div className={styles.content}>
-          <p className={styles.CONTENT}>{post.content}</p>
-        </div>
-      </div>
-
-      {/* Author Name */}
-      <div className={styles.authorName}>
-        {user ? user.username : "Loading user..."}
-      </div>
+      <p className={styles.CONTENT}>{post.content}</p>
+      {onClick && <button className={styles.readButton} onClick={e => { e.stopPropagation(); onClick(); }}>Read conversation <FiArrowUpRight aria-hidden="true" /></button>}
 
       {/* Action Buttons */}
       <div className={styles.postFooter}>
         {currentUser && (
           <button
+            aria-pressed={isLiked}
             className={styles.likeButton}
             onClick={(e) => {
               e.stopPropagation();
               handleLike(); // Call handleLike when the button is clicked
             }}
           >
-            {isLiked ? "UNLIKE" : "LIKE"}
+            <FiHeart aria-hidden="true" /> {isLiked ? "Liked" : "Like"}
           </button>
         )}
         <div className={styles.postStats}>
@@ -172,28 +159,30 @@ const PostCard = ({ post, onClick, currentUser, refreshComments, onBack }) => {
               handleCommentClick();
             }}
           >
-            COMMENT
+            <FiMessageCircle aria-hidden="true" /> Reply
           </button>
         )}
         {currentUser && currentUser.id === post.user_id && (
           <>
             <button
+              aria-label="Edit post"
               className={styles.updateButton}
               onClick={(e) => {
                 e.stopPropagation();
                 handleEditClick();
               }}
             >
-              ...
+              <FiEdit2 aria-hidden="true" />
             </button>
             <button
+              aria-label="Delete post"
               className={styles.deleteButton}
               onClick={(e) => {
                 e.stopPropagation();
                 handleDelete(e);
               }}
             >
-              X
+              <FiTrash2 aria-hidden="true" />
             </button>
           </>
         )}

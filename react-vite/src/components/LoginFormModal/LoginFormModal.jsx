@@ -27,26 +27,29 @@ function LoginFormModal() {
       closeModal();
     }
   };
-  const closeMenu = () => setShowMenu(false);
+
 
   const demoLogin = async (e) => {
     e.preventDefault();
-    await dispatch(
+    const result = await dispatch(
       thunkLogin({
         username: "Demo_User",
         password: "password",
       })
     );
-    closeModal();
-    closeMenu();
+    if (result) setErrors(result);
+    else closeModal();
   };
 
   return (
     <div className={styles["modal-container"]}>
+      <h2>Welcome back.</h2>
+      {errors.server && <p role="alert">{errors.server}</p>}
       <form onSubmit={handleSubmit} className={styles["login-form"]}>
         <label className={styles["login-label"]}>
           Username
           <input
+            autoComplete="username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -58,6 +61,7 @@ function LoginFormModal() {
         <label className={styles["login-label"]}>
           Password
           <input
+            autoComplete="current-password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -69,7 +73,7 @@ function LoginFormModal() {
         <button type="submit" className={styles["submit-button"]}>
           Log In
         </button>
-        <button onClick={demoLogin} className={styles["submit-button"]}>
+        <button type="button" onClick={demoLogin} className={styles["submit-button"]}>
           Demo User
         </button>
       </form>
